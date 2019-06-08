@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import { AppBar, Toolbar } from '@material-ui/core';
 
 import HeaderMenu from './header-menu';
-import Logo from '../../../static/images/material-ui-logo.svg';
+import Logo from '../../../../static/images/material-ui-logo.svg';
 import DesignerToolbar from '../designer/designer-toolbar';
 import ProjectToolbar from '../project/project-toolbar';
 import PagesToolbar from '../pages/pages-toolbar';

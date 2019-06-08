@@ -3,13 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { observer, Provider } from "mobx-react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 
 import AppMain from "./components/app-main";
 import SessionStore from "./stores/session.store";
 import LoadingSpinner from './components/loading-spinner';
 import InfoBar from './components/info-bar';
 
-export const stores = new SessionStore();
+const theme = createMuiTheme();
+const stores = new SessionStore();
 
 @observer
 class Root extends React.Component {
@@ -19,15 +22,17 @@ class Root extends React.Component {
         };
         return (
             <Provider {...stores}>
-                <React.Fragment>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route exact path="/" component={appMain} />
-                        </Switch>
-                    </BrowserRouter>
-                    <LoadingSpinner />
-                    <InfoBar />
-                </React.Fragment>
+                <ThemeProvider theme={theme}>
+                    <React.Fragment>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route exact path="/" component={appMain} />
+                            </Switch>
+                        </BrowserRouter>
+                        <LoadingSpinner />
+                        <InfoBar />
+                    </React.Fragment>
+                </ThemeProvider>
             </Provider>
         );
     }

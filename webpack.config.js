@@ -2,13 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const outputDirectory = 'public';
+
 module.exports = {
     entry: {
-        bundle: ['@babel/polyfill', 'whatwg-fetch', './src/index.js'],
+        bundle: ['@babel/polyfill', 'whatwg-fetch', './src/client/index.js'],
         style: './static/css/app.css'
     },
     output: {
-        path: path.join(__dirname, '../wwwroot'),
+        path: path.join(__dirname, outputDirectory),
         filename: '[name].js'
     },
     module: {
@@ -42,12 +44,12 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        contentBase: path.join(__dirname, '../wwwroot'),
-        port: 5000,
+        contentBase: path.join(__dirname, outputDirectory),
+        port: 3000,
         inline: true,
         compress: true,
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api': 'http://localhost:5000'
         }
     },
     plugins: [

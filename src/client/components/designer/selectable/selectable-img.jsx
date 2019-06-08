@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-import DefaultImage from '../../../../static/images/default-image.png';
+import DefaultImage from '../../../../../static/images/default-image.png';
 
 const styles = {
     selectable: {

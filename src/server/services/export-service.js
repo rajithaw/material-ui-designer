@@ -109,7 +109,7 @@ class ExportService {
     }
 
     generateSharedComponents(sharedComponents, templateName) {
-        const pagesDir = join(__dirname, '..', templatesPath, templateName, 'src/components/pages');
+        const pagesDir = join(__dirname, '..', templatesPath, templateName, 'src/client/components/pages');
 
         Object.keys(sharedComponents).forEach(key => {
             const generatedPage = this.generatePage(sharedComponents[key]);
@@ -120,7 +120,7 @@ class ExportService {
     }
 
     generatePages(project, templateName) {
-        const pagesDir = join(__dirname, '..', templatesPath, templateName, 'src/components/pages');
+        const pagesDir = join(__dirname, '..', templatesPath, templateName, 'src/client/components/pages');
         const pageIndex = [];
 
         // Clear read-only before writing to the pages directory

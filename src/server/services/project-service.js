@@ -1,11 +1,11 @@
 const MongoClient = require('mongodb').MongoClient;
-const logger = require('./log-service')('services:export-service');
+const logger = require('./log-service')('services:project-service');
 
 class ProjectService {
     constructor() {
         this.projects = [];
         this.ObjectId = require('mongodb').ObjectID;
-        this.muiDesignerMongoUrl = process.env.MuiDesignerMongoUrl;
+        this.muiDesignerMongoUrl = process.env.MuiDesignerMongoUrl || 'mongodb://username:password@ds135207.mlab.com:35207/mui-designer';
     }
 
     // Connect to DB
@@ -14,7 +14,7 @@ class ProjectService {
             this.muiDesignerMongoUrl,
             { useNewUrlParser: true },
             function(err, client) {
-                const db = client.db('MuiDesigner');
+                const db = client.db('mui-designer');
                 callBack(db);
                 client.close();
             }
@@ -40,7 +40,7 @@ class ProjectService {
         const client = await this.getDbClient();
 
         try {
-            const db = client.db('MuiDesigner');
+            const db = client.db('mui-designer');
 
             // Validate project name
             const count = await db
@@ -114,7 +114,7 @@ class ProjectService {
         const client = await this.getDbClient();
 
         try {
-            const db = client.db('MuiDesigner');
+            const db = client.db('mui-designer');
 
             const cursor = db
                 .collection('Projects')
@@ -156,7 +156,7 @@ class ProjectService {
         const client = await this.getDbClient();
 
         try {
-            const db = client.db('MuiDesigner');
+            const db = client.db('mui-designer');
 
             const cursor = db
                 .collection('Pages')
@@ -185,7 +185,7 @@ class ProjectService {
         jsonData.componentName = this.generateComponentName(jsonData.name);
 
         try {
-            const db = client.db('MuiDesigner');
+            const db = client.db('mui-designer');
 
             if(jsonData.isShared) {
                 const cursor = await db
@@ -259,7 +259,7 @@ class ProjectService {
         const client = await this.getDbClient();
 
         try {
-            const db = client.db('MuiDesigner');
+            const db = client.db('mui-designer');
 
             const cursor = db
                 .collection('Contents')

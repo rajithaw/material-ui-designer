@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -32,7 +32,6 @@ const styles = theme => ({
 
 const imageTypes = ['png', 'jpg', 'gif', 'svg'];
 
-@withStyles(styles)
 @inject('projectStore')
 @observer
 class AddContentDialog extends React.Component {
@@ -300,4 +299,4 @@ AddContentDialog.propTypes = {
     projectStore: PropTypes.object
 }
 
-export default AddContentDialog;
+export default withStyles(styles)(AddContentDialog);
