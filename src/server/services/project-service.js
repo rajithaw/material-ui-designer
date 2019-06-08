@@ -5,7 +5,7 @@ class ProjectService {
     constructor() {
         this.projects = [];
         this.ObjectId = require('mongodb').ObjectID;
-        this.muiDesignerMongoUrl = process.env.MuiDesignerMongoUrl || 'mongodb://username:password@ds135207.mlab.com:35207/mui-designer';
+        this.muiDesignerMongoUrl = process.env.MONGO_DB_URL || 'mongodb://username:password@ds135207.mlab.com:35207/mui-designer';
     }
 
     // Connect to DB
