@@ -9,6 +9,7 @@
         "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
         "server": "nodemon src/server/server.js",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-prebuild": "npm install --dev",
         "lint": "eslint --ext .js --ext .jsx src"
     },
     "author": "Rajitha Wimalasooriya",
