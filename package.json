@@ -5,11 +5,10 @@
     "main": "index.js",
     "scripts": {
         "build": "webpack --mode production",
-        "start": "npm run build && node src/server/server.js",
-        "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-        "server": "nodemon src/server/server.js",
+        "start": "node src/server/server.js",
+        "dev-client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+        "dev-server": "nodemon src/server/server.js",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "heroku-prebuild": "npm install --dev",
         "lint": "eslint --ext .js --ext .jsx src"
     },
     "author": "Rajitha Wimalasooriya",
