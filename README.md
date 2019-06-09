@@ -1,4 +1,4 @@
-# Material UI user interface designer
+# User interface designer form Material UI
 Material UI Designer is a tool that designers and developers can use to quickly put together user interfaces using Material UI components. The design can be previewed any time and once completed the code for the designed pages can be exported as a ready to run react project.
 
 ## Setup
@@ -21,7 +21,8 @@ Material UI Designer pages are created under a project. To create page, first op
 
 ### Open Page
 Open the projects dialog by clicking Project List from the main menu. Select the project you want and click OK. Click Select Page on the AppBar to bring up the pages dialog. Select the page to open and click OK. The selected page will load in the designer. Now you can start modifying the page and click on the Preview icon to preview the page.
+
 ![open page](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/open-page.gif)
 
 ## License
-[MIT License](https://github.com/rajithaw/material-ui-designer/blob/master/LICENSE)
+The files included in this repository are licensed under the [MIT License](https://github.com/rajithaw/material-ui-designer/blob/master/LICENSE)
