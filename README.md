@@ -26,5 +26,13 @@ Open the projects dialog by clicking Project List from the main menu. Select the
 
 ![open page](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/open-page.gif)
 
+### Export Project
+Current project can be exported by clicking on Export Project in the main menu. Code will be generated for all the pages in the project and downloaded as a zip file. Extract the zip file and run the following commands to see the generated code in action.
+```
+npm install
+npm start
+```
+![export project](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/export-project.gif)
+
 ## License
 The files included in this repository are licensed under the [MIT License](https://github.com/rajithaw/material-ui-designer/blob/master/LICENSE)
