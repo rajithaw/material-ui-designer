@@ -30,7 +30,7 @@ class ProjectService {
             return client;
         }
         catch(err) {
-            logError.logError(err);
+            logger.logError(err);
             throw err;
         }
     }
