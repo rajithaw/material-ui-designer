@@ -348,7 +348,7 @@ class ProjectService {
                                     type: jsonData.data.type
                                 }
                             },
-                            (err, result) => {
+                            (err) => {
                                 callback(err, jsonData.data);
                             }
                         );
@@ -396,6 +396,7 @@ class ProjectService {
     }
 
     generateComponentName(pageName) {
+        // eslint-disable-next-line
         return pageName.replace(/[\s&\/\\#,+\-()$~%.'"`:*?<>{}]/g,'_');
     }
 }
