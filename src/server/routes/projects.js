@@ -263,4 +263,14 @@ router.put('/:projectId/contents/:id', (req, res, next) => {
     });
 });
 
+/* GET Get a project details by name */
+router.get('/:projectName/:pageName', async (req, res, next) => {
+    try {
+        const result = await projectService.getProjectByName(req.params.projectName, req.params.pageName);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

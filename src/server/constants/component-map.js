@@ -53,6 +53,9 @@ const componentMap = {
     ClickAwayListener: {
         import: `import ClickAwayListener from '@material-ui/core/ClickAwayListener';`
     },
+    Collapse: {
+        import: `import Collapse from '@material-ui/core/Collapse';`
+    },
     Dialog: {
         import: `import Dialog from '@material-ui/core/Dialog';`
     },
@@ -308,7 +311,10 @@ const componentMap = {
 
     //3rd Party
     Markdown: {
-        import: `import ReactMarkdown from 'react-markdown'';`
+        import: `import ReactMarkdown from 'react-markdown';`
+    },
+    DataTable: {
+        import: `import DataTable from 'mui-datatables';`
     },
 
     // Material Icons - Action

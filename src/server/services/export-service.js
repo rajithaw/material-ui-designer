@@ -4,6 +4,7 @@ const { join } = require('path');
 const { format } = require('util');
 const archiver = require('archiver');
 const ObjectId = require('mongodb').ObjectID;
+const JsxParser = require('../../../node_modules/jsx-parser/index.umd');
 
 const logger = require('./log-service')('services:export-service');
 const projectService = require('./project-service');
@@ -158,7 +159,7 @@ class ExportService {
         const jsxTags = this.generateTags(page.definition, componentSet, sharedComponentSet);
         const imports = this.generateImports(componentSet, sharedComponentSet);
 
-        const pageText = format(pageTemplate, imports, className, jsxTags, className);
+        const pageText = format(pageTemplate, imports, className, jsxTags, className, className);
 
         return {
             name: className,
@@ -210,7 +211,7 @@ class ExportService {
                 const { children, ...other } = definition.props;
 
                 component = definition.component;
-                properties = this.generateProperties(other);
+                properties = this.generateProperties(other, componentSet);
 
                 // Add to the set of unique components
                 componentSet.add(component);
@@ -246,7 +247,7 @@ class ExportService {
         return result;
     }
 
-    generateProperties(props) {
+    generateProperties(props, componentSet) {
         return Object.keys(props).reduce((propsString, prop)=>{
             let propValue = props[prop];
             let generatedPropValue = '';
@@ -258,8 +259,23 @@ class ExportService {
             if(prop === 'style') {
                 generatedPropValue = this.generateStyles(propValue);
             }
+            else if(prop === 'open') {
+                const id = props['id'];
+                generatedPropValue = this.generateOpenPropertyValue(id, propValue);
+            }
+            else if(prop === 'in') {
+                const id = props['id'];
+                generatedPropValue = this.generateTransitionPropertyValue(id, propValue);
+            }
             else if (prop.startsWith('on')) {
                 generatedPropValue = this.generateFunction(propValue);
+            }
+            else if (typeof(propValue) === 'object') {
+                generatedPropValue = this.generateObjectString(propValue);
+            }
+            else if (propValue && typeof(propValue) === 'string' && 
+                (propValue.startsWith('<') || propValue.startsWith('render#'))) {
+                generatedPropValue = this.generateComponentProperty(propValue, componentSet);
             }
             else {
                 generatedPropValue = this.generatePropertyValue(propValue);
@@ -267,6 +283,40 @@ class ExportService {
 
             return `${propsString}${prop}=${generatedPropValue} `;
         }, '');
+    }
+
+    generateComponentProperty(propValue, componentSet) {
+        let result = '';
+
+        if(propValue.startsWith('<')) {
+            // Add components in property values to the component set to generate imports later.
+            this.addPropertyComponents(JsxParser(propValue), componentSet);
+            result = `{${propValue}}`;
+        }
+
+        if(propValue.startsWith('render#')) {
+            const renderValue = propValue.split('#')[1];
+            this.addPropertyComponents(JsxParser(renderValue), componentSet);
+
+            result = `{()=>${renderValue}}`;
+        }
+
+        return result;
+    }
+
+    addPropertyComponents(definition, componentSet) {
+        if(definition) {
+            const { children } = definition;
+
+            // Add to the set of unique component ids
+            componentSet.add(definition.type);
+
+            if(Array.isArray(children)) {
+                children.forEach(c => {
+                    this.addPropertyComponents(c, componentSet);
+                });
+            }
+        }
     }
 
     getDynamicPropertyValue(propValue) {
@@ -308,8 +358,42 @@ class ExportService {
         return `{${JSON.stringify(styles)}}`;
     }
 
+    generateObjectString(obj) {
+        return `{${JSON.stringify(obj)}}`;
+    }
+
     generateFunction(fnString) {
-        return `{${fnString}}`;
+        let result = `{${fnString}}`;
+
+        if (fnString.indexOf('#') > 0) {
+            const action = fnString.split('#');
+            const name = action[0].trim().toLowerCase();
+            const id = action[1].trim();
+
+            if (name === 'show' || name === 'hide') {
+                const show = name === 'show' ? 'true' : 'false';
+                result = `{(event) => this.props.rootStore.showComponent(event, '${id}', ${show})}`;
+            }
+
+            if (name === 'goto') {
+                result = `{(event) => this.props.rootStore.gotoPage(event, '${id}', this.props.history)}`;
+            }
+
+            if (name === 'in' || name === 'out') {
+                const trigger = name === 'in' ? 'true' : 'false';
+                result = `{(event) => this.props.rootStore.triggerTransition(event, '${id}', ${trigger})}`;
+            }
+        }
+
+        return result;
+    }
+
+    generateOpenPropertyValue(componentId, propValue) {
+        return `{this.props.rootStore.getShowValue('${componentId}', ${propValue})}`;
+    }
+
+    generateTransitionPropertyValue(componentId, propValue) {
+        return `{this.props.rootStore.getTransitionValue('${componentId}', ${propValue})}`;
     }
 
     generateImports(componentSet, sharedComponentSet) {

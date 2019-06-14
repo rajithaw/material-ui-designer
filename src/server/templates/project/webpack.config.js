@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackConfig = {
@@ -25,11 +25,15 @@ const webpackConfig = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: "file-loader",
-                query: {
-                    name: '[name].[ext]',
-                    outputPath: 'images/'
-                }
+                use: [
+                    {
+                      loader: 'file-loader',
+                      options: {
+                          name: '[name].[ext]',
+                          outputPath: 'images/'
+                      },
+                    },
+                ]
             },
             {
                 test: /\.css$/,

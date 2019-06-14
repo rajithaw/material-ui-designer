@@ -131,12 +131,9 @@ class ProjectService {
                     const param = {
                         projectId: project[0]._id.toString()
                     };
-                    const pages = await this.getPages(param, pageFields);
-                    const contents = await this.getContents(param, {});
 
-                    project[0].pages = pages;
-                    project[0].contents = contents;
-
+                    project[0].pages = await this.getPages(param, pageFields);
+                    project[0].contents = await this.getContents(param, {});
                 }
 
                 return this.replace_Id(project[0]);
@@ -348,7 +345,7 @@ class ProjectService {
                                     type: jsonData.data.type
                                 }
                             },
-                            (err) => {
+                            (err, result) => {
                                 callback(err, jsonData.data);
                             }
                         );
@@ -376,6 +373,48 @@ class ProjectService {
                 callback(err, result);
             });
         });
+    }
+
+    // GET a Project details by name
+    async getProjectByName(projectName, pageName) {
+        const projectFilter = {
+            name: projectName
+        };
+
+        const pagesFields = {
+            _id: true,
+            name: true,
+            isShared: true
+        };
+
+        const project = await this.getProject(projectFilter, pagesFields);
+
+        // Populate the definition of the page with the provided name
+        if(project && project.pages && pageName) {
+            const page = project.pages.filter(p => p.name === pageName)[0];
+
+            if(page) {
+                const pageFilter = {
+                    _id: page.id
+                };
+            
+                const pageFields = {
+                    _id: true,
+                    name: true,
+                    isShared: true,
+                    definition: true
+                };
+    
+                const pages = await this.getPages(pageFilter, pageFields);
+                const pageDetails = pages[0];
+
+                if(pageDetails) {
+                    page.definition = pageDetails.definition;
+                }
+            }
+        }
+
+        return project;
     }
 
     replace_Id(object) {
