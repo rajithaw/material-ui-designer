@@ -17,6 +17,7 @@ import SelectableCheckbox from '../components/designer/selectable/selectable-che
 import SelectableChip from '../components/designer/selectable/selectable-chip';
 import SelectableCircularProgress from '../components/designer/selectable/selectable-circularprogress';
 import SelectableClickAwayListener from '../components/designer/selectable/selectable-clickawaylistener';
+import SelectableCollapse from '../components/designer/selectable/selectable-collapse';
 import SelectableDialog from '../components/designer/selectable/selectable-dialog';
 import SelectableDialogActions from '../components/designer/selectable/selectable-dialogactions';
 import SelectableDialogContent from '../components/designer/selectable/selectable-dialogcontent';
@@ -107,6 +108,8 @@ import SelectableSpan from '../components/designer/selectable/selectable-span';
 import SelectablePath from '../components/designer/selectable/selectable-path';
 import SelectableOption from '../components/designer/selectable/selectable-option';
 
+import SelectableDataTable from '../components/designer/selectable/selectable-data-table';
+
 // Action icons
 import {
     ThreeDRotation, Accessibility, AccessibilityNew, Accessible, AccessibleForward, AccountBalance, AccountBalanceWallet, AccountBox, AccountCircle, AddShoppingCart,
@@ -192,6 +195,7 @@ export const designerComponentMap = {
     'Chip': SelectableChip,
     'CircularProgress': SelectableCircularProgress,
     'ClickAwayListener': SelectableClickAwayListener,
+    'Collapse': SelectableCollapse,
     'Dialog': SelectableDialog,
     'DialogActions': SelectableDialogActions,
     'DialogContent': SelectableDialogContent,
@@ -282,6 +286,10 @@ export const designerComponentMap = {
     'span': SelectableSpan,
     'path': SelectablePath,
     'option': SelectableOption,
+
+    // 3rd Party
+    //'Markdown': SelectableMarkdown,
+    'DataTable': SelectableDataTable,
 
     // Material icons - Action
     'ThreeDRotation': ThreeDRotation,

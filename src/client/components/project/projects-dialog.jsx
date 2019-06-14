@@ -20,13 +20,13 @@ import ProjectList from './project-list';
 const styles = theme => ({
     createButton: {
         position: 'absolute',
-        right: theme.spacing.unit * 8,
-        top: theme.spacing.unit
+        right: theme.spacing(8),
+        top: theme.spacing(1)
     },
     deleteButton: {
         position: 'absolute',
-        right: theme.spacing.unit,
-        top: theme.spacing.unit
+        right: theme.spacing(1),
+        top: theme.spacing(1)
     }
 });
 

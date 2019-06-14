@@ -41,8 +41,8 @@ class Preview extends React.Component {
 
     render() {
         const { classes, designerStore } = this.props;
-        const children = designerStore.componentDefinition.component ?
-            this.createComponents(designerStore.componentDefinition) : null;
+        const children = designerStore.previewDefinition.component ?
+            this.createComponents(designerStore.previewDefinition) : null;
 
         return (
             <div className={classes.previewFrame}>

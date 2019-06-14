@@ -1,7 +1,10 @@
+import React from 'react';
 import { observable, action, computed } from 'mobx';
 import jsonQ from 'jsonq';
+import JsxParser from 'jsx-parser';
 
 import { ComponentPosition, ContentType } from '../enums';
+import { componentMap } from '../constants/component-map';
 
 export default class DesignerStore {
     constructor(sessionStore) {
@@ -11,6 +14,7 @@ export default class DesignerStore {
     undoStack = [];
 
     @observable componentDefinition = {};
+    @observable previewDefinition = {};
     @observable selectedComponentId = '';
     @observable copyComponentDetails = {
         id: '',
@@ -43,12 +47,15 @@ export default class DesignerStore {
         let result = null;
 
         if (id) {
-            result = jsonQ(this.componentDefinition)
-                .find('props', function() {
+            const comp = jsonQ(this.componentDefinition)
+                .find('props', function () {
                     return this.id === id;
                 })
-                .parent()
-                .firstElm();
+                .parent();
+
+            if (comp && comp.length > 0) {
+                result = comp.firstElm();
+            }
         }
 
         return result;
@@ -60,10 +67,16 @@ export default class DesignerStore {
         const properties = components.find('props', function() {
             return this.id === id;
         });
+
+        this.setProperty(properties, propertyName, value);
+        this.setComponentDefinition(components.firstElm());
+    }
+
+    setProperty(properties, propertyName, value) {
         const propertiesElm = properties.firstElm();
         const componentElm = properties.parent().firstElm();
 
-        if (value) {
+        if (!this.isEmptyPropertyValue(value)) {
             if (propertyName === 'text') {
                 if (typeof (propertiesElm.children) === 'string' || propertiesElm.children.length === 0) {
                     // Set the text value if children is a string or an empty array
@@ -82,8 +95,6 @@ export default class DesignerStore {
                 delete propertiesElm[propertyName];
             }
         }
-
-        this.setComponentDefinition(components.firstElm());
     }
 
     getComponentProperty(componentDefinitioin, propertyName) {
@@ -107,23 +118,59 @@ export default class DesignerStore {
         Object.keys(result).forEach(prop => {
             const propValue = result[prop];
 
-            if (propValue && typeof propValue === 'string' && propValue.startsWith('@@')) {
+            if (propValue && typeof propValue === 'string') {
 
-                // If the property value is dynamic, read it form the project content
-                const projContent = projectContent[propValue.substring(2)];
+                if (propValue.startsWith('@@')) {
+                    // If the property value is dynamic, read it form the project content
+                    const projContent = projectContent[propValue.substring(2)];
 
-                if (projContent && projContent.type === ContentType.Image) {
-                    // For image types construct the url to get the image data from
-                    result[prop] = `/api/projects/${selectedProject.id}/contents/${projContent.name}`;
-                } else {
-                    result[prop] = (projContent && projContent.content) || propValue;
+                    if (projContent && projContent.type === ContentType.Image) {
+                        // For image types construct the url to get the image data from
+                        result[prop] = `/api/projects/${selectedProject.id}/contents/${projContent.name}`;
+                    } else {
+                        result[prop] = (projContent && projContent.content) || propValue;
+                    }
+                }
+
+                if (propValue.startsWith('<')) {
+                    const definition = JsxParser(propValue);
+                    result[prop] = this.createComponents(definition);
+                }
+
+                if (propValue.startsWith('render#')) {
+                    const definition = JsxParser(propValue.split('#')[1]);
+                    result[prop] = () => this.createComponents(definition);
                 }
             }
 
             if (prop.startsWith('on')) {
                 result[prop] = this.transformFunction(result[prop]);
             }
+
+            if (prop === 'anchorEl' && propValue) {
+                // Anchor element needs to be set to a dom reference
+                result[prop] = window.document.getElementById(propValue);
+            }
         });
+
+        return result;
+    }
+
+    createComponents(definition) {
+        return React.createElement(
+            componentMap[definition.type] || definition.type,
+            definition.props,
+            this.createChildren(definition.children)
+        );
+    }
+
+    createChildren(children) {
+        let result = children;
+
+        if ((typeof children) !== 'string') {
+            const childComponents = children.map(c => this.createComponents(c));
+            result = childComponents.length > 1 ? childComponents : childComponents[0];
+        }
 
         return result;
     }
@@ -325,6 +372,48 @@ export default class DesignerStore {
         this.setSelectedComponentId(componentId);
     }
 
+    @action
+    showComponent(event, id, show) {
+        this.setPreviewDefinitionProperty(id, 'open', show);
+    }
+
+    @action
+    triggerTransition(event, id, trigger) {
+        this.setPreviewDefinitionProperty(id, 'in', trigger);
+    }
+
+    @action
+    gotoPage(event, pageName) {
+        const { projectStore, pageStore } = this.sessionStore;
+
+        const projectId = projectStore.selectedProject && projectStore.selectedProject.id;
+        const page = pageStore.pages.filter(p => p.name === pageName)[0];
+        const pageId = page && page.id;
+
+        pageStore.getPage(projectId, pageId);
+    }
+
+    @action
+    setPreviewDefinition(definition) {
+        this.previewDefinition = definition || {};
+    }
+
+    @action
+    clonePreviewDefinition() {
+        this.previewDefinition = jsonQ.clone(this.componentDefinition);
+    }
+
+    @action
+    setPreviewDefinitionProperty(id, propertyName, value) {
+        const components = jsonQ(this.previewDefinition);
+        const properties = components.find('props', function () {
+            return this.id === id;
+        });
+
+        this.setProperty(properties, propertyName, value);
+        this.setPreviewDefinition(components.firstElm());
+    }
+
     @computed
     get isSharedComponentSelected() {
         return !!this.getSharedComponentId(this.selectedComponentId);
@@ -384,10 +473,30 @@ export default class DesignerStore {
             });
     }
 
-    parsePropertyValue(componentName, propertyName, value) {
+    getPropertyMetaData(componentName, propertyName) {
         const { componentStore } = this.sessionStore;
         const component = componentStore.findByName(componentName);
         const propertyMetaData = component && component.propertyMetaData;
+        let result = null;
+
+        if (propertyMetaData) {
+            result = propertyMetaData[propertyName];
+        }
+
+        return result;
+    }
+
+    isEmptyPropertyValue(value) {
+        let result = false;
+
+        if (value === null || value === undefined || value === '') {
+            result = true;
+        }
+
+        return result;
+    }
+
+    parsePropertyValue(componentName, propertyName, value) {
 
         value = value.trim();
         let result = value;
@@ -410,10 +519,10 @@ export default class DesignerStore {
         }
 
         // Use meta data if available to parse property value more accurately
-        if (propertyMetaData) {
-            const metaData = propertyMetaData[propertyName];
+        const metaData = this.getPropertyMetaData(componentName, propertyName);
 
-            if (metaData && metaData.type === 'boolean') {
+        if (metaData) {
+            if (metaData.type === 'boolean') {
                 result = value.toLowerCase() !== 'false';
             }
         }
@@ -422,10 +531,14 @@ export default class DesignerStore {
     }
 
     stringifyPropertyValue(value) {
-        let result = value;
+        let result = '';
 
-        if (typeof(value) === 'object') {
+        if (typeof (value) === 'object') {
             result = JSON.stringify(value);
+        }
+        else if(!this.isEmptyPropertyValue(value)){
+            
+            result = value.toString();
         }
 
         return result;
@@ -436,6 +549,31 @@ export default class DesignerStore {
     }
 
     transformFunction(fnString) {
-        return eval(fnString);
+        let result = null;
+
+        if (fnString.indexOf('#') > 0) {
+            const action = fnString.split('#');
+            const name = action[0].trim().toLowerCase();
+            const id = action[1].trim();
+
+            if (name === 'show' || name === 'hide') {
+                const show = name === 'show' ? 'true' : 'false';
+                result = (event) => this.showComponent(event, id, show);
+            }
+
+            if (name === 'goto') {
+                result = (event) => this.gotoPage(event, id);
+            }
+
+            if (name === 'in' || name === 'out') {
+                const trigger = name === 'in' ? 'true' : 'false';
+                result = (event) => this.triggerTransition(event, id, trigger);
+            }
+        }
+        else {
+            result = eval(fnString);
+        }
+
+        return result;
     }
 }

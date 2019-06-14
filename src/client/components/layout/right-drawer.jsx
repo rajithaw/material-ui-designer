@@ -27,7 +27,7 @@ const styles = theme => ({
         textTransform: 'initial',
         minWidth: 72,
         fontWeight: theme.typography.fontWeightRegular,
-        marginRight: theme.spacing.unit
+        marginRight: theme.spacing(1)
     }
 });
 

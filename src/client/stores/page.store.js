@@ -14,24 +14,39 @@ export default class PageStore {
 
     @action
     getPages(projectId) {
-        pageService.getPages(projectId).then((response) => {
-            runInAction(() => {
-                this.pages = response;
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        pageService.getPages(projectId)
+            .then((response) => {
+                runInAction(() => {
+                    this.pages = response;
+                });
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action
     getPage(projectId, pageId) {
-        pageService.getPage(projectId, pageId).then((response) => {
-            this.setSelectedPage(response);
-        });
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        pageService.getPage(projectId, pageId)
+            .then((response) => {
+                this.setSelectedPage(response);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
+            });
     }
 
     @action
     addPage(projectId, page) {
         const { rootStore } = this.sessionStore;
 
+        rootStore.setBusy(true);
         pageService.addPage(projectId, page)
             .then((response) => {
                 runInAction(() => {
@@ -41,30 +56,43 @@ export default class PageStore {
             .catch(error => {
                 rootStore.setInfoBarMessage(error);
                 rootStore.setInfoBarOpen(true);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
     }
 
     @action
     deletePage(projectId, pageId) {
-        pageService.deletePage(projectId, pageId).then((response) => {
-            runInAction(() => {
-                const index = this.pages.findIndex(p => p.id === response.id);
+        const { rootStore } = this.sessionStore;
 
-                if(index >= 0) {
-                    this.pages.splice(index, 1);
-                }
+        rootStore.setBusy(true);
+        pageService.deletePage(projectId, pageId)
+            .then((response) => {
+                runInAction(() => {
+                    const index = this.pages.findIndex(p => p.id === response.id);
+
+                    if(index >= 0) {
+                        this.pages.splice(index, 1);
+                    }
+                });
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action
-    updatePage(projectId, page) {
+    updatePage(projectId, page, silent) {
         pageService.updatePage(projectId, page).then(() => {
             const { rootStore, designerStore } = this.sessionStore;
 
             designerStore.resetDirty();
-            rootStore.setInfoBarMessage('Successfully saved.');
-            rootStore.setInfoBarOpen(true);
+
+            if (!silent) {
+                rootStore.setInfoBarMessage('Successfully saved.');
+                rootStore.setInfoBarOpen(true);
+            }
         });
     }
 
@@ -74,6 +102,7 @@ export default class PageStore {
 
         this.selectedPage = page;
         designerStore.setComponentDefinition(page.definition);
+        designerStore.clonePreviewDefinition();
         designerStore.resetDirty();
         designerStore.resetUndoStack();
         designerStore.setSelectedComponentId('');
@@ -87,5 +116,10 @@ export default class PageStore {
     @action
     setPagesDialogOpen(open) {
         this.pagesDialogOpen = open;
+    }
+
+    @action
+    setPages(pages) {
+        this.pages = pages;
     }
 }

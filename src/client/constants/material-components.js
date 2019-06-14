@@ -16,6 +16,7 @@ import CheckboxIcon from '@material-ui/icons/CheckBox';
 import ChipIcon from '@material-ui/icons/Label';
 import CircularProgressIcon from '@material-ui/icons/Loop';
 //import ClickAwayListenerIcon from '@material-ui/icons/Mouse';
+import CollapseIcon from '@material-ui/icons/ExpandLess';
 import DialogIcon from '@material-ui/icons/FeaturedVideo';
 import DialogActionsIcon from '@material-ui/icons/FeaturedVideo';
 import DialogContentIcon from '@material-ui/icons/FeaturedVideo';
@@ -25,7 +26,7 @@ import DividerIcon from '@material-ui/icons/Remove';
 import DrawerIcon from '@material-ui/icons/ChromeReaderMode';
 import ExpansionPanelIcon from '@material-ui/icons/ExpandMore';
 import FabIcon from '@material-ui/icons/Brightness1';
-//import FadeIcon from '@material-ui/icons/Gradient';
+import FadeIcon from '@material-ui/icons/Gradient';
 import FilledInputIcon from '@material-ui/icons/Money';
 import FormControlIcon from '@material-ui/icons/Money';
 //import FormControlLabelIcon from '@material-ui/icons/Translate';
@@ -69,7 +70,7 @@ import PopperIcon from '@material-ui/icons/Bookmarks';
 import RadioIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioGroupIcon from '@material-ui/icons/More';
 import SelectIcon from '@material-ui/icons/ArrowDropDown';
-//import SlideIcon from '@material-ui/icons/GetApp';
+import SlideIcon from '@material-ui/icons/GetApp';
 import SnackbarIcon from '@material-ui/icons/Warning';
 import SnackbarContentIcon from '@material-ui/icons/FeaturedVideo';
 import StepIcon from '@material-ui/icons/LinearScale';
@@ -96,7 +97,7 @@ import TextFieldIcon from '@material-ui/icons/TextFields';
 import TooltipIcon from '@material-ui/icons/ChatBubble';
 //import TouchRippleIcon from '@material-ui/icons/TouchApp';
 import TypographyIcon from '@material-ui/icons/TextFormat';
-//import ZoomIcon from '@material-ui/icons/FindInPage';
+import ZoomIcon from '@material-ui/icons/FindInPage';
 
 export const materialComponents = {
     AppBar: {
@@ -123,7 +124,7 @@ export const materialComponents = {
             }
         }
     },
-    //{
+    //Backdrop: {
     //    name: 'Backdrop',
     //    displayName: 'Backdrop',
     //    icon: <BackdropIcon />,
@@ -174,8 +175,8 @@ export const materialComponents = {
         name: 'Button',
         displayName: 'Button',
         icon: <ButtonIcon />,
-        properties: ['text', 'name', 'color', 'component', 'disabled', 'disableFocusRipple', 'disableRipple', 'fullWidth', 'href', 'mini', 'size', 'variant',
-            'onClick', 'style'],
+        properties: ['id', 'name', 'text', 'color', 'component', 'disabled', 'disableFocusRipple', 'disableRipple', 'fullWidth', 'href', 'size', 'variant',
+            'style', 'onClick'],
         propertyMetaData: {
             disabled: {
                 type: 'boolean'
@@ -229,7 +230,7 @@ export const materialComponents = {
         name: 'CardActions',
         displayName: 'CardActions',
         icon: <CardActionsIcon />,
-        properties: ['name', 'disableActionSpacing', 'style'],
+        properties: ['name', 'disableSpacing', 'style'],
         designerDefinition: {
             component: 'CardActions',
             props: {
@@ -320,11 +321,23 @@ export const materialComponents = {
     //         }
     //     }
     // },
+    Collapse: {
+        name: 'Collapse',
+        displayName: 'Collapse',
+        icon: <CollapseIcon />,
+        properties: ['id', 'name', 'collapsedHeight', 'in', 'timeout'],
+        designerDefinition: {
+            component: 'Collapse',
+            props: {
+                children: []
+            }
+        }
+    },
     Dialog: {
         name: 'Dialog',
         displayName: 'Dialog',
         icon: <DialogIcon />,
-        properties: ['name', 'disableBackdropClick', 'disableEscapeKeyDown', 'fullScreen', 'fullWidth', 'maxWidth', 'open', 'scroll', 'transitionDuration', 'style'],
+        properties: ['id', 'name', 'disableBackdropClick', 'disableEscapeKeyDown', 'fullScreen', 'fullWidth', 'maxWidth', 'open', 'scroll', 'transitionDuration', 'style', 'onClose'],
         designerDefinition: {
             component: 'Dialog',
             props: {
@@ -336,7 +349,7 @@ export const materialComponents = {
         name: 'DialogActions',
         displayName: 'DialogActions',
         icon: <DialogActionsIcon />,
-        properties: ['name', 'disableActionSpacing', 'style'],
+        properties: ['name', 'disableSpacing', 'style'],
         designerDefinition: {
             component: 'DialogActions',
             props: {
@@ -360,7 +373,7 @@ export const materialComponents = {
         name: 'DialogContentText',
         displayName: 'DialogContentText',
         icon: <DialogContentTextIcon />,
-        properties: ['name', 'style'],
+        properties: ['name', 'text', 'style'],
         designerDefinition: {
             component: 'DialogContentText',
             props: {
@@ -372,7 +385,7 @@ export const materialComponents = {
         name: 'DialogTitle',
         displayName: 'DialogTitle',
         icon: <DialogTitleIcon />,
-        properties: ['name', 'disableTypography','style'],
+        properties: ['name', 'text', 'disableTypography','style'],
         designerDefinition: {
             component: 'DialogTitle',
             props: {
@@ -395,7 +408,7 @@ export const materialComponents = {
         name: 'Drawer',
         displayName: 'Drawer',
         icon: <DrawerIcon />,
-        properties: ['name', 'anchor', 'elevation', 'open', 'transitionDuration', 'variant', 'style'],
+        properties: ['id', 'name', 'anchor', 'elevation', 'open', 'transitionDuration', 'variant', 'style', 'onClose'],
         designerDefinition: {
             component: 'Drawer',
             props: {
@@ -455,7 +468,7 @@ export const materialComponents = {
         name: 'Fab',
         displayName: 'Fab',
         icon: <FabIcon />,
-        properties: ['name', 'color', 'component', 'disabled', 'disableFocusRipple', 'disableRipple', 'href', 'size', 'variant', 'style'],
+        properties: ['id', 'name', 'color', 'component', 'disabled', 'disableFocusRipple', 'disableRipple', 'href', 'size', 'variant', 'style', 'onClick'],
         designerDefinition: {
             component: 'Fab',
             props: {
@@ -463,22 +476,28 @@ export const materialComponents = {
             }
         }
     },
-    //{
-    //    name: 'Fade',
-    //    displayName: 'Fade',
-    //    icon: <FadeIcon />,
-    //    properties: ['name', 'in', 'timeout'],
-    //    designerDefinition: {
-    //        component: 'Fade',
-    //        props: {
-    //        }
-    //    }
-    //},
+    Fade: {
+        name: 'Fade',
+        displayName: 'Fade',
+        icon: <FadeIcon />,
+        properties: ['id', 'name', 'in', 'timeout'],
+        propertyMetaData: {
+            children: {
+                required: true
+            }
+        },
+        designerDefinition: {
+            component: 'Fade',
+            props: {
+                children: []
+            }
+        }
+    },
     FilledInput: {
         name: 'FilledInput',
         displayName: 'FilledInput',
         icon: <FilledInputIcon />,
-        properties: ['name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'disableUnderline', 'error', 'fullWidth', 'id', 'inputProps',
+        properties: ['id', 'name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'disableUnderline', 'error', 'fullWidth', 'inputProps',
             'margin', 'multiline', 'placeholder', 'readOnly', 'required', 'rows', 'rowsMax', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'FilledInput',
@@ -595,11 +614,11 @@ export const materialComponents = {
             }
         }
     },
-    //{
+    //Grow: {
     //    name: 'Grow',
     //    displayName: 'Grow',
     //    icon: <GrowIcon />,
-    //    properties: ['name', 'in', 'timeout', 'style'],
+    //    properties: ['id', 'name', 'in', 'timeout', 'style'],
     //    designerDefinition: {
     //        component: 'Grow',
     //        props: {
@@ -623,7 +642,7 @@ export const materialComponents = {
         name: 'Icon',
         displayName: 'Icon',
         icon: <InfoIcon />,
-        properties: ['text', 'name', 'color', 'fontSize', 'style'],
+        properties: ['name', 'text', 'color', 'fontSize', 'style'],
         designerDefinition: {
             component: 'Icon',
             props: {
@@ -635,7 +654,7 @@ export const materialComponents = {
         name: 'IconButton',
         displayName: 'IconButton',
         icon: <InfoIcon />,
-        properties: ['name', 'color', 'disabled', 'disableRipple', 'style'],
+        properties: ['id', 'name', 'color', 'disabled', 'disableFocusRipple', 'disableRipple', 'edge', 'size', 'style', 'onClick'],
         designerDefinition: {
             component: 'IconButton',
             props: {
@@ -647,7 +666,7 @@ export const materialComponents = {
         name: 'Input',
         displayName: 'Input',
         icon: <InputIcon />,
-        properties: ['name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'disableUnderline', 'error', 'fullWidth', 'id', 'inputComponent', 'inputProps',
+        properties: ['id', 'name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'disableUnderline', 'error', 'fullWidth', 'inputComponent', 'inputProps',
             'margin', 'multiline', 'placeholder', 'readOnly', 'required', 'rows', 'rowsMax', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'Input',
@@ -685,7 +704,7 @@ export const materialComponents = {
         name: 'InputLabel',
         displayName: 'InputLabel',
         icon: <InputLabelIcon />,
-        properties: ['text', 'name', 'disableAnimation', 'disabled', 'error', 'focused', 'margin', 'required', 'shrink', 'variant', 'style'],
+        properties: ['name', 'text', 'disableAnimation', 'disabled', 'error', 'focused', 'htmlFor', 'margin', 'required', 'shrink', 'variant', 'style'],
         designerDefinition: {
             component: 'InputLabel',
             props: {
@@ -811,7 +830,7 @@ export const materialComponents = {
         name: 'Menu',
         displayName: 'Menu',
         icon: <MenuIcon />,
-        properties: ['name', 'disableAutoFocusItem', 'open', 'transitionDuration', 'style'],
+        properties: ['id', 'name', 'anchorEl', 'autoFocus', 'disableAutoFocusItem', 'MenuListProps', 'open', 'transitionDuration', 'variant', 'style', 'onClose'],
         designerDefinition: {
             component: 'Menu',
             props: {
@@ -823,7 +842,7 @@ export const materialComponents = {
         name: 'MenuItem',
         displayName: 'MenuItem',
         icon: <MenuItemIcon />,
-        properties: ['text', 'name', 'disableGutters', 'style'],
+        properties: ['name', 'text', 'disableGutters', 'value', 'style'],
         designerDefinition: {
             component: 'MenuItem',
             props: {
@@ -886,17 +905,6 @@ export const materialComponents = {
     //        }
     //    }
     //},
-    //{
-    //    name: 'Markdown',
-    //    displayName: 'Markdown',
-    //    icon: <MarkdownIcon />,
-    //    properties: ['name', 'source', 'escapeHtml', 'skipHtml', 'sourcePos', 'rawSourcePos', 'includeNodeIndex', 'style'],
-    //    designerDefinition: {
-    //        component: 'Markdown',
-    //        props: {
-    //        }
-    //    }
-    //},
     NativeSelect: {
         name: 'NativeSelect',
         displayName: 'NativeSelect',
@@ -913,7 +921,7 @@ export const materialComponents = {
         name: 'OutlinedInput',
         displayName: 'OutlinedInput',
         icon: <OutlinedInputIcon />,
-        properties: ['name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'id', 'inputProps', 'labelWidth', 'margin',
+        properties: ['id', 'name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'inputProps', 'labelWidth', 'margin',
             'multiline', 'notched', 'placeholder', 'readOnly', 'required', 'rows', 'rowsMax', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'OutlinedInput',
@@ -975,7 +983,7 @@ export const materialComponents = {
         name: 'Radio',
         displayName: 'Radio',
         icon: <RadioIcon />,
-        properties: ['name', 'checked', 'color', 'disabled', 'disableRipple', 'id', 'inputProps', 'type', 'value', 'style'],
+        properties: ['id', 'name', 'checked', 'color', 'disabled', 'disableRipple', 'inputProps', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'Radio',
             props: {
@@ -999,7 +1007,8 @@ export const materialComponents = {
         name: 'Select',
         displayName: 'Select',
         icon: <SelectIcon />,
-        properties: ['name', 'autoWidth', 'displayEmpty', 'inputProps', 'MenuProps', 'multiple', 'native', 'open', 'SelectDisplayProps', 'value', 'variant', 'style'],
+        properties: ['name', 'autoWidth', 'displayEmpty', 'input', 'inputProps', 'MenuProps', 'multiple', 'native', 'open', 'renderValue',
+            'SelectDisplayProps', 'value', 'variant', 'style'],
         designerDefinition: {
             component: 'Select',
             props: {
@@ -1007,18 +1016,23 @@ export const materialComponents = {
             }
         }
     },
-    //{
-    //    name: 'Slide',
-    //    displayName: 'Slide',
-    //    icon: <SlideIcon />,
-    //    properties: ['name', 'direction', 'in', 'timeout', 'style'],
-    //    designerDefinition: {
-    //        component: 'Slide',
-    //        props: {
-    //            children: []
-    //        }
-    //    }
-    //},
+    Slide: {
+        name: 'Slide',
+        displayName: 'Slide',
+        icon: <SlideIcon />,
+        properties: ['id', 'name', 'direction', 'in', 'timeout'],
+        propertyMetaData: {
+            children: {
+                required: true
+            }
+        },
+        designerDefinition: {
+            component: 'Slide',
+            props: {
+                children: []
+            }
+        }
+    },
     Snackbar: {
         name: 'Snackbar',
         displayName: 'Snackbar',
@@ -1137,7 +1151,7 @@ export const materialComponents = {
         name: 'SvgIcon',
         displayName: 'SvgIcon',
         icon: <SvgIconIcon />,
-        properties: ['name', 'color', 'fontSize', 'nativeColor', 'shapeRendering', 'titleAccess', 'viewBox', 'style'],
+        properties: ['name', 'color', 'fontSize', 'htmlColor', 'shapeRendering', 'titleAccess', 'viewBox', 'style'],
         propertyMetaData: {
             children: {
                 required: true
@@ -1214,7 +1228,7 @@ export const materialComponents = {
         name: 'TableCell',
         displayName: 'TableCell',
         icon: <TableCellIcon />,
-        properties: ['text', 'name', 'align', 'padding', 'scope', 'sortDirection', 'variant', 'style'],
+        properties: ['name', 'text', 'align', 'size', 'scope', 'sortDirection', 'variant', 'style'],
         designerDefinition: {
             component: 'TableCell',
             props: {
@@ -1298,7 +1312,7 @@ export const materialComponents = {
         name: 'TextField',
         displayName: 'Text Field',
         icon: <TextFieldIcon />,
-        properties: ['name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'helperText', 'id', 'label', 'margin',
+        properties: ['id', 'name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'helperText', 'label', 'margin',
             'multiline', 'placeholder', 'required', 'rows', 'rowsMax', 'select', 'type', 'value', 'variant', 'style'],
         designerDefinition: {
             component: 'TextField',
@@ -1354,7 +1368,7 @@ export const materialComponents = {
         name: 'Typography',
         displayName: 'Typography',
         icon: <TypographyIcon />,
-        properties: ['text', 'name', 'variant', 'component', 'align', 'color', 'gutterBottom', 'inline', 'internalDeprecatedVariant', 'noWrap', 'paragraph', 'style'],
+        properties: ['name', 'text', 'variant', 'component', 'align', 'color', 'gutterBottom', 'inline', 'internalDeprecatedVariant', 'noWrap', 'paragraph', 'style'],
         designerDefinition: {
             component: 'Typography',
             props: {
@@ -1362,25 +1376,30 @@ export const materialComponents = {
             }
         }
     },
-    //{
-    //    name: 'Zoom',
-    //    displayName: 'Zoom',
-    //    icon: <ZoomIcon />,
-    //    properties: ['name', 'in', 'timeout', 'style'],
-    //    designerDefinition: {
-    //        component: 'Zoom',
-    //        props: {
-    //            children: []
-    //        }
-    //    }
-    //},
+    Zoom: {
+        name: 'Zoom',
+        displayName: 'Zoom',
+        icon: <ZoomIcon />,
+        properties: ['id', 'name', 'in', 'timeout'],
+        propertyMetaData: {
+            children: {
+                required: true
+            }
+        },
+        designerDefinition: {
+            component: 'Zoom',
+            props: {
+                children: []
+            }
+        }
+    },
 
     // Html components
     div: {
         name: 'div',
         displayName: 'div',
         icon: <HtmlElementIcon />,
-        properties: ['text', 'name', 'style'],
+        properties: ['id', 'name', 'text', 'style'],
         designerDefinition: {
             component: 'div',
             props: {
@@ -1403,7 +1422,7 @@ export const materialComponents = {
         name: 'label',
         displayName: 'label',
         icon: <HtmlElementIcon />,
-        properties: ['text', 'name', 'htmlFor', 'style'],
+        properties: ['name', 'text', 'htmlFor', 'style'],
         designerDefinition: {
             component: 'label',
             props: {
@@ -1415,7 +1434,7 @@ export const materialComponents = {
         name: 'span',
         displayName: 'span',
         icon: <HtmlElementIcon />,
-        properties: ['text', 'name', 'style'],
+        properties: ['id', 'name', 'text', 'style'],
         designerDefinition: {
             component: 'span',
             props: {
@@ -1427,7 +1446,7 @@ export const materialComponents = {
         name: 'option',
         displayName: 'option',
         icon: <HtmlElementIcon />,
-        properties: ['text', 'name', 'value', 'style'],
+        properties: ['name', 'text', 'value', 'style'],
         designerDefinition: {
             component: 'option',
             props: {
@@ -1444,6 +1463,30 @@ export const materialComponents = {
             component: 'path',
             props: {
                 children: []
+            }
+        }
+    },
+
+    // 3rd party components
+    //{
+    //    name: 'Markdown',
+    //    displayName: 'Markdown',
+    //    icon: <MarkdownIcon />,
+    //    properties: ['name', 'source', 'escapeHtml', 'skipHtml', 'sourcePos', 'rawSourcePos', 'includeNodeIndex', 'style'],
+    //    designerDefinition: {
+    //        component: 'Markdown',
+    //        props: {
+    //        }
+    //    }
+    //},
+    DataTable: {
+        name: 'DataTable',
+        displayName: 'DataTable',
+        icon: <TableIcon />,
+        properties: ['name', 'title', 'columns', 'data', 'options', 'style'],
+        designerDefinition: {
+            component: 'DataTable',
+            props: {
             }
         }
     }

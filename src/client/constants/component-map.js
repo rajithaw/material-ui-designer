@@ -1,6 +1,6 @@
 import {
     AppBar, Avatar, Backdrop, Badge, BottomNavigation, BottomNavigationAction, Button, ButtonBase, Card, CardActionArea, CardActions, CardContent, CardHeader,
-    CardMedia, Checkbox, Chip, CircularProgress, ClickAwayListener, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider,
+    CardMedia, Checkbox, Chip, CircularProgress, ClickAwayListener, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider,
     Drawer, ExpansionPanel, ExpansionPanelActions, ExpansionPanelDetails, ExpansionPanelSummary, Fab, Fade, FilledInput, FormControl, FormControlLabel,
     FormGroup, FormHelperText, FormLabel, Grid, GridList, GridListTile, GridListTileBar, Grow, Hidden, Icon, IconButton, Input, InputAdornment, InputBase,
     InputLabel, LinearProgress, Link, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Menu, MenuItem,
@@ -77,7 +77,9 @@ import{
 
 import { ContentCut, ContentCopy, ContentPaste, ContentSave, Pencil, Redo } from 'muicons/dist';
 
+// 3rd party
 import ReactMarkdown from 'react-markdown';
+import DataTable from 'mui-datatables';
 
 export const componentMap = {
     'AppBar': AppBar,
@@ -98,6 +100,7 @@ export const componentMap = {
     'Checkbox': Checkbox,
     'CircularProgress': CircularProgress,
     'ClickAwayListener': ClickAwayListener,
+    'Collapse': Collapse,
     'Dialog': Dialog,
     'DialogActions': DialogActions,
     'DialogContent': DialogContent,
@@ -185,6 +188,7 @@ export const componentMap = {
 
     // 3rd Party
     'Markdown': ReactMarkdown,
+    'DataTable': DataTable,
 
     // Material icons - Action
     'ThreeDRotation': ThreeDRotation,

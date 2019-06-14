@@ -1,18 +1,27 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 export default class RootStore {
     constructor(sessionStore) {
         this.sessionStore = sessionStore;
     }
     
-    @observable isBusy = false;
+    @observable busyCount = 0;
     @observable isPreviewMode = false;
     @observable isInfoBarOpen = false;
     @observable infoBarMessage = '';
 
+    @computed get isBusy() {
+        return this.busyCount > 0;
+    }
+
     @action
     setBusy(busy) {
-        this.isBusy = busy;
+        if (busy) {
+            this.busyCount++;
+        }
+        else if (this.busyCount > 0) {
+            this.busyCount--;
+        }
     }
 
     @action

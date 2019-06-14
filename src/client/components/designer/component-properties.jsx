@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@material-ui/core/Tooltip';
+import Info from '@material-ui/icons/Info';
 
-const styles = {
+const styles = theme => ({
     componentProperties: {
         marginLeft: '10px',
         marginRight: '10px'
+    },
+    infoIcon: {
+        color: theme.palette.primary.main,
     }
-};
+});
 
 @inject('designerStore', 'componentStore')
 @observer
@@ -30,13 +36,27 @@ class ComponentProperties extends React.Component {
                 {
                     availableProps &&
                     availableProps.map(p => {
+                        const propValue = this.state[p] == null ? designerStore.getComponentProperty(selectedComponentDefinitioin, p) || '' : this.state[p];
+                        // Get the info to be displayed as a tooltip
+                        const propInfo = this.getPropertyInfo(p, propValue);
+
                         return <TextField
                             key={p}
                             label={p}
-                            value={this.state[p] == null ? designerStore.getComponentProperty(selectedComponentDefinitioin, p) || '' : this.state[p]}
+                            value={propValue}
                             disabled={disabled || p === 'id'}
                             margin="normal"
                             fullWidth={true}
+                            InputProps={{
+                                endAdornment: (
+                                    propInfo ?
+                                        <InputAdornment position="end">
+                                            <Tooltip title={propInfo}>
+                                                <Info className={classes.infoIcon}/>
+                                            </Tooltip>
+                                        </InputAdornment> : null
+                                )
+                            }}
                             onChange={this.handleChange(p)}
                             onBlur={this.handleBlur(p)}
                         />
@@ -46,9 +66,32 @@ class ComponentProperties extends React.Component {
         );
     }
 
+    getPropertyInfo(property, propertyValue) {
+        const { designerStore } = this.props;
+        let result = '';
+
+        if (property && property.startsWith('on')) {
+            if (propertyValue && propertyValue.indexOf('#') > 0) {
+                const action = propertyValue.split('#');
+                const name = action[0].trim().toLowerCase();
+                const id = action[1].trim();
+
+                if (name === 'show' || name === 'hide') {
+                    // For show and hide events show the name of the component being shown/hidden as additional info
+                    const linkedComp = designerStore.getComponentDefinition(id);
+                    if (linkedComp && linkedComp.props) {
+                        result = linkedComp.props.name;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     handleChange = key => event => {
         this.setState({
-            [key]: event.target.value,
+            [key]: event.target.value
         });
     }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { create } from 'jss';
-import { withStyles, jssPreset } from '@material-ui/core/styles';
-import { StylesProvider } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
+import { jssPreset, StylesProvider } from '@material-ui/styles';
 import NoSsr from '@material-ui/core/NoSsr';
 import rtl from 'jss-rtl';
 import Frame from 'react-frame-component';
@@ -10,7 +10,7 @@ import Frame from 'react-frame-component';
 const styles = {
     root: {
         flexGrow: 1,
-        border: "none"
+        border: 'none'
     }
 };
 
@@ -95,7 +95,7 @@ class DesignerFrame extends React.Component {
 }
 
 DesignerFrame.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
 };

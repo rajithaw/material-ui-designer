@@ -7,8 +7,10 @@ import Fade from '@material-ui/core/Fade';
 
 const styles = {
     selectable: {
+        border: '1px dotted gray'
     },
     selected: {
+        border: '2px solid black'
     }
 };
 
@@ -16,13 +18,18 @@ const styles = {
 @observer
 class SelectableFade extends React.Component {
     render() {
-        const { designerStore, classes, ...other } = this.props;
+        const { designerStore, classes, style, children, ...other } = this.props;
         const selected = this.props.id === designerStore.selectedComponentId;
 
         return (
-            <span className={classNames(classes.selectable, {[classes.selected]: selected})} onClick={this.handleClick}>
-                <Fade {...other}></Fade>
-            </span>
+            <Fade
+                className={classNames(classes.selectable, { [classes.selected]: selected })}
+                style={{ ...style }}
+                {...other}
+                onClick={this.handleClick}
+            >
+                {children}
+            </Fade>
         );
     }
 
@@ -37,7 +44,9 @@ class SelectableFade extends React.Component {
 SelectableFade.propTypes = {
     classes: PropTypes.object.isRequired,
     designerStore: PropTypes.object,
-    id: PropTypes.string
+    id: PropTypes.string,
+    style: PropTypes.any,
+    children: PropTypes.any
 }
 
 export default withStyles(styles)(SelectableFade);

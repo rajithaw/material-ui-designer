@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Zoom from '@material-ui/core/Zoom';
 
-
 const styles = {
     selectable: {
         border: '1px dotted gray',
@@ -19,13 +18,18 @@ const styles = {
 @observer
 class SelectableZoom extends React.Component {
     render() {
-        const { designerStore, classes, children, ...other } = this.props;
+        const { designerStore, classes, style, children, ...other } = this.props;
         const selected = this.props.id === designerStore.selectedComponentId;
 
         return (
-            <span className={classNames(classes.selectable, {[classes.selected]: selected})} onClick={this.handleClick}>
-                <Zoom {...other}>{children}</Zoom>
-            </span>
+            <Zoom
+                className={classNames(classes.selectable, { [classes.selected]: selected })}
+                style={{ ...style }}
+                {...other}
+                onClick={this.handleClick}
+            >
+                {children}
+            </Zoom>
         );
     }
 
@@ -41,6 +45,7 @@ SelectableZoom.propTypes = {
     classes: PropTypes.object.isRequired,
     designerStore: PropTypes.object,
     id: PropTypes.string,
+    style: PropTypes.any,
     children: PropTypes.any
 }
 

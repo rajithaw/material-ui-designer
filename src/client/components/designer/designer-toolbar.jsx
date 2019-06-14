@@ -133,8 +133,19 @@ class DesignerToolbar extends React.Component {
     }
 
     handlePreview = () => {
-        const { rootStore } = this.props;
+        const { rootStore, designerStore, projectStore, pageStore } = this.props;
 
+        if (designerStore.isDesignerDirty) {
+            // Automatically save changes when going into preview mode
+            const page = {
+                id: pageStore.selectedPage.id,
+                definition: designerStore.componentDefinition
+            };
+
+            pageStore.updatePage(projectStore.selectedProject.id, page, true);
+        }
+        
+        designerStore.clonePreviewDefinition();
         rootStore.togglePreviewMode();
         rootStore.setInfoBarMessage('Press ESC to exit preview mode.');
         rootStore.setInfoBarOpen(true);

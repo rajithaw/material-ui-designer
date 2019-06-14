@@ -58,6 +58,11 @@ class ProjectService {
             }
         }).then(getResponseJson);
     }
+
+    getProjectAndPage(projectName, pageName) {
+        const url = `/api/projects/${projectName}/${pageName}`;
+        return fetch(url).then(getResponseJson);
+    }
 }
 
 const projectService = new ProjectService();

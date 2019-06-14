@@ -1,4 +1,3 @@
-import "./installStyles";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { observer, Provider } from "mobx-react";

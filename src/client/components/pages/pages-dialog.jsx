@@ -23,13 +23,13 @@ import PageList from './page-list';
 const styles = theme => ({
     addButton: {
         position: 'absolute',
-        right: theme.spacing.unit * 8,
-        top: theme.spacing.unit
+        right: theme.spacing(8),
+        top: theme.spacing(1)
     },
     deleteButton: {
         position: 'absolute',
-        right: theme.spacing.unit,
-        top: theme.spacing.unit
+        right: theme.spacing(1),
+        top: theme.spacing(1)
     },
     sharedCheckbox: {
         marginTop: '20px'

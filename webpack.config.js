@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const outputDirectory = 'public';
 
@@ -28,7 +28,14 @@ module.exports = {
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=100000'
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 100000
+                        },
+                    },
+                ]
             },
             {
                 test: /\.(js|jsx)$/,

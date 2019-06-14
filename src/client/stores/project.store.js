@@ -18,26 +18,41 @@ export default class ProjectStore {
 
     @action
     getProjects() {
-        projectService.getProjects().then(response => {
-            runInAction(() => {
-                this.projects = response;
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        projectService.getProjects()
+            .then(response => {
+                runInAction(() => {
+                    this.projects = response;
+                });
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action
     getProject(projectId) {
-        projectService.getProject(projectId).then(response => {
-            this.setSelectedProject(response);
-            // reset the pages
-            this.sessionStore.pageStore.setSelectedPage({});
-        });
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        projectService.getProject(projectId)
+            .then(response => {
+                this.setSelectedProject(response);
+                // reset the pages
+                this.sessionStore.pageStore.setSelectedPage({});
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
+            });
     }
 
     @action
     createProject(project) {
         const { rootStore } = this.sessionStore;
 
+        rootStore.setBusy(true);
         projectService.createProject(project)
             .then(response => {
                 runInAction(() => {
@@ -47,22 +62,32 @@ export default class ProjectStore {
             .catch(error => {
                 rootStore.setInfoBarMessage(error);
                 rootStore.setInfoBarOpen(true);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
     }
 
     @action
     deleteProject(projectId) {
-        projectService.deleteProject(projectId).then(response => {
-            runInAction(() => {
-                const index = this.projects.findIndex(
-                    p => p.id === response.id
-                );
+        const { rootStore } = this.sessionStore;
 
-                if (index >= 0) {
-                    this.projects.splice(index, 1);
-                }
+        rootStore.setBusy(true);
+        projectService.deleteProject(projectId)
+            .then(response => {
+                runInAction(() => {
+                    const index = this.projects.findIndex(
+                        p => p.id === response.id
+                    );
+
+                    if (index >= 0) {
+                        this.projects.splice(index, 1);
+                    }
+                });
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action
@@ -128,5 +153,32 @@ export default class ProjectStore {
                 delete this.projectContent[response.name];
             });
         });
+    }
+
+    @action
+    loadProjectAndPage(projectName, pageName) {
+        const { rootStore, pageStore } = this.sessionStore;
+
+        if (projectName) {
+            rootStore.setBusy(true);
+            projectService.getProjectAndPage(projectName, pageName)
+                .then(response => {
+                    if (response) {
+                        this.setSelectedProject(response);
+
+                        if (response.pages) {
+                            pageStore.setPages(response.pages);
+                            const page = response.pages.filter(p => p.name === pageName)[0];
+
+                            if (page) {
+                                pageStore.setSelectedPage(page);
+                            }
+                        }
+                    }
+                })
+                .finally(() => {
+                    rootStore.setBusy(false);
+                });
+        }
     }
 }

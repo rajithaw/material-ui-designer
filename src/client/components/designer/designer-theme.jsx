@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
-    typography: {
-        useNextVariants: true
-    },
     overrides: {
         MuiAppBar: {
             root: {
