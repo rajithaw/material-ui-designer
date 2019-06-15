@@ -42,6 +42,7 @@ import SelectableGridListTile from '../components/designer/selectable/selectable
 import SelectableGridListTileBar from '../components/designer/selectable/selectable-gridlisttilebar';
 import SelectableGrow from '../components/designer/selectable/selectable-grow';
 import SelectableHidden from '../components/designer/selectable/selectable-hidden';
+import SelectableI from '../components/designer/selectable/selectable-i';
 import SelectableIcon from '../components/designer/selectable/selectable-icon';
 import SelectableIconButton from '../components/designer/selectable/selectable-iconbutton';
 import SelectableInput from '../components/designer/selectable/selectable-input';
@@ -221,6 +222,7 @@ export const designerComponentMap = {
     'span': SelectableSpan,
     'path': SelectablePath,
     'option': SelectableOption,
+    'i': SelectableI,
 
     // 3rd Party
     //'Markdown': SelectableMarkdown,

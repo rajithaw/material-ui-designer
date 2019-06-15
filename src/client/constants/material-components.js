@@ -1465,6 +1465,17 @@ export const materialComponents = {
             }
         }
     },
+    i: {
+        name: 'i',
+        displayName: 'i',
+        icon: <InfoIcon />,
+        properties: ['name', 'class', 'style'],
+        designerDefinition: {
+            component: 'i',
+            props: {
+            }
+        }
+    },
 
     // 3rd party components
     //{

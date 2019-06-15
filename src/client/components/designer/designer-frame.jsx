@@ -50,6 +50,7 @@ class DesignerFrame extends React.Component {
                     <meta http-equiv="X-UA-Compatible" content="ie=edge">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"/>
                     <style>
                         #frame-children-root { 
                             flex-grow: 1

@@ -19,6 +19,7 @@ class %s extends Component {
         const { show, transitions } = this.props.rootStore;
         
         return (
+            /* eslint-disable react/no-unknown-property */
             %s
         );
     }
