@@ -34,6 +34,19 @@ export default class ComponentStore {
     }
 
     @action
+    getSharedComponents() {
+        componentService.getSharedComponents().then((response) => {
+            runInAction(() => {
+                this.sharedComponents = response;
+            });
+        });
+    }
+
+    @action
+    setComponentSearchQuery(query) {
+        this.componentSearchQuery = query;
+    }
+
     findByName(name) {
         let result = null;
 
@@ -48,20 +61,6 @@ export default class ComponentStore {
         }
 
         return result;
-    }
-
-    @action
-    getSharedComponents() {
-        componentService.getSharedComponents().then((response) => {
-            runInAction(() => {
-                this.sharedComponents = response;
-            });
-        });
-    }
-
-    @action
-    setComponentSearchQuery(query) {
-        this.componentSearchQuery = query;
     }
 
     searchComponents(componentsList, query){
@@ -83,6 +82,18 @@ export default class ComponentStore {
             
             return matches.length > 0 ? true : false;
         });
+
+        return result;
+    }
+
+    getPropertyMetaData(componentName, propertyName) {
+        const component = this.findByName(componentName);
+        const propertyMetaData = component && component.propertyMetaData;
+        let result = null;
+
+        if (propertyMetaData) {
+            result = propertyMetaData[propertyName];
+        }
 
         return result;
     }

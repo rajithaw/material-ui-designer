@@ -133,13 +133,11 @@ export default class DesignerStore {
                 }
 
                 if (propValue.startsWith('<')) {
-                    const definition = JsxParser(propValue);
-                    result[prop] = this.createComponents(definition);
+                    result[prop] = this.createComponentsFromJsxString(propValue);
                 }
 
                 if (propValue.startsWith('render#')) {
-                    const definition = JsxParser(propValue.split('#')[1]);
-                    result[prop] = () => this.createComponents(definition);
+                    result[prop] = () => this.createComponentsFromJsxString(propValue.split('#')[1]);
                 }
             }
 
@@ -153,6 +151,17 @@ export default class DesignerStore {
             }
         });
 
+        return result;
+    }
+
+    createComponentsFromJsxString(jsx) {
+        let result = null;
+
+        if(jsx) {
+            const definition = JsxParser(jsx);
+            result = this.createComponents(definition);
+        }
+        
         return result;
     }
 
@@ -473,19 +482,6 @@ export default class DesignerStore {
             });
     }
 
-    getPropertyMetaData(componentName, propertyName) {
-        const { componentStore } = this.sessionStore;
-        const component = componentStore.findByName(componentName);
-        const propertyMetaData = component && component.propertyMetaData;
-        let result = null;
-
-        if (propertyMetaData) {
-            result = propertyMetaData[propertyName];
-        }
-
-        return result;
-    }
-
     isEmptyPropertyValue(value) {
         let result = false;
 
@@ -497,6 +493,7 @@ export default class DesignerStore {
     }
 
     parsePropertyValue(componentName, propertyName, value) {
+        const { componentStore } = this.sessionStore;
 
         value = value.trim();
         let result = value;
@@ -519,7 +516,7 @@ export default class DesignerStore {
         }
 
         // Use meta data if available to parse property value more accurately
-        const metaData = this.getPropertyMetaData(componentName, propertyName);
+        const metaData = componentStore.getPropertyMetaData(componentName, propertyName);
 
         if (metaData) {
             if (metaData.type === 'boolean') {

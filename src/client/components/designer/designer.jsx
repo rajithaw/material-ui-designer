@@ -40,8 +40,7 @@ class Designer extends React.Component {
 
     createChildren = (componentName, children) => {
         const { componentStore } = this.props;
-        const component = componentStore.findByName(componentName);
-        const childrenMetaData = component && component.propertyMetaData && component.propertyMetaData.children;
+        const childrenMetaData = componentStore.getPropertyMetaData(componentName, 'children');
         let result = null;
 
         if((typeof children) === 'string') {

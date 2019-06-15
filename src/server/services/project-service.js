@@ -345,7 +345,7 @@ class ProjectService {
                                     type: jsonData.data.type
                                 }
                             },
-                            (err, result) => {
+                            (err) => {
                                 callback(err, jsonData.data);
                             }
                         );

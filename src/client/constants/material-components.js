@@ -29,7 +29,7 @@ import FabIcon from '@material-ui/icons/Brightness1';
 import FadeIcon from '@material-ui/icons/Gradient';
 import FilledInputIcon from '@material-ui/icons/Money';
 import FormControlIcon from '@material-ui/icons/Money';
-//import FormControlLabelIcon from '@material-ui/icons/Translate';
+import FormControlLabelIcon from '@material-ui/icons/Translate';
 import FormGroupIcon from '@material-ui/icons/Toc';
 import FormHelperTextIcon from '@material-ui/icons/WbAuto';
 import FormLabelIcon from '@material-ui/icons/Translate';
@@ -518,18 +518,17 @@ export const materialComponents = {
             }
         }
     },
-    // TODO: Disabling this component because it expects a react element for the control property
-    //{
-    //    name: 'FormControlLabel',
-    //    displayName: 'FormControlLabel',
-    //    icon: <FormControlLabelIcon />,
-    //    properties: ['name', 'checked', 'control', 'disabled', 'label', 'labelPlacement', 'value', 'style'],
-    //    designerDefinition: {
-    //        component: 'FormControlLabel',
-    //        props: {    // Children not supported by form control label
-    //        }
-    //    }
-    //},
+    FormControlLabel: {
+       name: 'FormControlLabel',
+       displayName: 'FormControlLabel',
+       icon: <FormControlLabelIcon />,
+       properties: ['name', 'checked', 'control', 'disabled', 'label', 'labelPlacement', 'value', 'style'],
+       designerDefinition: {
+           component: 'FormControlLabel',
+           props: {    // Children not supported by form control label
+           }
+       }
+    },
     FormGroup: {
         name: 'FormGroup',
         displayName: 'FormGroup',

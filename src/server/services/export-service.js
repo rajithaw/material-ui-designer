@@ -193,31 +193,30 @@ class ExportService {
 
         if(definition) {
             const { sharedComponentId } = definition;
-            let component = null;
-            let properties = null;
-            let children = definition.props.children;
+            let component = '';
+            let properties = '';
+            let childTags = '';
 
             if(sharedComponentId) {
+                // Only top level tag and import is generated for shared components. No child tags are generated.
                 const sharedComponent = this.sharedComponents[definition.sharedComponentId];
 
                 component = sharedComponent.componentName || projectService.generateComponentName(sharedComponent.name);
-                properties = '';
-                children = null;
-
                 // Add to the set of unique components
                 sharedComponentSet.add(component);
             }
             else {
                 const { children, ...other } = definition.props;
-
+                
                 component = definition.component;
                 properties = this.generateProperties(other, componentSet);
+                childTags = this.generateChildTags(children, componentSet, sharedComponentSet);
 
                 // Add to the set of unique components
                 componentSet.add(component);
             }
     
-            result = `<${component} ${properties}>${this.generateChildTags(children, componentSet, sharedComponentSet)}</${component}>`;
+            result = `<${component} ${properties}>${childTags}</${component}>`;
         }
         
         return result;

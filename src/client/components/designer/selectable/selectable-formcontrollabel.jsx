@@ -20,12 +20,13 @@ class SelectableFormControlLabel extends React.Component {
     render() {
         const { designerStore, classes, style, control, ...other } = this.props;
         const selected = this.props.id === designerStore.selectedComponentId;
+        const controlDefinition = designerStore.createComponentsFromJsxString(control);
 
         return (
             <FormControlLabel
                 className={classNames(classes.selectable, {[classes.selected]: selected })}
                 style={{ ...style }}
-                control={control || 'Radio'}
+                control={controlDefinition || <span></span>}
                 {...other}
                 onClick={this.handleClick}
             />
