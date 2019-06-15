@@ -12,7 +12,6 @@ import Switch from '@material-ui/core/Switch';
 
 import ComponentSerach from './component-search';
 import MaterialComponentList from './material-component-list';
-import MaterialIconList from './material-icon-list';
 import SharedComponentList from './shared-component-list';
 
 @inject('designerStore', 'pageStore')
@@ -30,14 +29,6 @@ class ComponentPanel extends React.Component {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <MaterialComponentList disabled={!pageStore.selectedPage.id}/>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography>Icons</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <MaterialIconList disabled={!pageStore.selectedPage.id}/>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel>

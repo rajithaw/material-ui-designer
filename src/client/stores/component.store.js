@@ -1,32 +1,22 @@
 import { observable, action, computed, runInAction } from 'mobx';
 
 import { materialComponents } from '../constants/material-components';
-import { materialIcons } from '../constants/material-icons';
 import componentService from '../services/component-service';
 
 export default class ComponentStore {
     constructor(sessionStore) {
         this.sessionStore = sessionStore;
         this.materialComponents = materialComponents;
-        this.materialIcons = materialIcons;
-
         this.materialComponentList = Object.keys(materialComponents).map(key => materialComponents[key]);
-        this.materialIconList = Object.keys(materialIcons).map(key => materialIcons[key]);
     }
     
     materialComponents = {};
     materialComponentList = [];
-    materialIcons = {};
-    materialIconList = [];
     @observable sharedComponents = [];
     @observable componentSearchQuery = '';
 
     @computed get filteredMaterialComponents() {
         return this.searchComponents(this.materialComponentList, this.componentSearchQuery);
-    }
-
-    @computed get filteredMaterialIcons() {
-        return this.searchComponents(this.materialIconList, this.componentSearchQuery);
     }
 
     @computed get filteredSharedComponents() {
@@ -53,11 +43,6 @@ export default class ComponentStore {
         if(name) {
             // find in material components
             result = this.materialComponents[name];
-
-            if(!result) {
-                // find in material icons
-                result = this.materialIcons[name];
-            }
         }
 
         return result;
