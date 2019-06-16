@@ -85,6 +85,10 @@ export default class ProjectStore {
                     }
                 });
             })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
+                rootStore.setInfoBarOpen(true);
+            })
             .finally(() => {
                 rootStore.setBusy(false);
             });
@@ -132,27 +136,60 @@ export default class ProjectStore {
 
     @action
     addProjectContent(projectId, content) {
-        projectService.addContent(projectId, content).then(response => {
-            runInAction(() => {
-                this.projectContent[response.name] = response;
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        projectService.addContent(projectId, content)
+            .then(response => {
+                runInAction(() => {
+                    this.projectContent[response.name] = response;
+                });
+            })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
+                rootStore.setInfoBarOpen(true);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action
     updateProjectContent(projectId, content) {
-        projectService.updateContent(projectId, content).then(response => {
-            this.projectContent[response.name] = response;
-        });
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        projectService.updateContent(projectId, content)
+            .then(response => {
+                this.projectContent[response.name] = response;
+            })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
+                rootStore.setInfoBarOpen(true);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
+            });
     }
 
     @action
     deleteProjectContent(projectId, contentId) {
-        projectService.deleteContent(projectId, contentId).then(response => {
-            runInAction(() => {
-                delete this.projectContent[response.name];
+        const { rootStore } = this.sessionStore;
+
+        rootStore.setBusy(true);
+        projectService.deleteContent(projectId, contentId)
+            .then(response => {
+                runInAction(() => {
+                    delete this.projectContent[response.name];
+                });
+            })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
+                rootStore.setInfoBarOpen(true);
+            })
+            .finally(() => {
+                rootStore.setBusy(false);
             });
-        });
     }
 
     @action

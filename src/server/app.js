@@ -2,6 +2,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var readOnlyRouter = require('./routes/readonly');
 var projectsRouter = require('./routes/projects');
 var componentsRouter = require('./routes/components');
 var exportRouter = require('./routes/export');
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static('public'));
+app.use('/', readOnlyRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/components', componentsRouter);
 app.use('/api/export', exportRouter);

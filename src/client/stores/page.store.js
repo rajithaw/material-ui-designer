@@ -77,6 +77,10 @@ export default class PageStore {
                     }
                 });
             })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
+                rootStore.setInfoBarOpen(true);
+            })
             .finally(() => {
                 rootStore.setBusy(false);
             });
@@ -84,16 +88,21 @@ export default class PageStore {
 
     @action
     updatePage(projectId, page, silent) {
-        pageService.updatePage(projectId, page).then(() => {
-            const { rootStore, designerStore } = this.sessionStore;
+        const { rootStore, designerStore } = this.sessionStore;
 
-            designerStore.resetDirty();
+        pageService.updatePage(projectId, page)
+            .then(() => {
+                designerStore.resetDirty();
 
-            if (!silent) {
-                rootStore.setInfoBarMessage('Successfully saved.');
+                if (!silent) {
+                    rootStore.setInfoBarMessage('Successfully saved.');
+                    rootStore.setInfoBarOpen(true);
+                }
+            })
+            .catch(error => {
+                rootStore.setInfoBarMessage(error);
                 rootStore.setInfoBarOpen(true);
-            }
-        });
+            });
     }
 
     @action

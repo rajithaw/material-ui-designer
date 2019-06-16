@@ -1,10 +1,10 @@
 const logger = require('./log-service')('services:project-service');
 const dataService = require('./data-service');
+const ObjectId = require('mongodb').ObjectID;
 
 class ProjectService {
     constructor() {
         this.projects = [];
-        this.ObjectId = require('mongodb').ObjectID;
     }
 
     // CREATE Project
@@ -87,11 +87,16 @@ class ProjectService {
 
         try {
             const db = client.db('mui-designer');
+            const projectFields = { 
+                _id: true, 
+                name: true,
+                isReadOnly: true
+             };
 
             const cursor = db
                 .collection('Projects')
                 .find(jsonParam)
-                .project({ _id: true, name: true });
+                .project(projectFields);
 
             const project = await cursor.toArray();
 
@@ -104,7 +109,9 @@ class ProjectService {
                         projectId: project[0]._id.toString()
                     };
 
-                    project[0].pages = await this.getPages(param, pageFields);
+                    if(pageFields) {
+                        project[0].pages = await this.getPages(param, pageFields);
+                    }
                     project[0].contents = await this.getContents(param, {});
                 }
 
@@ -275,7 +282,7 @@ class ProjectService {
         dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
-                .find({ _id: this.ObjectId(jsonData.projectId) })
+                .find({ _id: ObjectId(jsonData.projectId) })
                 .project({ name: true });
 
             cursor.toArray((err, project) => {
@@ -302,7 +309,7 @@ class ProjectService {
         dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
-                .find({ _id: this.ObjectId(jsonData.filter.projectId) })
+                .find({ _id: ObjectId(jsonData.filter.projectId) })
                 .project({ name: true });
 
             cursor.toArray((err, project) => {
@@ -387,6 +394,22 @@ class ProjectService {
         }
 
         return project;
+    }
+
+    // Returns true if the project is read only
+    async isReadOnlyProject(projectId) {
+        let result = false;
+        const jsonParam = {
+            _id: ObjectId(projectId)
+        };
+
+        const project = await this.getProject(jsonParam);
+
+        if(project) {
+            result = !!project.isReadOnly;
+        }
+
+        return result;
     }
 
     replace_Id(object) {
