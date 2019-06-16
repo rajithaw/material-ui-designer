@@ -1,43 +1,15 @@
-const MongoClient = require('mongodb').MongoClient;
 const logger = require('./log-service')('services:project-service');
+const dataService = require('./data-service');
 
 class ProjectService {
     constructor() {
         this.projects = [];
         this.ObjectId = require('mongodb').ObjectID;
-        this.muiDesignerMongoUrl = process.env.MONGO_DB_URL || 'mongodb://username:password@ds135207.mlab.com:35207/mui-designer';
-    }
-
-    // Connect to DB
-    connectToDb(callBack) {
-        MongoClient.connect(
-            this.muiDesignerMongoUrl,
-            { useNewUrlParser: true },
-            function(err, client) {
-                const db = client.db('mui-designer');
-                callBack(db);
-                client.close();
-            }
-        );
-    }
-
-    // Get database client
-    async getDbClient() {
-        const client = new MongoClient(this.muiDesignerMongoUrl, { useNewUrlParser: true });
-
-        try {
-            await client.connect();
-            return client;
-        }
-        catch(err) {
-            logger.logError(err);
-            throw err;
-        }
     }
 
     // CREATE Project
     async createProject(jsonData) {
-        const client = await this.getDbClient();
+        const client = await dataService.getDbClient();
 
         try {
             const db = client.db('mui-designer');
@@ -71,7 +43,7 @@ class ProjectService {
         // Delete pages
         this.deletePages({ projectId: jsonParam._id.toString() }, () => {});
 
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             // Query first to get the name
             const cursor = db
                 .collection('Projects')
@@ -85,7 +57,7 @@ class ProjectService {
                     jsonParam.name = project.name;
                 }
 
-                this.connectToDb(db => {
+                dataService.connectToDb(db => {
                     db.collection('Projects').deleteOne(jsonParam, err => {
                         callback(err, { id: jsonParam._id });
                     });
@@ -96,7 +68,7 @@ class ProjectService {
 
     // GET Projects
     getProjects(callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
                 .find()
@@ -111,7 +83,7 @@ class ProjectService {
 
     // GET a Project
     async getProject(jsonParam, pageFields) {
-        const client = await this.getDbClient();
+        const client = await dataService.getDbClient();
 
         try {
             const db = client.db('mui-designer');
@@ -150,7 +122,7 @@ class ProjectService {
 
     // GET Pages
     async getPages(jsonParam, returnFields) {
-        const client = await this.getDbClient();
+        const client = await dataService.getDbClient();
 
         try {
             const db = client.db('mui-designer');
@@ -175,7 +147,7 @@ class ProjectService {
 
     // ADD a Page
     async addPage(jsonData) {
-        const client = await this.getDbClient();
+        const client = await dataService.getDbClient();
         
         // Set the component name to be used. Has to be unique globally for shared pages.
         //Has to be unique within project for regular pages.
@@ -222,7 +194,7 @@ class ProjectService {
 
     // DELETE Delete a page
     deletePage(jsonParam, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             db.collection('Pages').deleteOne(jsonParam, err => {
                 callback(err, { id: jsonParam._id.toString() });
             });
@@ -231,7 +203,7 @@ class ProjectService {
 
     // DELETE Delete Pages
     deletePages(jsonParam, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             db.collection('Pages').deleteMany(jsonParam, (err, result) => {
                 callback(err, result);
             });
@@ -240,7 +212,7 @@ class ProjectService {
 
     // UPDATE update a page
     updatePage(jsonData, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             db.collection('Pages').updateOne(
                 jsonData.filter,
                 { $set: jsonData.data },
@@ -253,7 +225,7 @@ class ProjectService {
 
     // GET Contents
     async getContents(jsonParam, returnFields) {
-        const client = await this.getDbClient();
+        const client = await dataService.getDbClient();
 
         try {
             const db = client.db('mui-designer');
@@ -284,7 +256,7 @@ class ProjectService {
     }
 
     getContent(jsonParam, returnFields, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             const cursor = db
                 .collection('Contents')
                 .find(jsonParam)
@@ -300,7 +272,7 @@ class ProjectService {
     // ADD a Content
     addContent(jsonData, callback) {
         // Check first if the project exists
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
                 .find({ _id: this.ObjectId(jsonData.projectId) })
@@ -309,7 +281,7 @@ class ProjectService {
             cursor.toArray((err, project) => {
                 if (project.length > 0) {
                     // Insert the content
-                    this.connectToDb(db => {
+                    dataService.connectToDb(db => {
                         db.collection('Contents').insertOne(
                             jsonData,
                             (err, result) => {
@@ -327,7 +299,7 @@ class ProjectService {
     // PUT Content
     updateContent(jsonData, callback) {
         // Check first if the project exists
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
                 .find({ _id: this.ObjectId(jsonData.filter.projectId) })
@@ -336,7 +308,7 @@ class ProjectService {
             cursor.toArray((err, project) => {
                 if (project.length > 0) {
                     // Insert the content
-                    this.connectToDb(db => {
+                    dataService.connectToDb(db => {
                         db.collection('Contents').updateOne(
                             jsonData.filter,
                             {
@@ -359,7 +331,7 @@ class ProjectService {
 
     // DELETE Delete a content
     deleteContent(jsonParam, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             db.collection('Contents').deleteOne(jsonParam, err => {
                 callback(err, { name: jsonParam.name });
             });
@@ -368,7 +340,7 @@ class ProjectService {
 
     // DELETE Delete Contents
     deleteContents(jsonParam, callback) {
-        this.connectToDb(db => {
+        dataService.connectToDb(db => {
             db.collection('Contents').deleteMany(jsonParam, (err, result) => {
                 callback(err, result);
             });
