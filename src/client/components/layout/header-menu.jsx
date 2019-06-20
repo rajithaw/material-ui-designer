@@ -16,7 +16,7 @@ const styles = {
     }
 };
 
-@inject('projectStore')
+@inject('authStore', 'projectStore')
 @observer
 class HeaderMenu extends React.Component {
     state = {
@@ -47,6 +47,9 @@ class HeaderMenu extends React.Component {
                     onClick={this.handleClose}
                     onClose={this.handleClose}
                 >
+                    <MenuItem onClick={this.loginHandler}>Log in</MenuItem>
+                    <MenuItem onClick={this.logoutHandler}>Log out</MenuItem>
+                    <Divider/>
                     <MenuItem onClick={this.createProjectHandler}>Project List</MenuItem>
                     <MenuItem
                         component="a"
@@ -72,6 +75,14 @@ class HeaderMenu extends React.Component {
         this.setState({ anchorEl: null });
     };
 
+    loginHandler = () => {
+        this.props.authStore.loginWithPopup();
+    };
+
+    logoutHandler = () => {
+        this.props.authStore.logout();
+    };
+
     createProjectHandler = () => {
         this.props.projectStore.setProjectsDialogOpen(true);
     };
@@ -82,6 +93,7 @@ class HeaderMenu extends React.Component {
 
 HeaderMenu.propTypes = {
     classes: PropTypes.object.isRequired,
+    authStore: PropTypes.object,
     projectStore: PropTypes.object
 }
 

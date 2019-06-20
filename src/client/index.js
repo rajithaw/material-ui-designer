@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
+import AuthProvider from '../client/components/authentication/auth-provider';
 import AppMain from "./components/app-main";
 import SessionStore from "./stores/session.store";
 import LoadingSpinner from './components/loading-spinner';
@@ -21,17 +22,19 @@ class Root extends React.Component {
         };
         return (
             <Provider {...stores}>
-                <ThemeProvider theme={theme}>
-                    <React.Fragment>
-                        <BrowserRouter>
-                            <Switch>
-                                <Route exact path="/" component={appMain} />
-                            </Switch>
-                        </BrowserRouter>
-                        <LoadingSpinner />
-                        <InfoBar />
-                    </React.Fragment>
-                </ThemeProvider>
+                <AuthProvider>
+                    <ThemeProvider theme={theme}>
+                        <React.Fragment>
+                            <BrowserRouter>
+                                <Switch>
+                                    <Route exact path="/" component={appMain} />
+                                </Switch>
+                            </BrowserRouter>
+                            <LoadingSpinner />
+                            <InfoBar />
+                        </React.Fragment>
+                    </ThemeProvider>
+                </AuthProvider>
             </Provider>
         );
     }

@@ -1,6 +1,6 @@
 {
     "name": "material-ui-designer",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Material UI Designer",
     "main": "index.js",
     "scripts": {
@@ -14,6 +14,7 @@
     "author": "Rajitha Wimalasooriya",
     "license": "MIT",
     "dependencies": {
+        "@auth0/auth0-spa-js": "^1.0.0",
         "@babel/core": "^7.4.5",
         "@babel/polyfill": "^7.4.4",
         "@material-ui/core": "^4.1.1",

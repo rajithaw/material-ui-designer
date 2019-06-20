@@ -11,6 +11,7 @@ import DesignerToolbar from '../designer/designer-toolbar';
 import ProjectToolbar from '../project/project-toolbar';
 import PagesToolbar from '../pages/pages-toolbar';
 import VerticalDivider from '../vertical-divider';
+import ProfileToolbar from '../authentication/profile-toolbar';
 
 const styles = theme => ({
     appBar: {
@@ -49,6 +50,7 @@ class Header extends React.Component {
                     <VerticalDivider />
                     <DesignerToolbar />
                     <VerticalDivider />
+                    <ProfileToolbar />
                     <HeaderMenu />
                 </Toolbar>
             </AppBar>
