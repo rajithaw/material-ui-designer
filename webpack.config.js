@@ -71,5 +71,8 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.jsx']
-    }
+    },
+    node: {
+        fs: "empty"     // Resolve webpack issue - babel transform Module not found: Error: Can't resolve 'fs'
+     }
 };

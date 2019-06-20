@@ -1,7 +1,8 @@
 import React from 'react';
 import { observable, action, computed } from 'mobx';
 import jsonQ from 'jsonq';
-import JsxParser from 'jsx-parser';
+import { transform } from '@babel/core';
+import jsxTransform from 'babel-plugin-jsx-to-object';
 
 import { ComponentPosition, ContentType } from '../enums';
 import { componentMap } from '../constants/component-map';
@@ -154,11 +155,23 @@ export default class DesignerStore {
         return result;
     }
 
+    convertJsxStringToComponentDefinition(jsx) {
+        let result = null;
+
+        if(jsx) {
+            const code = transform(jsx, { plugins: [ [jsxTransform] ] }).code;
+            const jsonCode = code.substr(1, code.length - 3);
+            result = JSON.parse(jsonCode);
+        }
+
+        return result;
+    }
+
     createComponentsFromJsxString(jsx) {
         let result = null;
 
         if(jsx) {
-            const definition = JsxParser(jsx);
+            const definition = this.convertJsxStringToComponentDefinition(jsx);
             result = this.createComponents(definition);
         }
         
@@ -168,7 +181,7 @@ export default class DesignerStore {
     createComponents(definition) {
         return React.createElement(
             componentMap[definition.type] || definition.type,
-            definition.props,
+            definition.attributes,
             this.createChildren(definition.children)
         );
     }
@@ -176,8 +189,15 @@ export default class DesignerStore {
     createChildren(children) {
         let result = children;
 
-        if ((typeof children) !== 'string') {
-            const childComponents = children.map(c => this.createComponents(c));
+        if(Array.isArray(children)) {
+            const childComponents = children.map(c => { 
+                if(typeof(c) === 'string') {
+                    return c;
+                }
+                else {
+                    return this.createComponents(c); 
+                }
+            });
             result = childComponents.length > 1 ? childComponents : childComponents[0];
         }
 

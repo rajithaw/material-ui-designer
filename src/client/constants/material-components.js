@@ -164,7 +164,7 @@ export const materialComponents = {
         name: 'BottomNavigationAction',
         displayName: 'Bottom Navigation Action',
         icon: <BottomNavigationActionIcon />,
-        properties: ['name', 'label', 'showLabel', 'value', 'style'],
+        properties: ['name', 'icon', 'label', 'showLabel', 'value', 'style'],
         designerDefinition: {
             component: 'BottomNavigationAction',
             props: {    // Children not supported by bottom navigation action

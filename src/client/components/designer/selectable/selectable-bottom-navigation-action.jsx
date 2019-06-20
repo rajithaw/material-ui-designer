@@ -18,13 +18,15 @@ const styles = {
 @observer
 class SelectableBottomNavigationAction extends React.Component {
     render() {
-        const { designerStore, classes, style, ...other } = this.props;
+        const { designerStore, classes, style, icon, ...other } = this.props;
         const selected = this.props.id === designerStore.selectedComponentId;
+        const iconDefinition = designerStore.createComponentsFromJsxString(icon);
 
         return (
             <BottomNavigationAction
                 className={classNames(classes.selectable, { [classes.selected]: selected })}
                 style={{ ...style }}
+                icon={iconDefinition}
                 {...other}
                 onClick={this.handleClick}
             />
@@ -44,7 +46,7 @@ SelectableBottomNavigationAction.propTypes = {
     designerStore: PropTypes.object,
     id: PropTypes.string,
     style: PropTypes.any,
-    children: PropTypes.any
+    icon: PropTypes.any
 }
 
 export default withStyles(styles)(SelectableBottomNavigationAction);

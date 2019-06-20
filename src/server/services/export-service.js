@@ -4,7 +4,8 @@ const { join } = require('path');
 const { format } = require('util');
 const archiver = require('archiver');
 const ObjectId = require('mongodb').ObjectID;
-const JsxParser = require('../../../node_modules/jsx-parser/index.umd');
+const { transform } = require('@babel/core');
+const jsxTransform = require('babel-plugin-jsx-to-object');
 
 const logger = require('./log-service')('services:export-service');
 const projectService = require('./project-service');
@@ -288,16 +289,30 @@ class ExportService {
         let result = '';
 
         if(propValue.startsWith('<')) {
+            const definition = this.convertJsxStringToComponentDefinition(propValue);
             // Add components in property values to the component set to generate imports later.
-            this.addPropertyComponents(JsxParser(propValue), componentSet);
+            this.addPropertyComponents(definition, componentSet);
             result = `{${propValue}}`;
         }
 
         if(propValue.startsWith('render#')) {
             const renderValue = propValue.split('#')[1];
-            this.addPropertyComponents(JsxParser(renderValue), componentSet);
+            const definition = this.convertJsxStringToComponentDefinition(renderValue);
+            this.addPropertyComponents(definition, componentSet);
 
             result = `{()=>${renderValue}}`;
+        }
+
+        return result;
+    }
+
+    convertJsxStringToComponentDefinition(jsx) {
+        let result = null;
+
+        if(jsx) {
+            const code = transform(jsx, { plugins: [ [jsxTransform] ] }).code;
+            const jsonCode = code.substr(1, code.length - 3);
+            result = JSON.parse(jsonCode);
         }
 
         return result;
