@@ -77,18 +77,28 @@ class ProjectService {
     }
 
     // GET Projects
-    getProjects(callback) {
-        dataService.connectToDb(db => {
-            const cursor = db
+    async getProjects() {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            const cursor = await db
                 .collection('Projects')
                 .find()
                 .sort({ name: 1 })
                 .project();
 
-            cursor.toArray((err, docs) => {
-                callback(null, replaceId(docs));
-            });
-        });
+            const projects = await cursor.toArray();
+            return replaceId(projects);
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }   
     }
 
     // GET a Project
@@ -157,20 +167,20 @@ class ProjectService {
     }
 
     // ADD a Page
-    async addPage(jsonData) {
+    async addPage(pageData) {
         const client = await dataService.getDbClient();
         
         // Set the component name to be used. Has to be unique globally for shared pages.
         //Has to be unique within project for regular pages.
-        jsonData.componentName = generateComponentName(jsonData.name);
+        pageData.componentName = generateComponentName(pageData.name);
 
         try {
             const db = client.db('mui-designer');
 
-            if(jsonData.isShared) {
+            if(pageData.isShared) {
                 const cursor = await db
                         .collection('Pages')
-                        .find({componentName: jsonData.componentName})
+                        .find({componentName: pageData.componentName})
                         .limit(1)
                         .toArray();
                 const count = cursor.length;    // Workaround for cosmos db not supporting count query on non shard key
@@ -182,7 +192,7 @@ class ProjectService {
             else {
                 const count = await db
                         .collection('Pages')
-                        .find({projectId: jsonData.projectId, componentName: jsonData.componentName})
+                        .find({projectId: pageData.projectId, componentName: pageData.componentName})
                         .limit(1)
                         .count(true);
 
@@ -191,7 +201,7 @@ class ProjectService {
                 }
             }
 
-            const result = await db.collection('Pages').insertOne(jsonData);
+            const result = await db.collection('Pages').insertOne(pageData);
             return replaceId(result.ops[0]);
         }
         catch(err) {
@@ -204,12 +214,25 @@ class ProjectService {
     }
 
     // DELETE Delete a page
-    deletePage(jsonParam, callback) {
-        dataService.connectToDb(db => {
-            db.collection('Pages').deleteOne(jsonParam, err => {
-                callback(err, { id: jsonParam._id.toString() });
-            });
-        });
+    async deletePage(filter) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            await db.collection('Pages').deleteOne(filter);
+
+            return { 
+                id: filter._id.toString() 
+            };
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // DELETE Delete Pages
@@ -232,16 +255,26 @@ class ProjectService {
     }
 
     // UPDATE update a page
-    updatePage(jsonData, callback) {
-        dataService.connectToDb(db => {
-            db.collection('Pages').updateOne(
-                jsonData.filter,
-                { $set: jsonData.data },
-                (err, result) => {
-                    callback(err, result);
-                }
-            );
-        });
+    async updatePage(filter, pageData) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            const result = await db.collection('Pages').updateOne(
+                filter,
+                { 
+                    $set: pageData 
+                });
+            return result;
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // GET Contents

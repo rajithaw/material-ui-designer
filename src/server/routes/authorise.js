@@ -18,12 +18,9 @@ const jwtCheck = jwt({
     algorithms: ['RS256']
 });
 
-/* POST create project. */
-router.post('/projects', jwtCheck);
-
-router.delete('/projects/:id', jwtCheck, async (req, res, next) => {
+const projectAccessCheck = (projectIdParamName) => async (req, res, next) => {
     const projectFilter = {
-        _id: ObjectId(req.params.id)
+        _id: ObjectId(req.params[projectIdParamName])
     }
 
     const project = await projectService.getProject(projectFilter, null, null);
@@ -37,6 +34,30 @@ router.delete('/projects/:id', jwtCheck, async (req, res, next) => {
     else {
         next();
     }
-});
+};
+
+// POST create project
+router.post('/projects', jwtCheck);
+
+// DELETE delete project
+router.delete('/projects/:id', jwtCheck, projectAccessCheck('id'));
+
+// POST Add page
+router.post('/projects/:projectId/pages', jwtCheck, projectAccessCheck('projectId'));
+
+// POST Delete page
+router.delete('/projects/:projectId/pages/:id', jwtCheck, projectAccessCheck('projectId'));
+
+// PUT Update page
+router.put('/projects/:projectId/pages/:id', jwtCheck, projectAccessCheck('projectId'));
+
+// POST Create content
+router.post('/projects/:projectId/contents', jwtCheck, projectAccessCheck('projectId'));
+
+// DELETE Delete content
+router.delete('/projects/:projectId/contents/:id', jwtCheck, projectAccessCheck('projectId'));
+
+// PUT Update content
+router.put('/projects/:projectId/contents/:id', jwtCheck, projectAccessCheck('projectId'));
 
 module.exports = router;

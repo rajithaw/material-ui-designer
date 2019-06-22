@@ -33,14 +33,13 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 /* GET Get projects list. */
-router.get('/', (req, res, next) => {
-    projectService.getProjects((err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.json(result);
-        }
-    });
+router.get('/', async (req, res, next) => {
+    try {
+        const result = await projectService.getProjects();
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* GET Get a specific project */
@@ -64,13 +63,13 @@ router.get('/:id', async (req, res, next) => {
 
 /* POST Create a page */
 router.post('/:projectId/pages', async (req, res, next) => {
-    const jsonData = req.body;
+    const pageData = req.body;
 
     //Add projectId
-    jsonData.projectId = req.params.projectId;
+    pageData.projectId = req.params.projectId;
 
     try {
-        const result = await projectService.addPage(jsonData);
+        const result = await projectService.addPage(pageData);
         res.json(result);
     } catch (err) {
         next(err);
@@ -78,19 +77,18 @@ router.post('/:projectId/pages', async (req, res, next) => {
 });
 
 /* DELETE Delete a page */
-router.delete('/:projectId/pages/:id', (req, res, next) => {
-    const jsonParam = {
+router.delete('/:projectId/pages/:id', async (req, res, next) => {
+    const pageFilter = {
         _id: ObjectId(req.params.id),
         projectId: req.params.projectId
     };
 
-    projectService.deletePage(jsonParam, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.json(result);
-        }
-    });
+    try {
+        const result = await projectService.deletePage(pageFilter);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* GET Get pages */
@@ -136,22 +134,21 @@ router.get('/:projectId/pages/:id', async (req, res, next) => {
 });
 
 /* PUT Update a page */
-router.put('/:projectId/pages/:id', (req, res, next) => {
-    const jsonData = {
-        filter: {
-            _id: ObjectId(req.params.id),
-            projectId: req.params.projectId
-        },
-        data: { definition: req.body.definition }
+router.put('/:projectId/pages/:id', async (req, res, next) => {
+    const filter = {
+        _id: ObjectId(req.params.id),
+        projectId: req.params.projectId
+    };
+    const pageData = { 
+        definition: req.body.definition 
     };
 
-    projectService.updatePage(jsonData, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.json(result);
-        }
-    });
+    try {
+        const result = await projectService.updatePage(filter, pageData);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* POST Create a content */
