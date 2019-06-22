@@ -1,21 +1,25 @@
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const helmet = require("helmet");
 
-var readOnlyRouter = require('./routes/readonly');
-var projectsRouter = require('./routes/projects');
-var componentsRouter = require('./routes/components');
-var exportRouter = require('./routes/export');
+const authoriseRouter = require('./routes/authorise');
+//const readOnlyRouter = require('./routes/readonly');
+const projectsRouter = require('./routes/projects');
+const componentsRouter = require('./routes/components');
+const exportRouter = require('./routes/export');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json({limit: '5mb'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
 
 app.use(express.static('public'));
-app.use('/', readOnlyRouter);
+app.use('/api', authoriseRouter);
+//app.use('/', readOnlyRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/components', componentsRouter);
 app.use('/api/export', exportRouter);

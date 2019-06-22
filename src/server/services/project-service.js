@@ -3,12 +3,9 @@ const dataService = require('./data-service');
 const ObjectId = require('mongodb').ObjectID;
 
 class ProjectService {
-    constructor() {
-        this.projects = [];
-    }
 
-    // CREATE Project
-    async createProject(jsonData) {
+    // Create Project
+    async createProject(user, projectData) {
         const client = await dataService.getDbClient();
 
         try {
@@ -17,12 +14,16 @@ class ProjectService {
             // Validate project name
             const count = await db
                 .collection('Projects')
-                .find({name: jsonData.name})
+                .find({name: projectData.name})
                 .limit(1)
                 .count(true);
 
             if(count === 0) {
-                const result = await db.collection('Projects').insertOne(jsonData);
+                const result = await db.collection('Projects').insertOne({
+                    ...projectData,
+                    createdByUser: user.sub,
+                    createdDate: new Date()
+                });
                 return this.replace_Id(result.ops[0]);
             }
             else {
@@ -38,32 +39,39 @@ class ProjectService {
         }
     }
 
-    // DELETE Project
-    deleteProject(jsonParam, callback) {
-        // Delete pages
-        this.deletePages({ projectId: jsonParam._id.toString() }, () => {});
+    // Delete Project
+    async deleteProject(filter) {
+        const client = await dataService.getDbClient();
 
-        dataService.connectToDb(db => {
+        try {
+            const pagesFilter = { 
+                projectId: filter._id.toString() 
+            };
+            // Delete pages
+            await this.deletePages(pagesFilter);
+
+            const db = client.db('mui-designer');
+
             // Query first to get the name
-            const cursor = db
-                .collection('Projects')
-                .find(jsonParam)
-                .project({ name: true });
+            const project = await db.collection('Projects')
+                .findOne(filter, { name: true });
 
-            cursor.toArray((err, project) => {
-                if (project.length > 0) {
-                    jsonParam.name = project[0].name;
-                } else {
-                    jsonParam.name = project.name;
-                }
+            if(project) {
+                filter.name = project.name;
+                await db.collection('Projects').deleteOne(filter);
+            }
 
-                dataService.connectToDb(db => {
-                    db.collection('Projects').deleteOne(jsonParam, err => {
-                        callback(err, { id: jsonParam._id });
-                    });
-                });
-            });
-        });
+            return { 
+                id: filter._id 
+            };
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // GET Projects
@@ -73,7 +81,7 @@ class ProjectService {
                 .collection('Projects')
                 .find()
                 .sort({ name: 1 })
-                .project({ name: true });
+                .project();
 
             cursor.toArray((err, docs) => {
                 callback(null, this.replace_Id(docs));
@@ -82,41 +90,35 @@ class ProjectService {
     }
 
     // GET a Project
-    async getProject(jsonParam, pageFields) {
+    async getProject(projectFilter, pageFields, contentFields) {
         const client = await dataService.getDbClient();
 
         try {
             const db = client.db('mui-designer');
-            const projectFields = { 
-                _id: true, 
-                name: true,
-                isReadOnly: true
-             };
 
-            const cursor = db
+            const project = await db
                 .collection('Projects')
-                .find(jsonParam)
-                .project(projectFields);
+                .findOne(projectFilter);
 
-            const project = await cursor.toArray();
-
-            if(project.length === 0) {
+            if(!project) {
                 throw { message: 'Project not found'};
             }
-            else {
-                if (project.length > 0) {
-                    const param = {
-                        projectId: project[0]._id.toString()
-                    };
 
-                    if(pageFields) {
-                        project[0].pages = await this.getPages(param, pageFields);
-                    }
-                    project[0].contents = await this.getContents(param, {});
-                }
+            const filter = {
+                projectId: project._id.toString()
+            };
 
-                return this.replace_Id(project[0]);
+            if(pageFields !== null) {
+                pageFields = pageFields || {};
+                project.pages = await this.getPages(filter, pageFields);
             }
+
+            if(contentFields !== null) {
+                contentFields = contentFields || {};
+                project.contents = await this.getContents(filter, contentFields);
+            }
+
+            return this.replace_Id(project);
         }
         catch(err) {
             logger.logError(err);
@@ -128,7 +130,7 @@ class ProjectService {
     }
 
     // GET Pages
-    async getPages(jsonParam, returnFields) {
+    async getPages(filter, fields) {
         const client = await dataService.getDbClient();
 
         try {
@@ -136,9 +138,9 @@ class ProjectService {
 
             const cursor = db
                 .collection('Pages')
-                .find(jsonParam)
+                .find(filter)
                 .sort({ name: 1 })
-                .project(returnFields);
+                .project(fields);
 
             const pages = await cursor.toArray();
             return this.replace_Id(pages);
@@ -209,12 +211,22 @@ class ProjectService {
     }
 
     // DELETE Delete Pages
-    deletePages(jsonParam, callback) {
-        dataService.connectToDb(db => {
-            db.collection('Pages').deleteMany(jsonParam, (err, result) => {
-                callback(err, result);
-            });
-        });
+    async deletePages(filter) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            const result = db.collection('Pages').deleteMany(filter);
+            return result;
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // UPDATE update a page
@@ -231,7 +243,7 @@ class ProjectService {
     }
 
     // GET Contents
-    async getContents(jsonParam, returnFields) {
+    async getContents(filter, fields) {
         const client = await dataService.getDbClient();
 
         try {
@@ -239,8 +251,8 @@ class ProjectService {
 
             const cursor = db
                 .collection('Contents')
-                .find(jsonParam)
-                .project(returnFields);
+                .find(filter)
+                .project(fields);
 
             const contents = await cursor.toArray();
             const result = this.replace_Id(contents).map(c => {

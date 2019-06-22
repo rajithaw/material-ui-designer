@@ -21,7 +21,8 @@ export default class AuthStore {
         const onRedirectCallback = (config && config.onRedirectCallback) || DEFAULT_REDIRECT_CALLBACK;
         this.auth0Client = await createAuth0Client({
             domain: authConfig.domain, 
-            client_id: authConfig.clientId
+            client_id: authConfig.clientId,
+            audience: authConfig.audience
         });
 
         if (window.location.search.includes("code=")) {

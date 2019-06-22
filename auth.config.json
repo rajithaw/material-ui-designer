@@ -1,4 +1,5 @@
 {
     "domain": "material-ui-designer.au.auth0.com",
-    "clientId": "lGORTSsPPg9Dhd13tvUN2GtJyCNWRV8d"
+    "clientId": "lGORTSsPPg9Dhd13tvUN2GtJyCNWRV8d",
+    "audience": "https://material-ui-designer-api"
 }

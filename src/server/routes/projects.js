@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const projectService = require('../services/project-service');
 const ObjectId = require('mongodb').ObjectID;
+
+const projectService = require('../services/project-service');
 
 /* POST create project. */
 router.post('/', async (req, res, next) => {
-    const jsonData = {
+    const projectData = {
         name: req.body.name
     };
 
     try {
-        const result = await projectService.createProject(jsonData);
+        const result = await projectService.createProject(req.user, projectData);
         res.json(result);
     } catch (err) {
         next(err);
@@ -18,18 +19,17 @@ router.post('/', async (req, res, next) => {
 });
 
 /* DELETE Delete a project. */
-router.delete('/:id', (req, res, next) => {
-    const jsonParam = {
+router.delete('/:id', async (req, res, next) => {
+    const projectFilter = {
         _id: ObjectId(req.params.id)
     };
 
-    projectService.deleteProject(jsonParam, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.json(result);
-        }
-    });
+    try {
+        const result = await projectService.deleteProject(projectFilter);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* GET Get projects list. */
@@ -45,7 +45,7 @@ router.get('/', (req, res, next) => {
 
 /* GET Get a specific project */
 router.get('/:id', async (req, res, next) => {
-    const jsonParam = {
+    const projectFilter = {
         _id: ObjectId(req.params.id)
     };
     const pageFields = {
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res, next) => {
     };
 
     try {
-        const result = await projectService.getProject(jsonParam, pageFields);
+        const result = await projectService.getProject(projectFilter, pageFields);
         res.json(result);
     } catch (err) {
         next(err);

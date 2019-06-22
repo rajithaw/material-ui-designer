@@ -24,7 +24,7 @@ class ProfileToolbar extends React.Component {
         return (
             <div >
                 <Typography variant="subtitle1" className={classes.toolbarContent}>
-                    { authStore.isAuthenticated ? authStore.user.name : '' }
+                    { authStore.isAuthenticated && authStore.user ? authStore.user.name : '' }
                 </Typography>
             </div>
         );

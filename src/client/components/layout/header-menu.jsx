@@ -80,7 +80,9 @@ class HeaderMenu extends React.Component {
     };
 
     logoutHandler = () => {
-        this.props.authStore.logout();
+        this.props.authStore.logout({
+            returnTo: window.location.origin
+        });
     };
 
     createProjectHandler = () => {
