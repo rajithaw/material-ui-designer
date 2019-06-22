@@ -2,6 +2,8 @@ const logger = require('./log-service')('services:project-service');
 const dataService = require('./data-service');
 const ObjectId = require('mongodb').ObjectID;
 
+const { replaceId, generateComponentName } = require('../helpers');
+
 class ProjectService {
 
     // Create Project
@@ -24,7 +26,7 @@ class ProjectService {
                     createdByUser: user.sub,
                     createdDate: new Date()
                 });
-                return this.replace_Id(result.ops[0]);
+                return replaceId(result.ops[0]);
             }
             else {
                 throw { message: "Project already exists"};
@@ -84,7 +86,7 @@ class ProjectService {
                 .project();
 
             cursor.toArray((err, docs) => {
-                callback(null, this.replace_Id(docs));
+                callback(null, replaceId(docs));
             });
         });
     }
@@ -118,7 +120,7 @@ class ProjectService {
                 project.contents = await this.getContents(filter, contentFields);
             }
 
-            return this.replace_Id(project);
+            return replaceId(project);
         }
         catch(err) {
             logger.logError(err);
@@ -143,7 +145,7 @@ class ProjectService {
                 .project(fields);
 
             const pages = await cursor.toArray();
-            return this.replace_Id(pages);
+            return replaceId(pages);
         }
         catch(err) {
             logger.logError(err);
@@ -160,7 +162,7 @@ class ProjectService {
         
         // Set the component name to be used. Has to be unique globally for shared pages.
         //Has to be unique within project for regular pages.
-        jsonData.componentName = this.generateComponentName(jsonData.name);
+        jsonData.componentName = generateComponentName(jsonData.name);
 
         try {
             const db = client.db('mui-designer');
@@ -190,7 +192,7 @@ class ProjectService {
             }
 
             const result = await db.collection('Pages').insertOne(jsonData);
-            return this.replace_Id(result.ops[0]);
+            return replaceId(result.ops[0]);
         }
         catch(err) {
             logger.logError(err);
@@ -255,7 +257,7 @@ class ProjectService {
                 .project(fields);
 
             const contents = await cursor.toArray();
-            const result = this.replace_Id(contents).map(c => {
+            const result = replaceId(contents).map(c => {
                 if (c.type === 1) {
                     c.content = '';
                 }
@@ -281,7 +283,7 @@ class ProjectService {
                 .find(jsonParam)
                 .project(returnFields);
             cursor.toArray((err, contents) => {
-                const result = this.replace_Id(contents);
+                const result = replaceId(contents);
                 callback(err, result[0]);
                 return result;
             });
@@ -304,7 +306,7 @@ class ProjectService {
                         db.collection('Contents').insertOne(
                             jsonData,
                             (err, result) => {
-                                callback(err, this.replace_Id(result.ops[0]));
+                                callback(err, replaceId(result.ops[0]));
                             }
                         );
                     });
@@ -406,44 +408,6 @@ class ProjectService {
         }
 
         return project;
-    }
-
-    // Returns true if the project is read only
-    async isReadOnlyProject(projectId) {
-        let result = false;
-        const jsonParam = {
-            _id: ObjectId(projectId)
-        };
-
-        const project = await this.getProject(jsonParam);
-
-        if(project) {
-            result = !!project.isReadOnly;
-        }
-
-        return result;
-    }
-
-    replace_Id(object) {
-        if (object.constructor === Array) {
-            object.forEach(element => {
-                if (element._id) {
-                    element.id = element._id;
-                    delete element['_id'];
-                }
-            });
-        } else {
-            if (object._id) {
-                object.id = object._id;
-                delete object['_id'];
-            }
-        }
-        return object;
-    }
-
-    generateComponentName(pageName) {
-        // eslint-disable-next-line
-        return pageName.replace(/[\s&\/\\#,+\-()$~%.'"`:*?<>{}]/g,'_');
     }
 }
 

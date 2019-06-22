@@ -12,6 +12,7 @@ const projectService = require('./project-service');
 const pageTemplate = require('../templates/page/page-template');
 const componentMap = require('../constants/component-map');
 const { ContentType } = require('../constants/enums');
+const { generateComponentName } = require('../helpers');
 
 const templatesPath = `./templates/`;
 const projectTemplatePath = `${templatesPath}/project/`;
@@ -141,7 +142,7 @@ class ExportService {
     }
 
     createPageFile(page, pagesDir) {
-        writeFileSync(join(pagesDir, `${page.componentName || projectService.generateComponentName(page.name)}.jsx`), page.text);
+        writeFileSync(join(pagesDir, `${page.componentName || generateComponentName(page.name)}.jsx`), page.text);
     }
 
     updatePageIndex(pageIndex, pagesDir) {
@@ -154,7 +155,7 @@ class ExportService {
     }
 
     generatePage(page) {
-        const className = page.componentName || projectService.generateComponentName(page.name);
+        const className = page.componentName || generateComponentName(page.name);
         const componentSet = new Set();
         const sharedComponentSet = new Set();
         const jsxTags = this.generateTags(page.definition, componentSet, sharedComponentSet);
@@ -202,7 +203,7 @@ class ExportService {
                 // Only top level tag and import is generated for shared components. No child tags are generated.
                 const sharedComponent = this.sharedComponents[definition.sharedComponentId];
 
-                component = sharedComponent.componentName || projectService.generateComponentName(sharedComponent.name);
+                component = sharedComponent.componentName || generateComponentName(sharedComponent.name);
                 // Add to the set of unique components
                 sharedComponentSet.add(component);
             }

@@ -4,7 +4,6 @@ const logger = require('morgan');
 const helmet = require("helmet");
 
 const authoriseRouter = require('./routes/authorise');
-//const readOnlyRouter = require('./routes/readonly');
 const projectsRouter = require('./routes/projects');
 const componentsRouter = require('./routes/components');
 const exportRouter = require('./routes/export');
@@ -19,7 +18,6 @@ app.use(helmet());
 
 app.use(express.static('public'));
 app.use('/api', authoriseRouter);
-//app.use('/', readOnlyRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/components', componentsRouter);
 app.use('/api/export', exportRouter);
