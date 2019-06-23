@@ -24,8 +24,8 @@ export default class ComponentStore {
     }
 
     @action
-    getSharedComponents() {
-        componentService.getSharedComponents().then((response) => {
+    getSharedComponents(projectId) {
+        componentService.getSharedComponents(projectId).then((response) => {
             runInAction(() => {
                 this.sharedComponents = response;
             });

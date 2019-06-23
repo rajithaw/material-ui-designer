@@ -243,7 +243,6 @@ class PagesDialog extends React.Component {
     handleAddPageOk = () => {
         const { pageStore, projectStore } = this.props;
         const page = {
-            id: this.state.pageName,
             name: this.state.pageName,
             isShared: this.state.isShared,
         };

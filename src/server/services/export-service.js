@@ -12,7 +12,6 @@ const projectService = require('./project-service');
 const pageTemplate = require('../templates/page/page-template');
 const componentMap = require('../constants/component-map');
 const { ContentType } = require('../constants/enums');
-const { generateComponentName } = require('../helpers');
 
 const templatesPath = `./templates/`;
 const projectTemplatePath = `${templatesPath}/project/`;
@@ -35,8 +34,6 @@ class ExportService {
             this.projectContents = this.transformContents(project.contents);
             // Get shared components
             this.sharedComponents = await this.getSharedComponents(project);
-            // Generate shared component pages
-            this.generateSharedComponents(this.sharedComponents, newTemplateName);
             // Generate pages
             this.generatePages(project, newTemplateName);
 
@@ -63,63 +60,16 @@ class ExportService {
 
     async getSharedComponents(project) {
         const result = {};
-        const sharedComponentSet = new Set();
 
-        try {
-            project.pages.forEach(page => {
-                this.getSharedComponentIds(page.definition, sharedComponentSet);
+        if(project.pages) {
+            project.pages.forEach(p => {
+                if(p.isShared) {
+                    result[p.id.toString()] = p;
+                }
             });
-    
-            const sharedComponentIds = Array.from(sharedComponentSet).map(id => ObjectId(id));
-            const jsonParam = {
-                '_id': {$in:sharedComponentIds}
-            };
-            const returnFields = {
-                'id': true,
-                'name': true,
-                'definition': true,
-                'isShared': true
-            };
-            const pages = await projectService.getPages(jsonParam, returnFields);
-
-            pages.forEach(p => {
-                result[p.id.toString()] = p;
-            });
-
-            return result;
         }
-        catch(err) {
-            logger.logError(err);
-            throw err;
-        }
-    }
-
-    getSharedComponentIds(definition, sharedComponentSet) {
-        if(definition) {
-            const { children } = definition.props;
-
-            if(definition.sharedComponentId) {
-                // Add to the set of unique shared component ids
-                sharedComponentSet.add(definition.sharedComponentId);
-            }
-
-            if(Array.isArray(children)) {
-                children.forEach(c => {
-                    this.getSharedComponentIds(c, sharedComponentSet);
-                });
-            }
-        }
-    }
-
-    generateSharedComponents(sharedComponents, templateName) {
-        const pagesDir = join(__dirname, '..', templatesPath, templateName, 'src/components/pages');
-
-        Object.keys(sharedComponents).forEach(key => {
-            const generatedPage = this.generatePage(sharedComponents[key]);
-
-            // Copy page to the template pages folder
-            this.createPageFile(generatedPage, pagesDir);
-        });
+        
+        return result;
     }
 
     generatePages(project, templateName) {
@@ -142,7 +92,7 @@ class ExportService {
     }
 
     createPageFile(page, pagesDir) {
-        writeFileSync(join(pagesDir, `${page.componentName || generateComponentName(page.name)}.jsx`), page.text);
+        writeFileSync(join(pagesDir, `${page.name}.jsx`), page.text);
     }
 
     updatePageIndex(pageIndex, pagesDir) {
@@ -155,7 +105,7 @@ class ExportService {
     }
 
     generatePage(page) {
-        const className = page.componentName || generateComponentName(page.name);
+        const className = page.componentName;
         const componentSet = new Set();
         const sharedComponentSet = new Set();
         const jsxTags = this.generateTags(page.definition, componentSet, sharedComponentSet);
@@ -169,27 +119,6 @@ class ExportService {
         };
     }
 
-    getComponentList(definition, componentSet) {
-        if(definition) {
-            const component = definition.component;
-            const { children } = definition.props;
-
-            if(definition.sharedComponentId) {
-                // Do not add the components if its a shared component
-                return;
-            }
-
-            // Add to the set of unique components
-            componentSet.add(component);
-
-            if(Array.isArray(children)) {
-                children.forEach(c => {
-                    this.getComponentList(c, componentSet);
-                })
-            }
-        }
-    }
-
     generateTags(definition, componentSet, sharedComponentSet) {
         let result = '<div></div>';
 
@@ -201,9 +130,9 @@ class ExportService {
 
             if(sharedComponentId) {
                 // Only top level tag and import is generated for shared components. No child tags are generated.
-                const sharedComponent = this.sharedComponents[definition.sharedComponentId];
+                const sharedComponent = this.sharedComponents[sharedComponentId];
 
-                component = sharedComponent.componentName || generateComponentName(sharedComponent.name);
+                component = sharedComponent.componentName;
                 // Add to the set of unique components
                 sharedComponentSet.add(component);
             }

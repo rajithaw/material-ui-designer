@@ -2,8 +2,8 @@ import 'whatwg-fetch'
 import { getResponseJson } from '../tools';
 
 class ComponentService {
-    getSharedComponents() {
-        const url = `/api/components?shared=true`;
+    getSharedComponents(projectId) {
+        const url = `/api/components/shared/${projectId}`;
         return fetch(url).then(getResponseJson);
     }
 

@@ -34,14 +34,14 @@ export default class ProjectStore {
 
     @action
     getProject(projectId) {
-        const { rootStore } = this.sessionStore;
+        const { rootStore, pageStore } = this.sessionStore;
 
         rootStore.setBusy(true);
         projectService.getProject(projectId)
             .then(response => {
                 this.setSelectedProject(response);
                 // reset the pages
-                this.sessionStore.pageStore.setSelectedPage({});
+                pageStore.setSelectedPage({});
             })
             .finally(() => {
                 rootStore.setBusy(false);
@@ -96,8 +96,11 @@ export default class ProjectStore {
 
     @action
     setSelectedProject(project) {
+        const { componentStore } = this.sessionStore;
+
         this.selectedProject = project;
         this.setProjectContent(project.contents);
+        componentStore.getSharedComponents(this.selectedProject.id);
     }
 
     @action

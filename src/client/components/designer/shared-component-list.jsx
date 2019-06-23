@@ -13,12 +13,11 @@ import componentService from '../../services/component-service';
 class SharedComponentList extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             sharedComponent: null,
             anchorEl: null
         }
-
-        props.componentStore.getSharedComponents();
     }
     
     render() {

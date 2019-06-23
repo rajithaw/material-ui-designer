@@ -170,35 +170,25 @@ class ProjectService {
     async addPage(pageData) {
         const client = await dataService.getDbClient();
         
-        // Set the component name to be used. Has to be unique globally for shared pages.
-        //Has to be unique within project for regular pages.
+        // Set the component name to be used.
+        // Has to be unique within project.
         pageData.componentName = generateComponentName(pageData.name);
 
         try {
             const db = client.db('mui-designer');
+            const pageFilter = {
+                projectId: pageData.projectId,
+                componentName: pageData.componentName
+            };
 
-            if(pageData.isShared) {
-                const cursor = await db
-                        .collection('Pages')
-                        .find({componentName: pageData.componentName})
-                        .limit(1)
-                        .toArray();
-                const count = cursor.length;    // Workaround for cosmos db not supporting count query on non shard key
+            const count = await db
+                    .collection('Pages')
+                    .find(pageFilter)
+                    .limit(1)
+                    .count(true);
 
-                if(count !== 0) {
-                    throw { message: "Page already exists"};
-                }
-            }
-            else {
-                const count = await db
-                        .collection('Pages')
-                        .find({projectId: pageData.projectId, componentName: pageData.componentName})
-                        .limit(1)
-                        .count(true);
-
-                if(count !== 0) {
-                    throw { message: "Page already exists"};
-                }
+            if(count !== 0) {
+                throw { message: "Page already exists"};
             }
 
             const result = await db.collection('Pages').insertOne(pageData);
