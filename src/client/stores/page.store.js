@@ -44,13 +44,16 @@ export default class PageStore {
 
     @action
     addPage(projectId, page) {
-        const { rootStore } = this.sessionStore;
+        const { rootStore, componentStore } = this.sessionStore;
 
         rootStore.setBusy(true);
         pageService.addPage(projectId, page)
             .then((response) => {
                 runInAction(() => {
                     this.pages.push(response);
+
+                    // Refresh shared components
+                    componentStore.setSharedComponents(this.pages);
                 });
             })
             .catch(error => {
@@ -64,17 +67,26 @@ export default class PageStore {
 
     @action
     deletePage(projectId, pageId) {
-        const { rootStore } = this.sessionStore;
+        const { rootStore, componentStore } = this.sessionStore;
 
         rootStore.setBusy(true);
         pageService.deletePage(projectId, pageId)
             .then((response) => {
                 runInAction(() => {
-                    const index = this.pages.findIndex(p => p.id === response.id);
+                    const deletedPageId = response.id;
+                    const index = this.pages.findIndex(p => p.id === deletedPageId);
 
                     if(index >= 0) {
                         this.pages.splice(index, 1);
                     }
+
+                    if(this.selectedPage.id === deletedPageId) {
+                        // When deleting the selected page set it to empty
+                        this.setSelectedPage({});
+                    }
+
+                    // Refresh shared components
+                    componentStore.setSharedComponents(this.pages);
                 });
             })
             .catch(error => {

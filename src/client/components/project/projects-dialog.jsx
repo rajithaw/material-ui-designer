@@ -76,7 +76,7 @@ class ProjectsDialog extends React.Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleOk} color="primary">
+                        <Button onClick={this.handleOk} color="primary" disabled={!projectStore.currentProject.id}>
                             Open
                         </Button>
                     </DialogActions>

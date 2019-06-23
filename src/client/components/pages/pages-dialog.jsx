@@ -83,7 +83,7 @@ class PagesDialog extends React.Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleOk} color="primary">
+                        <Button onClick={this.handleOk} color="primary" disabled={!pageStore.currentPage.id}>
                             OK
                         </Button>
                     </DialogActions>

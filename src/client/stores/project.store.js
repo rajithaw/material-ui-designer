@@ -34,14 +34,12 @@ export default class ProjectStore {
 
     @action
     getProject(projectId) {
-        const { rootStore, pageStore } = this.sessionStore;
+        const { rootStore } = this.sessionStore;
 
         rootStore.setBusy(true);
         projectService.getProject(projectId)
             .then(response => {
                 this.setSelectedProject(response);
-                // reset the pages
-                pageStore.setSelectedPage({});
             })
             .finally(() => {
                 rootStore.setBusy(false);
@@ -76,12 +74,15 @@ export default class ProjectStore {
         projectService.deleteProject(projectId)
             .then(response => {
                 runInAction(() => {
-                    const index = this.projects.findIndex(
-                        p => p.id === response.id
-                    );
+                    const deletedProjectId = response.id;
+                    const index = this.projects.findIndex(p => p.id === deletedProjectId);
 
                     if (index >= 0) {
                         this.projects.splice(index, 1);
+                    }
+
+                    if(this.selectedProject.id === deletedProjectId) {
+                        this.setSelectedProject({});
                     }
                 });
             })
@@ -96,11 +97,15 @@ export default class ProjectStore {
 
     @action
     setSelectedProject(project) {
-        const { componentStore } = this.sessionStore;
+        const { pageStore, componentStore } = this.sessionStore;
 
         this.selectedProject = project;
         this.setProjectContent(project.contents);
-        componentStore.getSharedComponents(this.selectedProject.id);
+
+        // reset the pages
+        pageStore.setSelectedPage({});
+        // Once the project is selected set the shared components
+        componentStore.setSharedComponents(project.pages);
     }
 
     @action

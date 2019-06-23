@@ -1,7 +1,6 @@
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 import { materialComponents } from '../constants/material-components';
-import componentService from '../services/component-service';
 
 export default class ComponentStore {
     constructor(sessionStore) {
@@ -24,12 +23,9 @@ export default class ComponentStore {
     }
 
     @action
-    getSharedComponents(projectId) {
-        componentService.getSharedComponents(projectId).then((response) => {
-            runInAction(() => {
-                this.sharedComponents = response;
-            });
-        });
+    setSharedComponents(components) {
+        components = components || [];
+        this.sharedComponents = components.filter(p => p.isShared);
     }
 
     @action

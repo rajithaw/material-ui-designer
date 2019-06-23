@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { getResponseJson } from '../tools';
+import { getResponseJson } from '../helpers';
 
 class PageService {
     getPages(projectId) {

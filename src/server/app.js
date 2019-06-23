@@ -5,7 +5,6 @@ const helmet = require("helmet");
 
 const authoriseRouter = require('./routes/authorise');
 const projectsRouter = require('./routes/projects');
-const componentsRouter = require('./routes/components');
 const exportRouter = require('./routes/export');
 
 const app = express();
@@ -19,7 +18,6 @@ app.use(helmet());
 app.use(express.static('public'));
 app.use('/api', authoriseRouter);
 app.use('/api/projects', projectsRouter);
-app.use('/api/components', componentsRouter);
 app.use('/api/export', exportRouter);
 
 // next parameter is required eventhough it is not used

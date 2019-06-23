@@ -6,9 +6,9 @@ import SharedIcon from '@material-ui/icons/Share'
 import jsonQ from 'jsonq';
 
 import { ComponentPosition } from '../../enums';
-import componentService from '../../services/component-service';
+import pageService from '../../services/page-service';
 
-@inject('componentStore', 'designerStore')
+@inject('componentStore', 'designerStore', 'projectStore')
 @observer
 class SharedComponentList extends React.Component {
     constructor(props) {
@@ -79,25 +79,26 @@ class SharedComponentList extends React.Component {
     };
 
     handleMenuItemClick = (position) => () => {
+        const { projectStore } = this.props;
         const { sharedComponent } = this.state;
 
-        componentService.getSharedComponent(sharedComponent.id)
-        .then((component) => {
-            const { designerStore } = this.props;
-            const componentQuery = jsonQ(component.definition);
+        pageService.getPage(projectStore.selectedProject.id, sharedComponent.id)
+            .then((response) => {
+                const { designerStore } = this.props;
+                const componentQuery = jsonQ(response.definition);
 
-            designerStore.resetComponentIds(componentQuery);
-            const childDefinition = componentQuery.firstElm();
+                designerStore.resetComponentIds(componentQuery);
+                const childDefinition = componentQuery.firstElm();
 
-            // If shered component is added by reference, store the id of the shared component.
-            // This id will be used to identify that the component is added by reference.
-            if(!designerStore.addSharedComponentCopy) {
-                childDefinition.sharedComponentId = sharedComponent.id;
-            }
+                // If shered component is added by reference, store the id of the shared component.
+                // This id will be used to identify that the component is added by reference.
+                if(!designerStore.addSharedComponentCopy) {
+                    childDefinition.sharedComponentId = sharedComponent.id;
+                }
 
-            designerStore.addComponentDefinition(designerStore.selectedComponentId, childDefinition, position);
-            this.clearState();
-        });
+                designerStore.addComponentDefinition(designerStore.selectedComponentId, childDefinition, position);
+                this.clearState();
+            });
     };
 
     handleMenuClose = () => {
@@ -115,6 +116,7 @@ class SharedComponentList extends React.Component {
 SharedComponentList.propTypes = {
     designerStore: PropTypes.object,
     componentStore: PropTypes.object,
+    projectStore: PropTypes.object,
     disabled: PropTypes.bool
 }
 
