@@ -34,5 +34,8 @@ npm start
 ```
 ![export project](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/export-project.gif)
 
+## Browser Compatibility
+Currently only Chrome is supported.
+
 ## License
 The files included in this repository are licensed under the [MIT License](https://github.com/rajithaw/material-ui-designer/blob/master/LICENSE)
