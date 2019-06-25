@@ -108,8 +108,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'AppBar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Avatar: {
@@ -120,8 +120,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Avatar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //Backdrop: {
@@ -144,8 +144,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Badge',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     BottomNavigation: {
@@ -156,8 +156,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'BottomNavigation',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     BottomNavigationAction: {
@@ -185,8 +185,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Button',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ButtonBase: {
@@ -198,8 +198,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ButtonBase',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Card: {
@@ -210,8 +210,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Card',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     CardActionArea: {
@@ -222,8 +222,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CardActionArea',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     CardActions: {
@@ -234,8 +234,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CardActions',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     CardContent: {
@@ -246,8 +246,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CardContent',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     CardHeader: {
@@ -258,8 +258,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CardHeader',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     CardMedia: {
@@ -270,8 +270,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CardMedia',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Checkbox: {
@@ -282,8 +282,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Checkbox',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Chip: {
@@ -305,8 +305,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'CircularProgress',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     // {
@@ -329,8 +329,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Collapse',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Dialog: {
@@ -341,8 +341,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Dialog',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     DialogActions: {
@@ -353,8 +353,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'DialogActions',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     DialogContent: {
@@ -365,8 +365,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'DialogContent',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     DialogContentText: {
@@ -377,8 +377,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'DialogContentText',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     DialogTitle: {
@@ -389,8 +389,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'DialogTitle',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Divider: {
@@ -412,8 +412,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Drawer',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ExpansionPanel: {
@@ -424,8 +424,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ExpansionPanel',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ExpansionPanelActions: {
@@ -436,8 +436,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ExpansionPanelActions',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ExpansionPanelDetails: {
@@ -448,8 +448,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ExpansionPanelDetails',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ExpansionPanelSummary: {
@@ -460,8 +460,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ExpansionPanelSummary',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Fab: {
@@ -472,8 +472,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Fab',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Fade: {
@@ -489,8 +489,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Fade',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     FilledInput: {
@@ -502,8 +502,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'FilledInput',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     FormControl: {
@@ -514,8 +514,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'FormControl',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     FormControlLabel: {
@@ -537,32 +537,32 @@ export const materialComponents = {
         designerDefinition: {
             component: 'FormGroup',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     FormHelperText: {
         name: 'FormHelperText',
         displayName: 'FormHelperText',
         icon: <FormHelperTextIcon />,
-        properties: ['name', 'component', 'disabled', 'error', 'filled', 'focused', 'margin', 'required', 'variant', 'style'],
+        properties: ['name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'margin', 'required', 'variant', 'style'],
         designerDefinition: {
             component: 'FormHelperText',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     FormLabel: {
         name: 'FormLabel',
         displayName: 'FormLabel',
         icon: <FormLabelIcon />,
-        properties: ['name', 'component', 'disabled', 'error', 'filled', 'focused', 'required', 'style'],
+        properties: ['name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'required', 'style'],
         designerDefinition: {
             component: 'FormLabel',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Grid: {
@@ -573,8 +573,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Grid',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     GridList: {
@@ -585,8 +585,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'GridList',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     GridListTile: {
@@ -597,8 +597,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'GridListTile',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     GridListTileBar: {
@@ -609,8 +609,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'GridListTileBar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //Grow: {
@@ -633,20 +633,20 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Hidden',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Icon: {
         name: 'Icon',
         displayName: 'Icon',
         icon: <InfoIcon />,
-        properties: ['name', 'text', 'color', 'fontSize', 'style'],
+        properties: ['name', 'text', 'class', 'color', 'fontSize', 'style'],
         designerDefinition: {
             component: 'Icon',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     IconButton: {
@@ -657,8 +657,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'IconButton',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Input: {
@@ -670,8 +670,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Input',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //{
@@ -695,8 +695,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'InputBase',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     InputLabel: {
@@ -707,8 +707,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'InputLabel',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     LinearProgress: {
@@ -719,8 +719,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'LinearProgress',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Link: {
@@ -731,8 +731,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Link',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     List: {
@@ -743,8 +743,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'List',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListItem: {
@@ -755,8 +755,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListItem',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListItemAvatar: {
@@ -773,8 +773,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListItemAvatar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListItemIcon: {
@@ -785,8 +785,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListItemIcon',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListItemSecondaryAction: {
@@ -797,8 +797,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListItemSecondaryAction',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListItemText: {
@@ -809,8 +809,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListItemText',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     ListSubheader: {
@@ -821,8 +821,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'ListSubheader',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Menu: {
@@ -833,8 +833,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Menu',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     MenuItem: {
@@ -845,8 +845,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'MenuItem',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     MenuList: {
@@ -857,8 +857,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'MenuList',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     MobileStepper: {
@@ -869,8 +869,8 @@ export const materialComponents = {
        designerDefinition: {
            component: 'MobileStepper',
            props: {
-               children: []
-           }
+           },
+           children: []
        }
     },
     Modal: {
@@ -888,8 +888,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Modal',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //{
@@ -912,8 +912,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'NativeSelect',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     OutlinedInput: {
@@ -925,8 +925,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'OutlinedInput',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Paper: {
@@ -937,8 +937,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Paper',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Popover: {
@@ -950,8 +950,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Popover',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Popper: {
@@ -962,8 +962,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Popper',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //Portal: {
@@ -986,8 +986,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Radio',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     RadioGroup: {
@@ -998,8 +998,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'RadioGroup',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Select: {
@@ -1011,8 +1011,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Select',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Slide: {
@@ -1028,8 +1028,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Slide',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Snackbar: {
@@ -1046,8 +1046,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Snackbar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     SnackbarContent: {
@@ -1058,8 +1058,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'SnackbarContent',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Step: {
@@ -1070,8 +1070,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Step',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     StepButton: {
@@ -1082,8 +1082,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'StepButton',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     StepConnector: {
@@ -1094,8 +1094,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'StepConnector',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     StepContent: {
@@ -1106,8 +1106,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'StepContent',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     StepIcon: {
@@ -1118,8 +1118,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'StepIcon',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     StepLabel: {
@@ -1130,8 +1130,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'StepLabel',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Stepper: {
@@ -1142,8 +1142,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Stepper',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     SvgIcon: {
@@ -1159,8 +1159,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'SvgIcon',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     SwipeableDrawer: {
@@ -1172,8 +1172,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'SwipeableDrawer',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Switch: {
@@ -1184,8 +1184,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Switch',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Tab: {
@@ -1207,8 +1207,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Table',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableBody: {
@@ -1219,8 +1219,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableBody',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableCell: {
@@ -1231,8 +1231,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableCell',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableFooter: {
@@ -1243,8 +1243,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableFooter',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableHead: {
@@ -1255,8 +1255,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableHead',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TablePagination: {
@@ -1267,8 +1267,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TablePagination',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableRow: {
@@ -1279,8 +1279,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableRow',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TableSortLabel: {
@@ -1291,8 +1291,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TableSortLabel',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Tabs: {
@@ -1303,8 +1303,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Tabs',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     TextField: {
@@ -1316,8 +1316,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'TextField',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Toolbar: {
@@ -1328,8 +1328,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Toolbar',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Tooltip: {
@@ -1347,8 +1347,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Tooltip',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     //{
@@ -1371,8 +1371,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Typography',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     Zoom: {
@@ -1388,8 +1388,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'Zoom',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
 
@@ -1402,8 +1402,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'div',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     img: {
@@ -1425,8 +1425,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'label',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     span: {
@@ -1437,8 +1437,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'span',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     option: {
@@ -1449,8 +1449,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'option',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     path: {
@@ -1461,8 +1461,8 @@ export const materialComponents = {
         designerDefinition: {
             component: 'path',
             props: {
-                children: []
-            }
+            },
+            children: []
         }
     },
     i: {

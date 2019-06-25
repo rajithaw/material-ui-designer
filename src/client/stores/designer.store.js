@@ -79,18 +79,18 @@ export default class DesignerStore {
 
         if (!this.isEmptyPropertyValue(value)) {
             if (propertyName === 'text') {
-                if (typeof (propertiesElm.children) === 'string' || propertiesElm.children.length === 0) {
+                if (typeof (componentElm.children) === 'string' || componentElm.children.length === 0) {
                     // Set the text value if children is a string or an empty array
-                    propertiesElm.children = value;
+                    componentElm.children = value;
                 }
             } else {
                 propertiesElm[propertyName] = this.parsePropertyValue(componentElm.component, propertyName, value);
             }
         } else {
             if (propertyName === 'text') {
-                if (typeof (propertiesElm.children) === 'string') {
+                if (typeof (componentElm.children) === 'string') {
                     // Set empty array value if children is an empty string
-                    propertiesElm.children = [];
+                    componentElm.children = [];
                 }
             } else {
                 delete propertiesElm[propertyName];
@@ -102,7 +102,7 @@ export default class DesignerStore {
         let result = '';
 
         if (propertyName === 'text') {
-            const children = componentDefinitioin.props.children;
+            const children = componentDefinitioin.children;
             result = typeof children === 'string' ? children : '';
         } else {
             result = this.stringifyPropertyValue(componentDefinitioin.props[propertyName]);
@@ -240,7 +240,7 @@ export default class DesignerStore {
             .parent();
         const parentElm = parent.firstElm();
 
-        parentElm.props.children.push(childDefinition);
+        parentElm.children.push(childDefinition);
 
         parent.value(parentElm);
         this.setComponentDefinition(components.firstElm());
@@ -269,16 +269,15 @@ export default class DesignerStore {
         const componentElm = component.firstElm();
         const parent = component
             .parent()
-            .parent()
             .parent();
 
         if (parent.length > 0) {
             const parentElm = parent.firstElm();
 
             // Find the index of the selected component within it's parent's children array
-            let index = jsonQ.index(parentElm.props.children, componentElm);
+            let index = jsonQ.index(parentElm.children, componentElm);
             if (!isBefore) index++;
-            parentElm.props.children.splice(index, 0, siblingDefinition);
+            parentElm.children.splice(index, 0, siblingDefinition);
 
             parent.value(parentElm);
             this.setComponentDefinition(components.firstElm());
@@ -303,15 +302,14 @@ export default class DesignerStore {
         const componentElm = component.firstElm();
         const parent = component
             .parent()
-            .parent()
             .parent();
 
         if (parent.length > 0) {
             const parentElm = parent.firstElm();
 
             // Find the index of the selected component within it's parent's children array
-            let index = jsonQ.index(parentElm.props.children, componentElm);
-            parentElm.props.children.splice(index, 1);
+            let index = jsonQ.index(parentElm.children, componentElm);
+            parentElm.children.splice(index, 1);
 
             parent.value(parentElm);
             this.setComponentDefinition(components.firstElm());

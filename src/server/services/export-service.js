@@ -137,11 +137,9 @@ class ExportService {
                 sharedComponentSet.add(component);
             }
             else {
-                const { children, ...other } = definition.props;
-                
                 component = definition.component;
-                properties = this.generateProperties(other, componentSet);
-                childTags = this.generateChildTags(children, componentSet, sharedComponentSet);
+                properties = this.generateProperties(definition.props, componentSet);
+                childTags = this.generateChildTags(definition.children, componentSet, sharedComponentSet);
 
                 // Add to the set of unique components
                 componentSet.add(component);

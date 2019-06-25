@@ -66,7 +66,7 @@ class ComponentTree extends React.Component {
             active: def.props.id === this.props.designerStore.selectedComponentId,
             toggled: true,
             children: (() => {
-                const children = (def.props || {}).children || [];
+                const children = def.children || [];
                 if(Array.isArray(children)) {
                     return children.map(c => this.transformComponentDefinition(c));
                 }

@@ -58,7 +58,7 @@ class Preview extends React.Component {
         return React.createElement(
             componentMap[def.component] || def.component, 
             previewProps,
-            def.props && def.props.children && this.createChildren(def.component, previewProps.children)
+            def.children && this.createChildren(def.component, def.children)
         );
     };
 

@@ -34,7 +34,7 @@ class Designer extends React.Component {
         return React.createElement(
             designerComponentMap[def.component] || SelectableSpan, 
             def.props,
-            def.props && def.props.children && this.createChildren(def.component, def.props.children)
+            def.children && this.createChildren(def.component, def.children)
         );
     };
 
