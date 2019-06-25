@@ -6424,12 +6424,6 @@
                 "react-to-print": "^2.0.0-alpha.7"
             }
         },
-        "muicons": {
-            "version": "2.0.2",
-            "resolved": "https://registry.npmjs.org/muicons/-/muicons-2.0.2.tgz",
-            "integrity": "sha512-1iL1SCzaCpyyYQj6AxaUI6XaQyUlFRGnH1f1f7OW8r3ckhioVoupkzlynwyPtIXmulsCLVgqRQfhMX+8SaHcOw==",
-            "dev": true
-        },
         "multicast-dns": {
             "version": "6.2.3",
             "resolved": "https://registry.npmjs.org/multicast-dns/-/multicast-dns-6.2.3.tgz",

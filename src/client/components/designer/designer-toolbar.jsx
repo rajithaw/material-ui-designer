@@ -6,19 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
-import ContentCut from 'muicons/dist/ContentCut';
-import ContentCopy from 'muicons/dist/ContentCopy';
-import ClipboardArrowDown from 'muicons/dist/ClipboardArrowDown';
-import ClipboardArrowLeft from 'muicons/dist/ClipboardArrowLeft';
-import Delete from 'muicons/dist/Delete';
-import Redo from 'muicons/dist/Redo';
-import Fullscreen from 'muicons/dist/Fullscreen';
 
 import { ComponentPosition } from '../../enums';
 
 const styles = {
     toolbarIcon: {
-        fill: 'white'
+        color: 'white',
+        height: 'auto'
     },
     flipY: {
         transform: 'scaleX(-1)'
@@ -37,56 +31,56 @@ class DesignerToolbar extends React.Component {
                 <Tooltip title='Cut'>
                     <span>
                         <IconButton onClick={this.handleCut} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><ContentCut/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-content-cut')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Copy'>
                     <span>
                         <IconButton onClick={this.handleCopy} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><ContentCopy/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-content-copy')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Paste'>
                     <span>
                         <IconButton onClick={this.handlePaste(ComponentPosition.Child)} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><ClipboardArrowDown/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-clipboard-arrow-down')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Paste Before'>
                     <span>
                         <IconButton onClick={this.handlePaste(ComponentPosition.Before)} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><ClipboardArrowLeft/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-clipboard-arrow-left')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Paste After'>
                     <span>
                         <IconButton onClick={this.handlePaste(ComponentPosition.After)} disabled={disabled}>
-                            <Icon className={classNames(classes.toolbarIcon, classes.flipY)}><ClipboardArrowLeft/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, classes.flipY, 'mdi', 'mdi-clipboard-arrow-left')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Delete'>
                     <span>
                         <IconButton onClick={this.handleDelete} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><Delete/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-delete')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Undo'>
                     <span>
                         <IconButton onClick={this.handleUndo} disabled={disabled}>
-                            <Icon className={classNames(classes.toolbarIcon, classes.flipY)}><Redo/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, classes.flipY, 'mdi', 'mdi-redo')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title='Preview'>
                     <span>
                         <IconButton onClick={this.handlePreview} disabled={disabled}>
-                            <Icon className={classes.toolbarIcon}><Fullscreen/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-fullscreen')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>

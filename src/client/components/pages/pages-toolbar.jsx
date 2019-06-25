@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { observer, inject } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -7,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
-
-import ContentSave from 'muicons/dist/ContentSave';
 
 import PagesDialog from './pages-dialog';
 
@@ -18,7 +17,8 @@ const styles = {
         textTransform: 'none'
     },
     toolbarIcon: {
-        fill: 'white'
+        color: 'white',
+        height: 'auto'
     }
 };
 
@@ -42,7 +42,7 @@ class PagesToolbar extends React.Component {
                 <Tooltip title='Save'>
                     <span>
                         <IconButton onClick={this.handleSave} disabled={!pageStore.selectedPage.id}>
-                            <Icon className={classes.toolbarIcon}><ContentSave/></Icon>
+                            <Icon className={classNames(classes.toolbarIcon, 'mdi', 'mdi-content-save')}></Icon>
                         </IconButton>
                     </span>
                 </Tooltip>
