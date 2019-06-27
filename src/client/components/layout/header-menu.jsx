@@ -24,7 +24,7 @@ class HeaderMenu extends React.Component {
     };
 
     render() {
-        const { classes, projectStore } = this.props;
+        const { classes, projectStore, authStore } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -47,8 +47,18 @@ class HeaderMenu extends React.Component {
                     onClick={this.handleClose}
                     onClose={this.handleClose}
                 >
-                    <MenuItem onClick={this.loginHandler}>Log in</MenuItem>
-                    <MenuItem onClick={this.logoutHandler}>Log out</MenuItem>
+                    <MenuItem 
+                        onClick={this.loginHandler}
+                        disabled={authStore.isAuthenticated}
+                    >
+                        Log in
+                    </MenuItem>
+                    <MenuItem 
+                        onClick={this.logoutHandler}
+                        disabled={!authStore.isAuthenticated}
+                    >
+                        Log out
+                    </MenuItem>
                     <Divider/>
                     <MenuItem onClick={this.createProjectHandler}>Project List</MenuItem>
                     <MenuItem
