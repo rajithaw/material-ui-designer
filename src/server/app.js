@@ -23,8 +23,14 @@ app.use('/api/export', exportRouter);
 // next parameter is required eventhough it is not used
 // eslint-disable-next-line
 app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json(error && error.message);
+    if (error.code === 'credentials_required') {
+        res.status(error.status);
+        res.json('You have to log in to perform this action');
+    }
+    else {
+        res.status(error.status || 500);
+        res.json(error && error.message);
+    }
 });
 
 module.exports = app;
