@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/mui-designer-logo.png" />
+</div>
+
 # User interface designer form Material UI
 Material UI Designer is a tool that designers and developers can use to quickly put together user interfaces using Material UI components. The design can be previewed any time and once completed the code for the designed pages can be exported as a ready to run react project.
 
