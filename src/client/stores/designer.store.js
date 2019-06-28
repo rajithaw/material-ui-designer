@@ -220,6 +220,7 @@ export default class DesignerStore {
 
     @action
     addChildDefinition(parentId, childDefinition) {
+        const { rootStore } = this.sessionStore;
         // Store for undo
         this.storeComponentDefinition();
 
@@ -227,6 +228,10 @@ export default class DesignerStore {
             // If component definition is empty set as root component
             if (!this.componentDefinition.component) {
                 this.setComponentDefinition(childDefinition);
+            }
+            else {
+                rootStore.setInfoBarMessage('Select a component first');
+                rootStore.setInfoBarOpen(true);
             }
 
             return;
@@ -248,6 +253,7 @@ export default class DesignerStore {
 
     @action
     addSiblingDefinition(componentId, siblingDefinition, isBefore) {
+        const { rootStore } = this.sessionStore;
         // Store for undo
         this.storeComponentDefinition();
 
@@ -255,6 +261,10 @@ export default class DesignerStore {
         if (!componentId) {
             if (!this.componentDefinition.component) {
                 this.setComponentDefinition(siblingDefinition);
+            }
+            else {
+                rootStore.setInfoBarMessage('Select a component first');
+                rootStore.setInfoBarOpen(true);
             }
 
             return;
