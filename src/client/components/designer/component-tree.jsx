@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import ToggleIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import { Treebeard, decorators } from 'react-treebeard';
-import treeTheme from 'react-treebeard/src/themes/default';
+import treeTheme from 'react-treebeard/dist/themes/default';
 
 const styles = {
 };

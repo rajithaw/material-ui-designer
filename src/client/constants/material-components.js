@@ -1465,13 +1465,13 @@ export const materialComponents = {
             children: []
         }
     },
-    i: {
-        name: 'i',
-        displayName: 'i',
-        icon: <InfoIcon />,
-        properties: ['name', 'class', 'style'],
+    input: {
+        name: 'input',
+        displayName: 'input (html)',
+        icon: <HtmlElementIcon />,
+        properties: ['id', 'name', 'accept', 'multiple', 'placeholder', 'type', 'value', 'style'],
         designerDefinition: {
-            component: 'i',
+            component: 'input',
             props: {
             }
         }

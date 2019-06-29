@@ -103,6 +103,7 @@ import SelectableZoom from '../components/designer/selectable/selectable-zoom';
 
 import SelectableDiv from '../components/designer/selectable/selectable-div';
 import SelectableImg from '../components/designer/selectable/selectable-img';
+import SelectableHtmlInput from '../components/designer/selectable/selectable-html-input';
 import SelectableLabel from '../components/designer/selectable/selectable-label';
 import SelectableSpan from '../components/designer/selectable/selectable-span';
 import SelectablePath from '../components/designer/selectable/selectable-path';
@@ -217,6 +218,7 @@ export const designerComponentMap = {
     // Html components
     'div': SelectableDiv,
     'img': SelectableImg,
+    'input': SelectableHtmlInput,
     'label': SelectableLabel,
     'span': SelectableSpan,
     'path': SelectablePath,
