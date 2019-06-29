@@ -22,7 +22,7 @@ npm start
 ```
 
 ## Live Demo
-A live demo can be found [here](https://material-ui-designer.herokuapp.com/?project=Hello%20World%20Project&page=Hello%20World)
+A live demo can be found <a href="https://material-ui-designer.herokuapp.com/?project=Hello%20World%20Project&page=Hello%20World" target="_blank">here</a>
 
 ## Quick Start
 ### Create Page
