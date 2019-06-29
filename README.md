@@ -8,9 +8,14 @@ Material UI Designer is a tool that designers and developers can use to quickly 
 ![designer](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/hello-world-designer.png)
 
 ## Setup
-Clone the repository and run the npm commands.
+Clone the repository.
 ```
 git clone https://github.com/rajithaw/material-ui-designer.git
+```
+Change the MongoDB url in data-service.js to point to you MongoDB database.
+
+Run the npm commands.
+```
 npm install
 npm build
 npm start

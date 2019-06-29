@@ -3,7 +3,7 @@ const logger = require('./log-service')('services:project-service');
 
 class DataService {
     constructor() {
-        this.muiDesignerMongoUrl = process.env.MONGO_DB_URL || 'mongodb://username:password@ds135207.mlab.com:35207/mui-designer';
+        this.muiDesignerMongoUrl = process.env.MONGO_DB_URL || 'mongodb://username:password@yourserver.com:port_number/mui-designer';
     }
 
     // Connect to DB
