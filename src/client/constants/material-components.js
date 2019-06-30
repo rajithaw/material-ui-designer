@@ -1406,6 +1406,17 @@ export const materialComponents = {
             children: []
         }
     },
+    iframe: {
+        name: 'iframe',
+        displayName: 'iframe',
+        icon: <HtmlElementIcon />,
+        properties: ['id', 'name', 'height', 'width', 'sandbox', 'src', 'srcdoc', 'style'],
+        designerDefinition: {
+            component: 'iframe',
+            props: {
+            }
+        }
+    },
     img: {
         name: 'img',
         displayName: 'img',
@@ -1413,6 +1424,17 @@ export const materialComponents = {
         properties: ['name', 'src', 'alt', 'style'],
         designerDefinition: {
             component: 'img',
+            props: {
+            }
+        }
+    },
+    input: {
+        name: 'input',
+        displayName: 'input (html)',
+        icon: <HtmlElementIcon />,
+        properties: ['id', 'name', 'accept', 'multiple', 'placeholder', 'type', 'value', 'style'],
+        designerDefinition: {
+            component: 'input',
             props: {
             }
         }
@@ -1463,17 +1485,6 @@ export const materialComponents = {
             props: {
             },
             children: []
-        }
-    },
-    input: {
-        name: 'input',
-        displayName: 'input (html)',
-        icon: <HtmlElementIcon />,
-        properties: ['id', 'name', 'accept', 'multiple', 'placeholder', 'type', 'value', 'style'],
-        designerDefinition: {
-            component: 'input',
-            props: {
-            }
         }
     },
 

@@ -102,12 +102,13 @@ import SelectableTypography from '../components/designer/selectable/selectable-t
 import SelectableZoom from '../components/designer/selectable/selectable-zoom';
 
 import SelectableDiv from '../components/designer/selectable/selectable-div';
+import SelectableIframe from '../components/designer/selectable/selectable-iframe';
 import SelectableImg from '../components/designer/selectable/selectable-img';
 import SelectableHtmlInput from '../components/designer/selectable/selectable-html-input';
 import SelectableLabel from '../components/designer/selectable/selectable-label';
-import SelectableSpan from '../components/designer/selectable/selectable-span';
-import SelectablePath from '../components/designer/selectable/selectable-path';
 import SelectableOption from '../components/designer/selectable/selectable-option';
+import SelectablePath from '../components/designer/selectable/selectable-path';
+import SelectableSpan from '../components/designer/selectable/selectable-span';
 
 import SelectableDataTable from '../components/designer/selectable/selectable-data-table';
 
@@ -218,11 +219,12 @@ export const designerComponentMap = {
     // Html components
     'div': SelectableDiv,
     'img': SelectableImg,
+    'iframe': SelectableIframe,
     'input': SelectableHtmlInput,
     'label': SelectableLabel,
-    'span': SelectableSpan,
-    'path': SelectablePath,
     'option': SelectableOption,
+    'path': SelectablePath,
+    'span': SelectableSpan,
 
     // 3rd Party
     //'Markdown': SelectableMarkdown,
