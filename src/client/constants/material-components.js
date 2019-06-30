@@ -278,7 +278,7 @@ export const materialComponents = {
         name: 'Checkbox',
         displayName: 'Checkbox',
         icon: <CheckboxIcon />,
-        properties: ['name', 'checked', 'color', 'disabled', 'disableRipple', 'indeterminate', 'type', 'value', 'style'],
+        properties: ['id', 'name', 'checked', 'color', 'disabled', 'disableRipple', 'icon', 'checkedIcon', 'indeterminate', 'indeterminateIcon', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'Checkbox',
             props: {
@@ -653,7 +653,7 @@ export const materialComponents = {
         name: 'IconButton',
         displayName: 'IconButton',
         icon: <InfoIcon />,
-        properties: ['id', 'name', 'color', 'disabled', 'disableFocusRipple', 'disableRipple', 'edge', 'size', 'style', 'onClick'],
+        properties: ['id', 'name', 'color', 'component', 'disabled', 'disableFocusRipple', 'disableRipple', 'edge', 'size', 'style', 'onClick'],
         designerDefinition: {
             component: 'IconButton',
             props: {
@@ -982,7 +982,7 @@ export const materialComponents = {
         name: 'Radio',
         displayName: 'Radio',
         icon: <RadioIcon />,
-        properties: ['id', 'name', 'checked', 'color', 'disabled', 'disableRipple', 'inputProps', 'type', 'value', 'style'],
+        properties: ['id', 'name', 'checked', 'color', 'disabled', 'disableRipple', 'icon', 'checkedIcon', 'inputProps', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'Radio',
             props: {

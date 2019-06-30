@@ -4,6 +4,8 @@ import { observer, inject } from 'mobx-react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { Radio } from '@material-ui/core';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
 const styles = {
     selectable: {
@@ -18,13 +20,17 @@ const styles = {
 @observer
 class SelectableRadio extends React.Component {
     render() {
-        const { designerStore, classes, style, children, ...other } = this.props;
+        const { designerStore, classes, icon, checkedIcon, style, children, ...other } = this.props;
         const selected = this.props.id === designerStore.selectedComponentId;
+        const iconDefinition = icon ? designerStore.createComponentsFromJsxString(icon) : <RadioButtonUncheckedIcon/>;
+        const checkedIconDefinition = checkedIcon ? designerStore.createComponentsFromJsxString(checkedIcon) : <RadioButtonCheckedIcon/>;
 
         return (
             <Radio
                 className={classNames(classes.selectable, { [classes.selected]: selected })}
                 style={{ ...style }}
+                icon={iconDefinition}
+                checkedIcon={checkedIconDefinition}
                 {...other}
                 onClick={this.handleClick}
             >
@@ -45,6 +51,8 @@ SelectableRadio.propTypes = {
     classes: PropTypes.object.isRequired,
     designerStore: PropTypes.object,
     id: PropTypes.string,
+    icon: PropTypes.string,
+    checkedIcon: PropTypes.string,
     style: PropTypes.any,
     children: PropTypes.any
 }
