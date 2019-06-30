@@ -104,7 +104,7 @@ export const materialComponents = {
         name: 'AppBar',
         displayName: 'App Bar',
         icon: <AppBarIcon />,
-        properties: ['name', 'color', 'position', 'style'],
+        properties: ['id', 'name', 'color', 'position', 'style'],
         designerDefinition: {
             component: 'AppBar',
             props: {
@@ -116,7 +116,7 @@ export const materialComponents = {
         name: 'Avatar',
         displayName: 'Avatar',
         icon: <AvatarIcon />,
-        properties: ['name', 'alt', 'component', 'sizes', 'src', 'srcSet', 'style'],
+        properties: ['id', 'name', 'alt', 'component', 'sizes', 'src', 'srcSet', 'style'],
         designerDefinition: {
             component: 'Avatar',
             props: {
@@ -140,7 +140,7 @@ export const materialComponents = {
         name: 'Badge',
         displayName: 'Badge',
         icon: <BadgeIcon />,
-        properties: ['name', 'badgeContent', 'color', 'component', 'invisible', 'max', 'showZero', 'variant', 'style'],
+        properties: ['id', 'name', 'badgeContent', 'color', 'component', 'invisible', 'max', 'showZero', 'variant', 'style'],
         designerDefinition: {
             component: 'Badge',
             props: {
@@ -152,7 +152,7 @@ export const materialComponents = {
         name: 'BottomNavigation',
         displayName: 'Bottom Navigation',
         icon: <BottomNavigationIcon />,
-        properties: ['name', 'component', 'showLabels', 'value', 'style'],
+        properties: ['id', 'name', 'component', 'showLabels', 'value', 'style'],
         designerDefinition: {
             component: 'BottomNavigation',
             props: {
@@ -164,7 +164,7 @@ export const materialComponents = {
         name: 'BottomNavigationAction',
         displayName: 'Bottom Navigation Action',
         icon: <BottomNavigationActionIcon />,
-        properties: ['name', 'icon', 'label', 'showLabel', 'value', 'style'],
+        properties: ['id', 'name', 'icon', 'label', 'showLabel', 'value', 'style'],
         designerDefinition: {
             component: 'BottomNavigationAction',
             props: {    // Children not supported by bottom navigation action
@@ -193,7 +193,7 @@ export const materialComponents = {
         name: 'ButtonBase',
         displayName: 'ButtonBase',
         icon: <ButtonIcon />,
-        properties: ['name', 'centerRipple', 'component', 'disabled', 'disableRipple', 'disableTouchRipple', 'focusRipple', 'focusVisibleClassName', 'TouchRippleProps',
+        properties: ['id', 'name', 'centerRipple', 'component', 'disabled', 'disableRipple', 'disableTouchRipple', 'focusRipple', 'focusVisibleClassName', 'TouchRippleProps',
             'type', 'style'],
         designerDefinition: {
             component: 'ButtonBase',
@@ -206,7 +206,7 @@ export const materialComponents = {
         name: 'Card',
         displayName: 'Card',
         icon: <CardIcon />,
-        properties: ['name', 'raised', 'style'],
+        properties: ['id', 'name', 'raised', 'style'],
         designerDefinition: {
             component: 'Card',
             props: {
@@ -218,7 +218,7 @@ export const materialComponents = {
         name: 'CardActionArea',
         displayName: 'CardActionArea',
         icon: <CardActionAreaIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'CardActionArea',
             props: {
@@ -230,7 +230,7 @@ export const materialComponents = {
         name: 'CardActions',
         displayName: 'CardActions',
         icon: <CardActionsIcon />,
-        properties: ['name', 'disableSpacing', 'style'],
+        properties: ['id', 'name', 'disableSpacing', 'style'],
         designerDefinition: {
             component: 'CardActions',
             props: {
@@ -242,7 +242,7 @@ export const materialComponents = {
         name: 'CardContent',
         displayName: 'CardContent',
         icon: <CardContentIcon />,
-        properties: ['name', 'component', 'style'],
+        properties: ['id', 'name', 'component', 'style'],
         designerDefinition: {
             component: 'CardContent',
             props: {
@@ -254,7 +254,7 @@ export const materialComponents = {
         name: 'CardHeader',
         displayName: 'CardHeader',
         icon: <CardHeaderIcon />,
-        properties: ['name', 'component', 'disableTypography', 'title', 'subheader', 'style'],
+        properties: ['id', 'name', 'component', 'disableTypography', 'title', 'subheader', 'style'],
         designerDefinition: {
             component: 'CardHeader',
             props: {
@@ -266,7 +266,7 @@ export const materialComponents = {
         name: 'CardMedia',
         displayName: 'CardMedia',
         icon: <CardMediaIcon />,
-        properties: ['name', 'component', 'image', 'src', 'style'],
+        properties: ['id', 'name', 'component', 'image', 'src', 'style'],
         designerDefinition: {
             component: 'CardMedia',
             props: {
@@ -290,7 +290,7 @@ export const materialComponents = {
         name: 'Chip',
         displayName: 'Chip',
         icon: <ChipIcon />,
-        properties: ['name', 'clickable', 'color', 'component', 'label', 'variant', 'style'],
+        properties: ['id', 'name', 'clickable', 'color', 'component', 'label', 'variant', 'style'],
         designerDefinition: {
             component: 'Chip',
             props: {    // Children not supported by chip
@@ -301,7 +301,7 @@ export const materialComponents = {
         name: 'CircularProgress',
         displayName: 'Circular Progress',
         icon: <CircularProgressIcon />,
-        properties: ['name', 'color', 'disableShrink', 'size', 'thickness', 'value', 'variant', 'style'],
+        properties: ['id', 'name', 'color', 'disableShrink', 'size', 'thickness', 'value', 'variant', 'style'],
         designerDefinition: {
             component: 'CircularProgress',
             props: {
@@ -313,7 +313,7 @@ export const materialComponents = {
     //     name: 'ClickAwayListener',
     //     displayName: 'ClickAwayListener',
     //     icon: <ClickAwayListenerIcon />,
-    //     properties: ['name', 'mouseEvent', 'touchEvent'],
+    //     properties: ['id', 'name', 'mouseEvent', 'touchEvent'],
     //     designerDefinition: {
     //         component: 'ClickAwayListener',
     //         props: {
@@ -349,7 +349,7 @@ export const materialComponents = {
         name: 'DialogActions',
         displayName: 'DialogActions',
         icon: <DialogActionsIcon />,
-        properties: ['name', 'disableSpacing', 'style'],
+        properties: ['id', 'name', 'disableSpacing', 'style'],
         designerDefinition: {
             component: 'DialogActions',
             props: {
@@ -361,7 +361,7 @@ export const materialComponents = {
         name: 'DialogContent',
         displayName: 'DialogContent',
         icon: <DialogContentIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'DialogContent',
             props: {
@@ -373,7 +373,7 @@ export const materialComponents = {
         name: 'DialogContentText',
         displayName: 'DialogContentText',
         icon: <DialogContentTextIcon />,
-        properties: ['name', 'text', 'style'],
+        properties: ['id', 'name', 'text', 'style'],
         designerDefinition: {
             component: 'DialogContentText',
             props: {
@@ -385,7 +385,7 @@ export const materialComponents = {
         name: 'DialogTitle',
         displayName: 'DialogTitle',
         icon: <DialogTitleIcon />,
-        properties: ['name', 'text', 'disableTypography','style'],
+        properties: ['id', 'name', 'text', 'disableTypography','style'],
         designerDefinition: {
             component: 'DialogTitle',
             props: {
@@ -397,7 +397,7 @@ export const materialComponents = {
         name: 'Divider',
         displayName: 'Divider',
         icon: <DividerIcon />,
-        properties: ['name', 'absolute', 'component', 'inset', 'light', 'variant', 'style'],
+        properties: ['id', 'name', 'absolute', 'component', 'inset', 'light', 'variant', 'style'],
         designerDefinition: {
             component: 'Divider',
             props: {    // Children not supported by divider
@@ -420,7 +420,7 @@ export const materialComponents = {
         name: 'ExpansionPanel',
         displayName: 'ExpansionPanel',
         icon: <ExpansionPanelIcon />,
-        properties: ['name', 'defaultExpanded', 'disabled', 'expanded', 'style'],
+        properties: ['id', 'name', 'defaultExpanded', 'disabled', 'expanded', 'style'],
         designerDefinition: {
             component: 'ExpansionPanel',
             props: {
@@ -432,7 +432,7 @@ export const materialComponents = {
         name: 'ExpansionPanelActions',
         displayName: 'ExpansionPanelActions',
         icon: <ExpansionPanelIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'ExpansionPanelActions',
             props: {
@@ -444,7 +444,7 @@ export const materialComponents = {
         name: 'ExpansionPanelDetails',
         displayName: 'ExpansionPanelDetails',
         icon: <ExpansionPanelIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'ExpansionPanelDetails',
             props: {
@@ -456,7 +456,7 @@ export const materialComponents = {
         name: 'ExpansionPanelSummary',
         displayName: 'ExpansionPanelSummary',
         icon: <ExpansionPanelIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'ExpansionPanelSummary',
             props: {
@@ -510,7 +510,7 @@ export const materialComponents = {
         name: 'FormControl',
         displayName: 'FormControl',
         icon: <FormControlIcon />,
-        properties: ['name', 'component', 'disabled', 'error', 'fullWidth', 'margin', 'required', 'variant', 'style'],
+        properties: ['id', 'name', 'component', 'disabled', 'error', 'fullWidth', 'margin', 'required', 'variant', 'style'],
         designerDefinition: {
             component: 'FormControl',
             props: {
@@ -522,7 +522,7 @@ export const materialComponents = {
        name: 'FormControlLabel',
        displayName: 'FormControlLabel',
        icon: <FormControlLabelIcon />,
-       properties: ['name', 'checked', 'control', 'disabled', 'label', 'labelPlacement', 'value', 'style'],
+       properties: ['id', 'name', 'checked', 'control', 'disabled', 'label', 'labelPlacement', 'value', 'style'],
        designerDefinition: {
            component: 'FormControlLabel',
            props: {    // Children not supported by form control label
@@ -533,7 +533,7 @@ export const materialComponents = {
         name: 'FormGroup',
         displayName: 'FormGroup',
         icon: <FormGroupIcon />,
-        properties: ['name', 'row', 'style'],
+        properties: ['id', 'name', 'row', 'style'],
         designerDefinition: {
             component: 'FormGroup',
             props: {
@@ -545,7 +545,7 @@ export const materialComponents = {
         name: 'FormHelperText',
         displayName: 'FormHelperText',
         icon: <FormHelperTextIcon />,
-        properties: ['name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'margin', 'required', 'variant', 'style'],
+        properties: ['id', 'name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'margin', 'required', 'variant', 'style'],
         designerDefinition: {
             component: 'FormHelperText',
             props: {
@@ -557,7 +557,7 @@ export const materialComponents = {
         name: 'FormLabel',
         displayName: 'FormLabel',
         icon: <FormLabelIcon />,
-        properties: ['name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'required', 'style'],
+        properties: ['id', 'name', 'text', 'component', 'disabled', 'error', 'filled', 'focused', 'required', 'style'],
         designerDefinition: {
             component: 'FormLabel',
             props: {
@@ -569,7 +569,7 @@ export const materialComponents = {
         name: 'Grid',
         displayName: 'Grid',
         icon: <GridIcon />,
-        properties: ['name', 'container', 'item', 'spacing', 'direction', 'justify', 'alignItems', 'xs', 'sm', 'md', 'lg', 'xl', 'alignContent', 'wrap', 'zeroMinWidth', 'style'],
+        properties: ['id', 'name', 'container', 'item', 'spacing', 'direction', 'justify', 'alignItems', 'xs', 'sm', 'md', 'lg', 'xl', 'alignContent', 'wrap', 'zeroMinWidth', 'style'],
         designerDefinition: {
             component: 'Grid',
             props: {
@@ -581,7 +581,7 @@ export const materialComponents = {
         name: 'GridList',
         displayName: 'GridList',
         icon: <GridListIcon />,
-        properties: ['name', 'cellHeight', 'cols', 'component', 'spacing', 'style'],
+        properties: ['id', 'name', 'cellHeight', 'cols', 'component', 'spacing', 'style'],
         designerDefinition: {
             component: 'GridList',
             props: {
@@ -593,7 +593,7 @@ export const materialComponents = {
         name: 'GridListTile',
         displayName: 'GridListTile',
         icon: <GridListTileIcon />,
-        properties: ['name', 'cols', 'component', 'rows', 'style'],
+        properties: ['id', 'name', 'cols', 'component', 'rows', 'style'],
         designerDefinition: {
             component: 'GridListTile',
             props: {
@@ -605,7 +605,7 @@ export const materialComponents = {
         name: 'GridListTileBar',
         displayName: 'GridListTileBar',
         icon: <GridListTileBarIcon />,
-        properties: ['name', 'actionPosition', 'subtitle', 'title', 'titlePosition', 'style'],
+        properties: ['id', 'name', 'actionPosition', 'subtitle', 'title', 'titlePosition', 'style'],
         designerDefinition: {
             component: 'GridListTileBar',
             props: {
@@ -629,7 +629,7 @@ export const materialComponents = {
         name: 'Hidden',
         displayName: 'Hidden',
         icon: <HiddenIcon />,
-        properties: ['name', 'implementation', 'initialWidth', 'lgDown', 'lgUp', 'mdDown', 'mdUp', 'only', 'smDown', 'smUp', 'xlDown', 'xlUp', 'xsDown', 'xsUp', 'style'],
+        properties: ['id', 'name', 'implementation', 'initialWidth', 'lgDown', 'lgUp', 'mdDown', 'mdUp', 'only', 'smDown', 'smUp', 'xlDown', 'xlUp', 'xsDown', 'xsUp', 'style'],
         designerDefinition: {
             component: 'Hidden',
             props: {
@@ -641,7 +641,7 @@ export const materialComponents = {
         name: 'Icon',
         displayName: 'Icon',
         icon: <InfoIcon />,
-        properties: ['name', 'text', 'class', 'color', 'fontSize', 'style'],
+        properties: ['id', 'name', 'text', 'class', 'color', 'fontSize', 'style'],
         designerDefinition: {
             component: 'Icon',
             props: {
@@ -678,7 +678,7 @@ export const materialComponents = {
     //    name: 'InputAdornment',
     //    displayName: 'InputAdornment',
     //    icon: <InputAdornmentIcon />,
-    //    properties: ['name', 'disablePointerEvents', 'disableTypography', 'position', 'variant', 'style'],
+    //    properties: ['id', 'name', 'disablePointerEvents', 'disableTypography', 'position', 'variant', 'style'],
     //    designerDefinition: {
     //        component: 'InputAdornment',
     //        props: {
@@ -690,7 +690,7 @@ export const materialComponents = {
         name: 'InputBase',
         displayName: 'InputBase',
         icon: <InputBaseIcon />,
-        properties: ['name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'margin', 'multiline',
+        properties: ['id', 'name', 'autoComplete', 'autoFocus', 'defaultValue', 'disabled', 'error', 'fullWidth', 'margin', 'multiline',
             'placeholder', 'readOnly', 'required', 'rows', 'rowsMax', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'InputBase',
@@ -703,7 +703,7 @@ export const materialComponents = {
         name: 'InputLabel',
         displayName: 'InputLabel',
         icon: <InputLabelIcon />,
-        properties: ['name', 'text', 'disableAnimation', 'disabled', 'error', 'focused', 'htmlFor', 'margin', 'required', 'shrink', 'variant', 'style'],
+        properties: ['id', 'name', 'text', 'disableAnimation', 'disabled', 'error', 'focused', 'htmlFor', 'margin', 'required', 'shrink', 'variant', 'style'],
         designerDefinition: {
             component: 'InputLabel',
             props: {
@@ -715,7 +715,7 @@ export const materialComponents = {
         name: 'LinearProgress',
         displayName: 'LinearProgress',
         icon: <LinearProgressIcon />,
-        properties: ['name', 'color', 'value', 'valueBuffer', 'variant', 'style'],
+        properties: ['id', 'name', 'color', 'value', 'valueBuffer', 'variant', 'style'],
         designerDefinition: {
             component: 'LinearProgress',
             props: {
@@ -727,7 +727,7 @@ export const materialComponents = {
         name: 'Link',
         displayName: 'Link',
         icon: <LinkIcon />,
-        properties: ['name', 'block', 'color', 'component', 'TypographyClasses', 'underline', 'variant', 'style'],
+        properties: ['id', 'name', 'block', 'color', 'component', 'TypographyClasses', 'underline', 'variant', 'style'],
         designerDefinition: {
             component: 'Link',
             props: {
@@ -739,7 +739,7 @@ export const materialComponents = {
         name: 'List',
         displayName: 'List',
         icon: <ListIcon />,
-        properties: ['name', 'component', 'dense', 'disablePadding', 'subheader', 'style'],
+        properties: ['id', 'name', 'component', 'dense', 'disablePadding', 'subheader', 'style'],
         designerDefinition: {
             component: 'List',
             props: {
@@ -751,7 +751,7 @@ export const materialComponents = {
         name: 'ListItem',
         displayName: 'ListItem',
         icon: <ListItemIcon />,
-        properties: ['name', 'alignItems', 'button', 'component', 'ContainerComponent', 'dense', 'disabled', 'disableGutters', 'divider', 'selected', 'style'],
+        properties: ['id', 'name', 'alignItems', 'button', 'component', 'ContainerComponent', 'dense', 'disabled', 'disableGutters', 'divider', 'selected', 'style'],
         designerDefinition: {
             component: 'ListItem',
             props: {
@@ -763,7 +763,7 @@ export const materialComponents = {
         name: 'ListItemAvatar',
         displayName: 'ListItemAvatar',
         icon: <ListItemAvatarIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         propertyMetaData: {
             children: {
                 required: true,
@@ -781,7 +781,7 @@ export const materialComponents = {
         name: 'ListItemIcon',
         displayName: 'ListItemIcon',
         icon: <ListItemIconIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'ListItemIcon',
             props: {
@@ -793,7 +793,7 @@ export const materialComponents = {
         name: 'ListItemSecondaryAction',
         displayName: 'ListItemSecondaryAction',
         icon: <ListItemSecondaryActionIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'ListItemSecondaryAction',
             props: {
@@ -805,7 +805,7 @@ export const materialComponents = {
         name: 'ListItemText',
         displayName: 'ListItemText',
         icon: <ListItemTextIcon />,
-        properties: ['name', 'disableTypography', 'inset', 'primary', 'secondary', 'style'],
+        properties: ['id', 'name', 'disableTypography', 'inset', 'primary', 'secondary', 'style'],
         designerDefinition: {
             component: 'ListItemText',
             props: {
@@ -817,7 +817,7 @@ export const materialComponents = {
         name: 'ListSubheader',
         displayName: 'ListSubheader',
         icon: <ListSubheaderIcon />,
-        properties: ['name', 'color', 'component', 'disableGutters', 'disableSticky', 'inset', 'style'],
+        properties: ['id', 'name', 'color', 'component', 'disableGutters', 'disableSticky', 'inset', 'style'],
         designerDefinition: {
             component: 'ListSubheader',
             props: {
@@ -841,7 +841,7 @@ export const materialComponents = {
         name: 'MenuItem',
         displayName: 'MenuItem',
         icon: <MenuItemIcon />,
-        properties: ['name', 'text', 'disableGutters', 'value', 'style'],
+        properties: ['id', 'name', 'text', 'disableGutters', 'value', 'style'],
         designerDefinition: {
             component: 'MenuItem',
             props: {
@@ -853,7 +853,7 @@ export const materialComponents = {
         name: 'MenuList',
         displayName: 'MenuList',
         icon: <MenuListIcon />,
-        properties: ['name', 'disableListWrap', 'style'],
+        properties: ['id', 'name', 'disableListWrap', 'style'],
         designerDefinition: {
             component: 'MenuList',
             props: {
@@ -865,7 +865,7 @@ export const materialComponents = {
        name: 'MobileStepper',
        displayName: 'MobileStepper',
        icon: <MobileStepperIcon />,
-        properties: ['name', 'activeStep', 'position', 'steps', 'variant', 'style'],
+        properties: ['id', 'name', 'activeStep', 'position', 'steps', 'variant', 'style'],
        designerDefinition: {
            component: 'MobileStepper',
            props: {
@@ -877,7 +877,7 @@ export const materialComponents = {
         name: 'Modal',
         displayName: 'Modal',
         icon: <ModalIcon />,
-        properties: ['name', 'BackdropProps', 'closeAfterTransition', 'disableAutoFocus', 'disableBackdropClick', 'disableEnforceFocus', 'disableEscapeKeyDown',
+        properties: ['id', 'name', 'BackdropProps', 'closeAfterTransition', 'disableAutoFocus', 'disableBackdropClick', 'disableEnforceFocus', 'disableEscapeKeyDown',
             'disablePortal', 'disableRestoreFocus', 'hideBackdrop', 'keepMounted', 'open', 'style'],
         propertyMetaData: {
             children: {
@@ -896,7 +896,7 @@ export const materialComponents = {
     //    name: 'MuiThemeProvider',
     //    displayName: 'MuiThemeProvider',
     //    icon: <MuiThemeProviderIcon />,
-    //    properties: ['name', 'disableStylesGeneration'],
+    //    properties: ['id', 'name', 'disableStylesGeneration'],
     //    designerDefinition: {
     //        component: 'MuiThemeProvider',
     //        props: {
@@ -908,7 +908,7 @@ export const materialComponents = {
         name: 'NativeSelect',
         displayName: 'NativeSelect',
         icon: <NativeSelectIcon />,
-        properties: ['name', 'inputProps', 'value', 'variant'],
+        properties: ['id', 'name', 'inputProps', 'value', 'variant'],
         designerDefinition: {
             component: 'NativeSelect',
             props: {
@@ -933,7 +933,7 @@ export const materialComponents = {
         name: 'Paper',
         displayName: 'Paper',
         icon: <PaperIcon />,
-        properties: ['name', 'component', 'elevation', 'square', 'style'],
+        properties: ['id', 'name', 'component', 'elevation', 'square', 'style'],
         designerDefinition: {
             component: 'Paper',
             props: {
@@ -945,7 +945,7 @@ export const materialComponents = {
         name: 'Popover',
         displayName: 'Popover',
         icon: <PopoverIcon />,
-        properties: ['name', 'anchorOrigin', 'anchorPosition', 'anchorReference', 'elevation', 'marginThreshold', 'open', 'PaperProps', 'transformOrigin',
+        properties: ['id', 'name', 'anchorOrigin', 'anchorPosition', 'anchorReference', 'elevation', 'marginThreshold', 'open', 'PaperProps', 'transformOrigin',
             'transitionDuration', 'style'],
         designerDefinition: {
             component: 'Popover',
@@ -958,7 +958,7 @@ export const materialComponents = {
         name: 'Popper',
         displayName: 'Popper',
         icon: <PopperIcon />,
-        properties: ['name', 'disablePortal', 'keepMounted', 'open', 'placement', 'popperOptions', 'transition', 'style'],
+        properties: ['id', 'name', 'disablePortal', 'keepMounted', 'open', 'placement', 'popperOptions', 'transition', 'style'],
         designerDefinition: {
             component: 'Popper',
             props: {
@@ -970,7 +970,7 @@ export const materialComponents = {
     //    name: 'Portal',
     //    displayName: 'Portal',
     //    icon: <PortalIcon />,
-    //    properties: ['name', 'disablePortal', 'style'],
+    //    properties: ['id', 'name', 'disablePortal', 'style'],
     //    designerDefinition: {
     //        component: 'Portal',
     //        props: {
@@ -994,7 +994,7 @@ export const materialComponents = {
         name: 'RadioGroup',
         displayName: 'RadioGroup',
         icon: <RadioGroupIcon />,
-        properties: ['name', 'defaultValue', 'value', 'style'],
+        properties: ['id', 'name', 'defaultValue', 'value', 'style'],
         designerDefinition: {
             component: 'RadioGroup',
             props: {
@@ -1006,7 +1006,7 @@ export const materialComponents = {
         name: 'Select',
         displayName: 'Select',
         icon: <SelectIcon />,
-        properties: ['name', 'autoWidth', 'displayEmpty', 'input', 'inputProps', 'MenuProps', 'multiple', 'native', 'open', 'renderValue',
+        properties: ['id', 'name', 'autoWidth', 'displayEmpty', 'input', 'inputProps', 'MenuProps', 'multiple', 'native', 'open', 'renderValue',
             'SelectDisplayProps', 'value', 'variant', 'style'],
         designerDefinition: {
             component: 'Select',
@@ -1036,7 +1036,7 @@ export const materialComponents = {
         name: 'Snackbar',
         displayName: 'Snackbar',
         icon: <SnackbarIcon />,
-        properties: ['name', 'anchorOrigin', 'autoHideDuration', 'ClickAwayListenerProps', 'ContentProps', 'disableWindowBlurListener', 'message',
+        properties: ['id', 'name', 'anchorOrigin', 'autoHideDuration', 'ClickAwayListenerProps', 'ContentProps', 'disableWindowBlurListener', 'message',
             'open', 'resumeHideDuration', 'transitionDuration', 'TransitionProps', 'style'],
         propertyMetaData: {
             children: {
@@ -1054,7 +1054,7 @@ export const materialComponents = {
         name: 'SnackbarContent',
         displayName: 'SnackbarContent',
         icon: <SnackbarContentIcon />,
-        properties: ['name', 'message', 'style'],
+        properties: ['id', 'name', 'message', 'style'],
         designerDefinition: {
             component: 'SnackbarContent',
             props: {
@@ -1066,7 +1066,7 @@ export const materialComponents = {
         name: 'Step',
         displayName: 'Step',
         icon: <StepIcon />,
-        properties: ['name', 'active', 'completed', 'disabled', 'style'],
+        properties: ['id', 'name', 'active', 'completed', 'disabled', 'style'],
         designerDefinition: {
             component: 'Step',
             props: {
@@ -1078,7 +1078,7 @@ export const materialComponents = {
         name: 'StepButton',
         displayName: 'StepButton',
         icon: <StepButtonIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'StepButton',
             props: {
@@ -1090,7 +1090,7 @@ export const materialComponents = {
         name: 'StepConnector',
         displayName: 'StepConnector',
         icon: <StepConnectorIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'StepConnector',
             props: {
@@ -1102,7 +1102,7 @@ export const materialComponents = {
         name: 'StepContent',
         displayName: 'StepContent',
         icon: <StepContentIcon />,
-        properties: ['name', 'transitionDuration', 'style'],
+        properties: ['id', 'name', 'transitionDuration', 'style'],
         designerDefinition: {
             component: 'StepContent',
             props: {
@@ -1114,7 +1114,7 @@ export const materialComponents = {
         name: 'StepIcon',
         displayName: 'StepIcon',
         icon: <StepIconIcon />,
-        properties: ['name', 'active', 'completed', 'error', 'style'],
+        properties: ['id', 'name', 'active', 'completed', 'error', 'style'],
         designerDefinition: {
             component: 'StepIcon',
             props: {
@@ -1126,7 +1126,7 @@ export const materialComponents = {
         name: 'StepLabel',
         displayName: 'StepLabel',
         icon: <StepLabelIcon />,
-        properties: ['name', 'disabled', 'error', 'style'],
+        properties: ['id', 'name', 'disabled', 'error', 'style'],
         designerDefinition: {
             component: 'StepLabel',
             props: {
@@ -1138,7 +1138,7 @@ export const materialComponents = {
         name: 'Stepper',
         displayName: 'Stepper',
         icon: <StepperIcon />,
-        properties: ['name', 'activeStep', 'alternativeLabel', 'nonLinear', 'orientation', 'style'],
+        properties: ['id', 'name', 'activeStep', 'alternativeLabel', 'nonLinear', 'orientation', 'style'],
         designerDefinition: {
             component: 'Stepper',
             props: {
@@ -1150,7 +1150,7 @@ export const materialComponents = {
         name: 'SvgIcon',
         displayName: 'SvgIcon',
         icon: <SvgIconIcon />,
-        properties: ['name', 'color', 'fontSize', 'htmlColor', 'shapeRendering', 'titleAccess', 'viewBox', 'style'],
+        properties: ['id', 'name', 'color', 'fontSize', 'htmlColor', 'shapeRendering', 'titleAccess', 'viewBox', 'style'],
         propertyMetaData: {
             children: {
                 required: true
@@ -1167,7 +1167,7 @@ export const materialComponents = {
         name: 'SwipeableDrawer',
         displayName: 'SwipeableDrawer',
         icon: <SwipeableDrawerIcon />,
-        properties: ['name', 'disableBackdropTransition', 'disableDiscovery', 'disableSwipeToOpen', 'hysteresis', 'minFlingVelocity', 'open',
+        properties: ['id', 'name', 'disableBackdropTransition', 'disableDiscovery', 'disableSwipeToOpen', 'hysteresis', 'minFlingVelocity', 'open',
             'swipeAreaWidth', 'transitionDuration', 'style'],
         designerDefinition: {
             component: 'SwipeableDrawer',
@@ -1180,7 +1180,7 @@ export const materialComponents = {
         name: 'Switch',
         displayName: 'Switch',
         icon: <SwitchIcon />,
-        properties: ['name', 'checked', 'color', 'disabled', 'disableRipple', 'type', 'value', 'style'],
+        properties: ['id', 'name', 'checked', 'color', 'disabled', 'disableRipple', 'type', 'value', 'style'],
         designerDefinition: {
             component: 'Switch',
             props: {
@@ -1192,7 +1192,7 @@ export const materialComponents = {
         name: 'Tab',
         displayName: 'Tab',
         icon: <TabIcon />,
-        properties: ['name', 'disabled', 'label', 'value', 'style'],
+        properties: ['id', 'name', 'disabled', 'label', 'value', 'style'],
         designerDefinition: {
             component: 'Tab',
             props: {    // Children not supported by tab
@@ -1203,7 +1203,7 @@ export const materialComponents = {
         name: 'Table',
         displayName: 'Table',
         icon: <TableIcon />,
-        properties: ['name', 'padding', 'style'],
+        properties: ['id', 'name', 'padding', 'style'],
         designerDefinition: {
             component: 'Table',
             props: {
@@ -1215,7 +1215,7 @@ export const materialComponents = {
         name: 'TableBody',
         displayName: 'TableBody',
         icon: <TableBodyIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'TableBody',
             props: {
@@ -1227,7 +1227,7 @@ export const materialComponents = {
         name: 'TableCell',
         displayName: 'TableCell',
         icon: <TableCellIcon />,
-        properties: ['name', 'text', 'align', 'size', 'scope', 'sortDirection', 'variant', 'style'],
+        properties: ['id', 'name', 'text', 'align', 'size', 'scope', 'sortDirection', 'variant', 'style'],
         designerDefinition: {
             component: 'TableCell',
             props: {
@@ -1239,7 +1239,7 @@ export const materialComponents = {
         name: 'TableFooter',
         displayName: 'TableFooter',
         icon: <TableFooterIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'TableFooter',
             props: {
@@ -1251,7 +1251,7 @@ export const materialComponents = {
         name: 'TableHead',
         displayName: 'TableHead',
         icon: <TableHeadIcon />,
-        properties: ['name', 'style'],
+        properties: ['id', 'name', 'style'],
         designerDefinition: {
             component: 'TableHead',
             props: {
@@ -1263,7 +1263,7 @@ export const materialComponents = {
         name: 'TablePagination',
         displayName: 'TablePagination',
         icon: <TablePaginationIcon />,
-        properties: ['name', 'component','count', 'page', 'rowsPerPage', 'rowsPerPageOptions', 'style'],
+        properties: ['id', 'name', 'component','count', 'page', 'rowsPerPage', 'rowsPerPageOptions', 'style'],
         designerDefinition: {
             component: 'TablePagination',
             props: {
@@ -1275,7 +1275,7 @@ export const materialComponents = {
         name: 'TableRow',
         displayName: 'TableRow',
         icon: <TableRowIcon />,
-        properties: ['name', 'hover', 'selected', 'style'],
+        properties: ['id', 'name', 'hover', 'selected', 'style'],
         designerDefinition: {
             component: 'TableRow',
             props: {
@@ -1287,7 +1287,7 @@ export const materialComponents = {
         name: 'TableSortLabel',
         displayName: 'TableSortLabel',
         icon: <TableSortLabelIcon />,
-        properties: ['name', 'active', 'direction', 'hideSortIcon', 'style'],
+        properties: ['id', 'name', 'active', 'direction', 'hideSortIcon', 'style'],
         designerDefinition: {
             component: 'TableSortLabel',
             props: {
@@ -1299,7 +1299,7 @@ export const materialComponents = {
         name: 'Tabs',
         displayName: 'Tabs',
         icon: <TabsIcon />,
-        properties: ['name', 'centered', 'component', 'indicatorColor', 'scrollButtons', 'TabIndicatorProps', 'textColor', 'value', 'variant', 'style'],
+        properties: ['id', 'name', 'centered', 'component', 'indicatorColor', 'scrollButtons', 'TabIndicatorProps', 'textColor', 'value', 'variant', 'style'],
         designerDefinition: {
             component: 'Tabs',
             props: {
@@ -1324,7 +1324,7 @@ export const materialComponents = {
         name: 'Toolbar',
         displayName: 'Toolbar',
         icon: <TextFieldIcon />,
-        properties: ['name', 'variant', 'disableGutters', 'style'],
+        properties: ['id', 'name', 'variant', 'disableGutters', 'style'],
         designerDefinition: {
             component: 'Toolbar',
             props: {
@@ -1336,7 +1336,7 @@ export const materialComponents = {
         name: 'Tooltip',
         displayName: 'Tooltip',
         icon: <TooltipIcon />,
-        properties: ['name', 'disableFocusListener', 'disableHoverListener', 'disableTouchListener', 'enterDelay', 'enterTouchDelay', 'interactive',
+        properties: ['id', 'name', 'disableFocusListener', 'disableHoverListener', 'disableTouchListener', 'enterDelay', 'enterTouchDelay', 'interactive',
             'leaveDelay', 'leaveTouchDelay', 'open', 'placement', 'PopperProps', 'title', 'TransitionProps', 'style'],
         propertyMetaData: {
             children: {
@@ -1355,7 +1355,7 @@ export const materialComponents = {
     //    name: 'TouchRipple',
     //    displayName: 'TouchRipple',
     //    icon: <TouchRippleIcon />,
-    //    properties: ['name', 'center', 'style'],
+    //    properties: ['id', 'name', 'center', 'style'],
     //    designerDefinition: {
     //        component: 'TouchRipple',
     //        props: {
@@ -1367,7 +1367,7 @@ export const materialComponents = {
         name: 'Typography',
         displayName: 'Typography',
         icon: <TypographyIcon />,
-        properties: ['name', 'text', 'variant', 'component', 'align', 'color', 'gutterBottom', 'inline', 'internalDeprecatedVariant', 'noWrap', 'paragraph', 'style'],
+        properties: ['id', 'name', 'text', 'variant', 'component', 'align', 'color', 'gutterBottom', 'inline', 'internalDeprecatedVariant', 'noWrap', 'paragraph', 'style'],
         designerDefinition: {
             component: 'Typography',
             props: {
@@ -1421,7 +1421,7 @@ export const materialComponents = {
         name: 'img',
         displayName: 'img',
         icon: <HtmlElementIcon />,
-        properties: ['name', 'src', 'alt', 'style'],
+        properties: ['id', 'name', 'src', 'alt', 'style'],
         designerDefinition: {
             component: 'img',
             props: {
@@ -1443,7 +1443,7 @@ export const materialComponents = {
         name: 'label',
         displayName: 'label',
         icon: <HtmlElementIcon />,
-        properties: ['name', 'text', 'htmlFor', 'style'],
+        properties: ['id', 'name', 'text', 'htmlFor', 'style'],
         designerDefinition: {
             component: 'label',
             props: {
@@ -1467,7 +1467,7 @@ export const materialComponents = {
         name: 'option',
         displayName: 'option',
         icon: <HtmlElementIcon />,
-        properties: ['name', 'text', 'value', 'style'],
+        properties: ['id', 'name', 'text', 'value', 'style'],
         designerDefinition: {
             component: 'option',
             props: {
@@ -1479,7 +1479,7 @@ export const materialComponents = {
         name: 'path',
         displayName: 'path',
         icon: <HtmlElementIcon />,
-        properties: ['name', 'd', 'style'],
+        properties: ['id', 'name', 'd', 'style'],
         designerDefinition: {
             component: 'path',
             props: {
@@ -1493,7 +1493,7 @@ export const materialComponents = {
     //    name: 'Markdown',
     //    displayName: 'Markdown',
     //    icon: <MarkdownIcon />,
-    //    properties: ['name', 'source', 'escapeHtml', 'skipHtml', 'sourcePos', 'rawSourcePos', 'includeNodeIndex', 'style'],
+    //    properties: ['id', 'name', 'source', 'escapeHtml', 'skipHtml', 'sourcePos', 'rawSourcePos', 'includeNodeIndex', 'style'],
     //    designerDefinition: {
     //        component: 'Markdown',
     //        props: {
@@ -1504,7 +1504,7 @@ export const materialComponents = {
         name: 'DataTable',
         displayName: 'DataTable',
         icon: <TableIcon />,
-        properties: ['name', 'title', 'columns', 'data', 'options', 'style'],
+        properties: ['id', 'name', 'title', 'columns', 'data', 'options', 'style'],
         designerDefinition: {
             component: 'DataTable',
             props: {
