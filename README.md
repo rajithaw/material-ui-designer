@@ -3,6 +3,9 @@
 </div>
 
 # User interface designer form Material UI
+
+[![Build Status](https://travis-ci.org/rajithaw/material-ui-designer.svg?branch=master)](https://travis-ci.org/rajithaw/material-ui-designer.svg?branch=master)
+
 Material UI Designer is a tool that designers and developers can use to quickly put together user interfaces using Material UI components. The design can be previewed any time and once completed the code for the designed pages can be exported as a ready to run react project.
 
 ![designer](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/hello-world-designer.png)
@@ -44,7 +47,7 @@ npm start
 ![export project](https://raw.githubusercontent.com/rajithaw/blob/master/material-ui-designer-wiki/export-project.gif)
 
 ## Browser Compatibility
-Currently only Chrome is supported.
+Currently only Chrome on desktop computers is supported.
 
 ## License
 The files included in this repository are licensed under the [MIT License](https://github.com/rajithaw/material-ui-designer/blob/master/LICENSE)
