@@ -44,6 +44,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'eslint-loader',
                 options: {
+                    formatter: require('eslint/lib/cli-engine/formatters/stylish'),     // Fix eslint-loader issue with eslint 6.x. (https://github.com/webpack-contrib/eslint-loader/issues/271)
                     emitWarning: false
                 }
             }
