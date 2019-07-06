@@ -64,7 +64,7 @@ class AddContentDialog extends React.Component {
                     { isEditMode ? 'Edit project content' : 'Add project content' }
                 </DialogTitle>
                 <DialogContent>
-                    <Grid container spacing={16}>
+                    <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <TextField
                                 label="Name"

@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import ProjectsDialog from '../project/projects-dialog';
+import CopyProjectDialog from '../project/create-project-dialog';
 
 const styles = {
     moreColor: {
@@ -20,7 +21,8 @@ const styles = {
 @observer
 class HeaderMenu extends React.Component {
     state = {
-        anchorEl: null
+        anchorEl: null,
+        copyProjectDialogOpen: false
     };
 
     render() {
@@ -60,7 +62,13 @@ class HeaderMenu extends React.Component {
                         Log out
                     </MenuItem>
                     <Divider/>
-                    <MenuItem onClick={this.createProjectHandler}>Project List</MenuItem>
+                    <MenuItem onClick={this.projectListHandler}>Project List</MenuItem>
+                    <MenuItem 
+                        onClick={this.copyProjectHandler}
+                        disabled={!authStore.isAuthenticated || !projectStore.selectedProject.id}
+                    >
+                        Copy Project
+                    </MenuItem>
                     <MenuItem
                         component="a"
                         target="_blank"
@@ -73,6 +81,11 @@ class HeaderMenu extends React.Component {
                     <MenuItem onClick={this.helpHandler}>Help</MenuItem>
                 </Menu>
                 <ProjectsDialog/>
+                <CopyProjectDialog
+                    open={this.state.copyProjectDialogOpen}
+                    okCallback={this.handleCopyProjectOk}
+                    cancelCallback={this.handleCopyProjectClose}
+                />
             </div>
         );
     }
@@ -95,11 +108,31 @@ class HeaderMenu extends React.Component {
         });
     };
 
-    createProjectHandler = () => {
+    projectListHandler = () => {
         this.props.projectStore.setProjectsDialogOpen(true);
     };
 
+    copyProjectHandler = () => {
+        this.setState({
+            copyProjectDialogOpen: true
+        });
+    }
+
+    handleCopyProjectOk = (result) => {
+        const { projectStore } = this.props;
+
+        projectStore.copyProject(projectStore.selectedProject.id, result.projectName);
+        this.handleCopyProjectClose();
+    }
+
+    handleCopyProjectClose = () => {
+        this.setState({
+            copyProjectDialogOpen: false
+        });
+    }
+
     helpHandler = () => {
+        document.open('https://github.com/rajithaw/material-ui-designer/blob/master/README.md','', 'noopener=true')
     };
 }
 

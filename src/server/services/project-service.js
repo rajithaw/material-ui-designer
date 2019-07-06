@@ -1,6 +1,7 @@
 const logger = require('./log-service')('services:project-service');
 const dataService = require('./data-service');
 const ObjectId = require('mongodb').ObjectID;
+const { ContentType } = require('../constants/enums');
 
 const { replaceId, generateComponentName } = require('../helpers');
 
@@ -46,11 +47,13 @@ class ProjectService {
         const client = await dataService.getDbClient();
 
         try {
-            const pagesFilter = { 
+            const childFilter = { 
                 projectId: filter._id.toString() 
             };
             // Delete pages
-            await this.deletePages(pagesFilter);
+            await this.deletePages(childFilter);
+            // Delete contents
+            await this.deleteContents(childFilter);
 
             const db = client.db('mui-designer');
 
@@ -59,8 +62,11 @@ class ProjectService {
                 .findOne(filter, { name: true });
 
             if(project) {
-                filter.name = project.name;
-                await db.collection('Projects').deleteOne(filter);
+                const deleteFilter = {
+                    ...filter,
+                    name: project.name
+                };
+                await db.collection('Projects').deleteOne(deleteFilter);
             }
 
             return { 
@@ -268,7 +274,7 @@ class ProjectService {
     }
 
     // GET Contents
-    async getContents(filter, fields) {
+    async getContents(filter, fields, includeImages) {
         const client = await dataService.getDbClient();
 
         try {
@@ -281,7 +287,7 @@ class ProjectService {
 
             const contents = await cursor.toArray();
             const result = replaceId(contents).map(c => {
-                if (c.type === 1) {
+                if (!includeImages && c.type === ContentType.Image) {
                     c.content = '';
                 }
 
@@ -383,12 +389,22 @@ class ProjectService {
     }
 
     // DELETE Delete Contents
-    deleteContents(jsonParam, callback) {
-        dataService.connectToDb(db => {
-            db.collection('Contents').deleteMany(jsonParam, (err, result) => {
-                callback(err, result);
-            });
-        });
+    async deleteContents(filter) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            const result = await db.collection('Contents').deleteMany(filter);
+            return result;
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // GET a Project details by name
@@ -431,6 +447,67 @@ class ProjectService {
         }
 
         return project;
+    }
+
+    // Copy Project
+    async copyProject(user, projectId, targetName) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+            const projectFilter = {
+                _id: ObjectId(projectId)
+            };
+
+            const project = await this.getProject(projectFilter, null, null);
+            delete project.id;  // New id will be generated on cerate
+            project.name = targetName;
+
+            const targetProject = await this.createProject(user, project);
+
+            const filter = {
+                projectId: projectId
+            };
+
+            // Copy pages
+            const pages = await this.getPages(filter, {});
+            if(pages && pages.length > 0) {
+                await db.collection('Pages').insertMany(pages.map(p => ({
+                    name: p.name,
+                    projectId: targetProject.id.toString(),
+                    componentName: p.componentName,
+                    isShared: p.isShared,
+                    definition: p.definition
+                })));
+            }
+
+            // Copy contents
+            const contents = await this.getContents(filter, {}, true);
+            if(contents && contents.length > 0) {
+                await db.collection('Contents').insertMany(contents.map(c => ({
+                    name: c.name,
+                    projectId: targetProject.id.toString(),
+                    type: c.type,
+                    content: c.content
+                })));
+            }
+
+            projectFilter._id = targetProject.id
+            const pageFields = {
+                _id: true,
+                name: true,
+                isShared: true
+            };
+
+            return await this.getProject(projectFilter, pageFields);
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 }
 

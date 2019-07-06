@@ -226,4 +226,42 @@ export default class ProjectStore {
                 });
         }
     }
+
+    @action
+    copyProject(projectId, targetName) {
+        const { rootStore } = this.sessionStore;
+
+        if(projectId && targetName) {
+            rootStore.setBusy(true);
+            projectService.copyProject(projectId, targetName)
+                .then(response => {
+                    const { pageStore } = this.sessionStore;
+                    const { selectedPage } = pageStore;
+                    const { pages } = response;
+
+                    runInAction(() => {
+                        // Set the current project, pages and content to the copied project, pages and content
+                        this.selectedProject = response;
+                        this.setProjectContent(response.contents);
+                        pageStore.setPages(response.pages);
+
+                        if(pages && selectedPage.id) {
+                            // If a page is selected, update the id to point to the copied page id.
+                            // This way the user can save any unsaved changes after the project is copied.
+                            const pageIndex = pages.findIndex(p => p.name === selectedPage.name);
+                            if(pageIndex >= 0) {
+                                selectedPage.id = pages[pageIndex].id;
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    rootStore.setInfoBarMessage(error);
+                    rootStore.setInfoBarOpen(true);
+                })
+                .finally(() => {
+                    rootStore.setBusy(false);
+                });
+        }
+    }
 }

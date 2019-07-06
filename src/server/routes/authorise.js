@@ -60,4 +60,7 @@ router.delete('/projects/:projectId/contents/:id', jwtCheck, projectAccessCheck(
 // PUT Update content
 router.put('/projects/:projectId/contents/:id', jwtCheck, projectAccessCheck('projectId'));
 
+// POST create project
+router.post('/projects/:projectId/copy', jwtCheck);
+
 module.exports = router;

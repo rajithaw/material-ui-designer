@@ -13,9 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
 
 import ProjectList from './project-list';
+import CreateProjectDialog from './create-project-dialog';
 
 const styles = theme => ({
     createButton: {
@@ -38,8 +38,7 @@ class ProjectsDialog extends React.Component {
         this.state = {
             deleteConfirmationOpen: false,
             createProjectDialogOpen: false,
-            unSavedChangesDialogOpen: false,
-            projectName: ''
+            unSavedChangesDialogOpen: false
         }
     }
 
@@ -100,29 +99,6 @@ class ProjectsDialog extends React.Component {
                     </DialogActions>
                 </Dialog>
                 <Dialog
-                    open={this.state.createProjectDialogOpen}
-                    disableBackdropClick
-                    onClose={this.handleCreateProjectClose}
-                >
-                    <DialogTitle>Create project</DialogTitle>
-                    <DialogContent>
-                        <TextField
-                            label="Project name"
-                            value={this.state.projectName}
-                            onChange={this.handleProjectNameChange}
-                            margin="normal"
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleCreateProjectClose} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleCreateProjectOk} color="primary">
-                            Create
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-                <Dialog
                     open={this.state.unSavedChangesDialogOpen}
                     disableBackdropClick
                     maxWidth="xs"
@@ -141,6 +117,11 @@ class ProjectsDialog extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                <CreateProjectDialog
+                    open={this.state.createProjectDialogOpen}
+                    okCallback={this.handleCreateProjectOk}
+                    cancelCallback={this.handleCreateProjectClose}
+                />
             </div>
         );
     }
@@ -205,21 +186,15 @@ class ProjectsDialog extends React.Component {
         this.handleDeleteConfirmClose();
     }
 
-    handleProjectNameChange = (event) => {
-        this.setState({
-            projectName: event.target.value
-        })
-    }
-
     handleCreateProjectClose = () => {
         this.setState({
             createProjectDialogOpen: false
         });
     }
 
-    handleCreateProjectOk = () => {
+    handleCreateProjectOk = (result) => {
         const project = {
-            name: this.state.projectName
+            name: result.projectName
         };
 
         this.props.projectStore.createProject(project);

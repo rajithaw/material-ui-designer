@@ -270,4 +270,17 @@ router.get('/:projectName/:pageName', async (req, res, next) => {
     }
 });
 
+/* POST Copy project */
+router.post('/:projectId/copy', async (req, res, next) => {
+    const projectId = req.params.projectId;    
+    const targetName = req.body.targetName;
+
+    try {
+        const result = await projectService.copyProject(req.user, projectId, targetName);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

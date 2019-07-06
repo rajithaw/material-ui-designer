@@ -63,6 +63,17 @@ class ProjectService {
         const url = `/api/projects/${projectName}/${pageName}`;
         return fetch(url).then(getResponseJson);
     }
+
+    copyProject(projectId, targetName) {
+        const url = `/api/projects/${projectId}/copy`;
+        return fetch(url, {
+            method: 'post',
+            body: JSON.stringify({targetName: targetName}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(getResponseJson);
+    }
 }
 
 const projectService = new ProjectService();
