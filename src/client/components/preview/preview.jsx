@@ -63,13 +63,18 @@ class Preview extends React.Component {
     };
 
     createChildren = (componentName, children) => {
-        const { componentStore } = this.props;
+        const { componentStore, designerStore } = this.props;
         const childrenMetaData = componentStore.getPropertyMetaData(componentName, 'children');
 
         let result = null;
 
         if ((typeof children) === 'string') {
-            result = children;
+            if(children.startsWith('@@')) {
+                result = designerStore.getDynamicPropertyValue(children);
+            }
+            else {
+                result = children;
+            }
         }
         else {
             if (childrenMetaData) {

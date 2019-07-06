@@ -93,7 +93,7 @@ router.delete('/:projectId/pages/:id', async (req, res, next) => {
 
 /* GET Get pages */
 router.get('/:projectId/pages', async (req, res, next) => {
-    const jsonParam = {
+    const pagesFilter = {
         projectId: req.params.projectId
     };
 
@@ -104,7 +104,7 @@ router.get('/:projectId/pages', async (req, res, next) => {
     };
 
     try {
-        const result = await projectService.getPages(jsonParam, returnFields);
+        const result = await projectService.getPages(pagesFilter, returnFields);
         res.json(result);
     } catch (err) {
         next(err);
@@ -113,7 +113,7 @@ router.get('/:projectId/pages', async (req, res, next) => {
 
 /* GET Get a page */
 router.get('/:projectId/pages/:id', async (req, res, next) => {
-    const jsonParam = {
+    const pageFilter = {
         projectId: req.params.projectId,
         _id: ObjectId(req.params.id)
     };
@@ -126,7 +126,7 @@ router.get('/:projectId/pages/:id', async (req, res, next) => {
     };
 
     try {
-        const result = await projectService.getPages(jsonParam, returnFields);
+        const result = await projectService.getPages(pageFilter, returnFields);
         res.json(result[0]);
     } catch (err) {
         next(err);
@@ -153,12 +153,12 @@ router.put('/:projectId/pages/:id', async (req, res, next) => {
 
 /* POST Create a content */
 router.post('/:projectId/contents', (req, res, next) => {
-    const jsonData = req.body;
+    const contentData = req.body;
 
     //Add pageId
-    jsonData.projectId = req.params.projectId;
+    contentData.projectId = req.params.projectId;
 
-    projectService.addContent(jsonData, (err, result) => {
+    projectService.addContent(contentData, (err, result) => {
         if (err) {
             next(err);
         } else {
@@ -168,24 +168,23 @@ router.post('/:projectId/contents', (req, res, next) => {
 });
 
 /* DELETE Delete a content */
-router.delete('/:projectId/contents/:id', (req, res, next) => {
-    const jsonParam = {
+router.delete('/:projectId/contents/:id', async (req, res, next) => {
+    const contentFilter = {
         name: req.params.id,
         projectId: req.params.projectId
     };
 
-    projectService.deleteContent(jsonParam, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.json(result);
-        }
-    });
+    try {
+        const result = await projectService.deleteContent(contentFilter);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* GET Get contents of a project*/
 router.get('/:projectId/contents', async (req, res, next) => {
-    const jsonParam = {
+    const contentsFilter = {
         projectId: req.params.projectId
     };
 
@@ -195,7 +194,7 @@ router.get('/:projectId/contents', async (req, res, next) => {
     };
 
     try {
-        const result = await projectService.getContents(jsonParam, returnFields);
+        const result = await projectService.getContents(contentsFilter, returnFields);
         res.json(result);
     } catch (err) {
         next(err);
@@ -203,8 +202,8 @@ router.get('/:projectId/contents', async (req, res, next) => {
 });
 
 /* GET Get a specific content */
-router.get('/:projectId/contents/:id', (req, res, next) => {
-    const jsonParam = {
+router.get('/:projectId/contents/:id', async (req, res, next) => {
+    const contentFilter = {
         projectId: req.params.projectId,
         name: req.params.id
     };
@@ -216,29 +215,29 @@ router.get('/:projectId/contents/:id', (req, res, next) => {
         content: true
     };
 
-    projectService.getContent(jsonParam, returnFields, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            if (result.type === 1) {
-                // If type is image return as image result
-                const contentParts = result.content.split(",");
-                const contentType = contentParts[0].split(';')[0].substring(5);
-                const base64 = contentParts[1];
-                const buffer = new Buffer(base64, 'base64');
+    try {
+        const result = await projectService.getContent(contentFilter, returnFields);
+        
+        if (result.type === 1) {
+            // If type is image return as image result
+            const contentParts = result.content.split(",");
+            const contentType = contentParts[0].split(';')[0].substring(5);
+            const base64 = contentParts[1];
+            const buffer = new Buffer(base64, 'base64');
 
-                res.writeHead(200, {
-                    'Content-Type': contentType,
-                    'Content-Length': buffer.length
-                });
+            res.writeHead(200, {
+                'Content-Type': contentType,
+                'Content-Length': buffer.length
+            });
 
-                res.end(buffer);
-            }
-            else{
-                res.json(result.content);
-            }
+            res.end(buffer);
         }
-    });
+        else{
+            res.json(result.content);
+        }
+    } catch (err) {
+        next(err);
+    }
 });
 
 /* PUT Update a content */

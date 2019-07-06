@@ -154,13 +154,13 @@ class ProjectService {
         try {
             const db = client.db('mui-designer');
 
-            const cursor = db
+            const pages = await db
                 .collection('Pages')
                 .find(filter)
                 .sort({ name: 1 })
-                .project(fields);
+                .project(fields)
+                .toArray();
 
-            const pages = await cursor.toArray();
             return replaceId(pages);
         }
         catch(err) {
@@ -238,7 +238,7 @@ class ProjectService {
         try {
             const db = client.db('mui-designer');
 
-            const result = db.collection('Pages').deleteMany(filter);
+            const result = await db.collection('Pages').deleteMany(filter);
             return result;
         }
         catch(err) {
@@ -280,12 +280,12 @@ class ProjectService {
         try {
             const db = client.db('mui-designer');
 
-            const cursor = db
+            const contents = await db
                 .collection('Contents')
                 .find(filter)
-                .project(fields);
+                .project(fields)
+                .toArray();
 
-            const contents = await cursor.toArray();
             const result = replaceId(contents).map(c => {
                 if (!includeImages && c.type === ContentType.Image) {
                     c.content = '';
@@ -305,27 +305,34 @@ class ProjectService {
         }
     }
 
-    getContent(jsonParam, returnFields, callback) {
-        dataService.connectToDb(db => {
-            const cursor = db
-                .collection('Contents')
-                .find(jsonParam)
-                .project(returnFields);
-            cursor.toArray((err, contents) => {
-                const result = replaceId(contents);
-                callback(err, result[0]);
-                return result;
-            });
-        });
+    // Get a specific content
+    async getContent(filter, returnFields) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            const contents = await db.collection('Contents')
+                .findOne(filter, returnFields);
+            
+            return replaceId(contents);
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // ADD a Content
-    addContent(jsonData, callback) {
+    addContent(contentData, callback) {
         // Check first if the project exists
         dataService.connectToDb(db => {
             const cursor = db
                 .collection('Projects')
-                .find({ _id: ObjectId(jsonData.projectId) })
+                .find({ _id: ObjectId(contentData.projectId) })
                 .project({ name: true });
 
             cursor.toArray((err, project) => {
@@ -333,7 +340,7 @@ class ProjectService {
                     // Insert the content
                     dataService.connectToDb(db => {
                         db.collection('Contents').insertOne(
-                            jsonData,
+                            contentData,
                             (err, result) => {
                                 callback(err, replaceId(result.ops[0]));
                             }
@@ -380,12 +387,22 @@ class ProjectService {
     }
 
     // DELETE Delete a content
-    deleteContent(jsonParam, callback) {
-        dataService.connectToDb(db => {
-            db.collection('Contents').deleteOne(jsonParam, err => {
-                callback(err, { name: jsonParam.name });
-            });
-        });
+    async deleteContent(filter) {
+        const client = await dataService.getDbClient();
+
+        try {
+            const db = client.db('mui-designer');
+
+            await db.collection('Contents').deleteOne(filter);
+            return { name: filter.name };
+        }
+        catch(err) {
+            logger.logError(err);
+            throw err;
+        }
+        finally {
+            client.close();
+        }
     }
 
     // DELETE Delete Contents

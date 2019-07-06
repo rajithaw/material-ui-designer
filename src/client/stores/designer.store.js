@@ -113,8 +113,6 @@ export default class DesignerStore {
 
     getPropertiesForPreview(properties) {
         const result = jsonQ.clone(properties);
-        const { projectStore } = this.sessionStore;
-        const { projectContent, selectedProject } = projectStore;
 
         Object.keys(result).forEach(prop => {
             const propValue = result[prop];
@@ -122,15 +120,7 @@ export default class DesignerStore {
             if (propValue && typeof propValue === 'string') {
 
                 if (propValue.startsWith('@@')) {
-                    // If the property value is dynamic, read it form the project content
-                    const projContent = projectContent[propValue.substring(2)];
-
-                    if (projContent && projContent.type === ContentType.Image) {
-                        // For image types construct the url to get the image data from
-                        result[prop] = `/api/projects/${selectedProject.id}/contents/${projContent.name}`;
-                    } else {
-                        result[prop] = (projContent && projContent.content) || propValue;
-                    }
+                    result[prop] = this.getDynamicPropertyValue(propValue);
                 }
 
                 if (propValue.startsWith('<')) {
@@ -151,6 +141,24 @@ export default class DesignerStore {
                 result[prop] = window.document.getElementById(propValue);
             }
         });
+
+        return result;
+    }
+
+    getDynamicPropertyValue(propValue) {
+        let result = '';
+        const { projectStore } = this.sessionStore;
+        const { projectContent, selectedProject } = projectStore;
+
+        // If the property value is dynamic, read it form the project content
+        const content = projectContent[propValue.substring(2)];
+
+        if (content && content.type === ContentType.Image) {
+            // For image types construct the url to get the image data from
+            result = `/api/projects/${selectedProject.id}/contents/${content.name}`;
+        } else {
+            result = (content && content.content) || propValue;
+        }
 
         return result;
     }
