@@ -1,4 +1,4 @@
-import { observable, action, runInAction } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 
 import projectService from '../services/project-service';
 
@@ -15,6 +15,17 @@ export default class ProjectStore {
     @observable contentDialogEditMode = false;
     @observable projectContent = {};
     @observable editedProjectContent = {};
+
+    @computed get userProjects() {
+        const { authStore } = this.sessionStore;
+        let result = [];
+
+        if (authStore.isAuthenticated) {
+            result = this.projects.filter(p => p.createdByUser === authStore.user.sub);
+        }
+
+        return result;
+    }
 
     @action
     getProjects() {
