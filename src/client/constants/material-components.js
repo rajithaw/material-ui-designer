@@ -218,7 +218,7 @@ export const materialComponents = {
         name: 'CardActionArea',
         displayName: 'CardActionArea',
         icon: <CardActionAreaIcon />,
-        properties: ['id', 'name', 'style'],
+        properties: ['id', 'name', 'style', 'onClick'],
         designerDefinition: {
             component: 'CardActionArea',
             props: {
