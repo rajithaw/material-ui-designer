@@ -25,8 +25,20 @@ export default class RootStore {
     }
 
     @action
+    toggleShow(event, id) {
+        const show = this.getShowValue(id);
+        set(this.show, 'show_' + id, !show);
+    }
+
+    @action
     triggerTransition(event, id, trigger) {
         set(this.transitions, 'transition_' + id, trigger);
+    }
+
+    @action
+    toggleTransition(event, id) {
+        const trigger = this.getTransitionValue(id);
+        set(this.transitions, 'transition_' + id, !trigger);
     }
 
     getShowValue(id, initialValue) {

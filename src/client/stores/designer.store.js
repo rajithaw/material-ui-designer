@@ -449,6 +449,21 @@ export default class DesignerStore {
     }
 
     @action
+    getPreviewDefinitionProperty(id, propertyName) {
+        let result = '';
+        const components = jsonQ(this.previewDefinition);
+        const properties = components.find('props', function () {
+            return this.id === id;
+        });
+
+        if(properties.length > 0) {
+            result = properties.firstElm()[propertyName];
+        }
+        
+        return result;
+    }
+
+    @action
     setPreviewDefinitionProperty(id, propertyName, value) {
         const components = jsonQ(this.previewDefinition);
         const properties = components.find('props', function () {
@@ -594,6 +609,10 @@ export default class DesignerStore {
                 result = (event) => this.showComponent(event, id, show);
             }
 
+            if (name === 'toggle') {
+                result = (event) => this.toggleShow(event, id);
+            }
+
             if (name === 'goto') {
                 result = (event) => this.gotoPage(event, id);
             }
@@ -602,11 +621,28 @@ export default class DesignerStore {
                 const trigger = name === 'in' ? 'true' : 'false';
                 result = (event) => this.triggerTransition(event, id, trigger);
             }
+
+            if (name === 'trigger') {
+                result = (event) => this.toggleTransition(event, id);
+            }
         }
         else {
             result = eval(fnString);
         }
 
         return result;
+    }
+
+    @action
+    toggleShow(event, id) {
+        const show = this.getPreviewDefinitionProperty(id, 'open');
+        this.setPreviewDefinitionProperty(id, 'open', (!show).toString().toLowerCase());
+    }
+
+    @action
+    toggleTransition(event, id) {
+        const trigger = this.getPreviewDefinitionProperty(id, 'in');
+        this.setPreviewDefinitionProperty(id, 'in', (!trigger).toString().toLowerCase());
+        
     }
 }

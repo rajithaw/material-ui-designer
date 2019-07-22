@@ -317,6 +317,10 @@ class ExportService {
                 result = `{(event) => this.props.rootStore.showComponent(event, '${id}', ${show})}`;
             }
 
+            if(name === 'toggle') {
+                result = `{(event) => this.props.rootStore.toggleShow(event, '${id}')}`;
+            }
+
             if (name === 'goto') {
                 result = `{(event) => this.props.rootStore.gotoPage(event, '${id}', this.props.history)}`;
             }
@@ -324,6 +328,10 @@ class ExportService {
             if (name === 'in' || name === 'out') {
                 const trigger = name === 'in' ? 'true' : 'false';
                 result = `{(event) => this.props.rootStore.triggerTransition(event, '${id}', ${trigger})}`;
+            }
+
+            if(name === 'trigger') {
+                result = `{(event) => this.props.rootStore.toggleTransition(event, '${id}')}`;
             }
         }
 
