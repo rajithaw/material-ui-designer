@@ -12,21 +12,21 @@ import AddContents from '@material-ui/icons/PlaylistAdd';
 
 import AddContentDialog from './add-content-dialog';
 
-const styles = {
+const styles = theme => ({
     toolbarButton: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         textTransform: 'none'
     },
     toolbarIcon: {
-        fill: 'white'
+        fill: theme.palette.primary.contrastText
     },
     toolbarContent: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         paddingRight: '5px',
         paddingLeft: '18px',
         display: 'inline-block'
     }
-};
+});
 
 @inject('projectStore')
 @observer

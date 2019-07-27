@@ -21,12 +21,12 @@ const styles = theme => ({
     appBarLogo: {
         verticalAlign: 'middle',
         display: 'inline-block',
-        color: 'white'
+        color: theme.palette.primary.contrastText
     },
     appTitle: {
         flex: '1',
         marginLeft: '10px',
-        color: 'white'
+        color: theme.palette.primary.contrastText
     }
 });
 

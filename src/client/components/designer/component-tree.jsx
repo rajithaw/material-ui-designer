@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { withStyles } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import ToggleIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import { Treebeard, decorators } from 'react-treebeard';
 import treeTheme from 'react-treebeard/dist/themes/default';
-
-const styles = {
-};
 
 treeTheme.tree.base.backgroundColor = 'white';
 treeTheme.tree.base.color = 'black';
@@ -79,8 +75,7 @@ class ComponentTree extends React.Component {
 }
 
 ComponentTree.propTypes = {
-    classes: PropTypes.object.isRequired,
     designerStore: PropTypes.object
 }
 
-export default withStyles(styles)(ComponentTree);
+export default ComponentTree;

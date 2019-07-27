@@ -4,14 +4,14 @@ import { observer, inject } from 'mobx-react';
 import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+const styles = theme => ({
     toolbarContent: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         paddingRight: '5px',
         paddingLeft: '18px',
         display: 'inline-block'
     }
-};
+});
 
 @withStyles(styles)
 @inject('authStore')

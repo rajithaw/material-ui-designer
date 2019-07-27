@@ -9,15 +9,15 @@ import Icon from '@material-ui/core/Icon';
 
 import { ComponentPosition } from '../../enums';
 
-const styles = {
+const styles = theme => ({
     toolbarIcon: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         height: 'auto'
     },
     flipY: {
         transform: 'scaleX(-1)'
     }
-};
+});
 
 @inject('rootStore', 'designerStore', 'projectStore', 'pageStore')
 @observer

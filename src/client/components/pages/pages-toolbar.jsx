@@ -11,16 +11,16 @@ import Icon from '@material-ui/core/Icon';
 
 import PagesDialog from './pages-dialog';
 
-const styles = {
+const styles = theme => ({
     toolbarButton: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         textTransform: 'none'
     },
     toolbarIcon: {
-        color: 'white',
+        color: theme.palette.primary.contrastText,
         height: 'auto'
     }
-};
+});
 
 @inject('pageStore', 'projectStore', 'designerStore')
 @observer

@@ -13,11 +13,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ProjectsDialog from '../project/projects-dialog';
 import CopyProjectDialog from '../project/create-project-dialog';
 
-const styles = {
+const styles = theme => ({
     moreColor: {
-        color: 'white'
+        color: theme.palette.primary.contrastText
     }
-};
+});
 
 @inject('authStore', 'rootStore', 'projectStore')
 @observer
