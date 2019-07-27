@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import ProjectsDialog from '../project/projects-dialog';
@@ -17,7 +19,7 @@ const styles = {
     }
 };
 
-@inject('authStore', 'projectStore')
+@inject('authStore', 'rootStore', 'projectStore')
 @observer
 class HeaderMenu extends React.Component {
     state = {
@@ -26,7 +28,7 @@ class HeaderMenu extends React.Component {
     };
 
     render() {
-        const { classes, projectStore, authStore } = this.props;
+        const { classes, rootStore, projectStore, authStore } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -76,6 +78,27 @@ class HeaderMenu extends React.Component {
                         disabled={!projectStore.selectedProject.id}
                     >
                         Export Project
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={this.handleToggleComponentTree}>
+                        <Grid container alignItems="center">
+                            <Grid item xs={8}>
+                                Left Panel
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Switch checked={rootStore.leftDrawerVisible}/>
+                            </Grid>
+                        </Grid>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleToggleComponentList}>
+                        <Grid container alignItems="center">
+                            <Grid item xs={8}>
+                                Right Panel
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Switch checked={rootStore.rightDrawerVisible}/>
+                            </Grid>
+                        </Grid>
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={this.helpHandler}>Help</MenuItem>
@@ -131,6 +154,18 @@ class HeaderMenu extends React.Component {
         });
     }
 
+    handleToggleComponentTree = () => {
+        const { rootStore } = this.props;
+
+        rootStore.setLeftDrawerVisible(!rootStore.leftDrawerVisible);
+    }
+
+    handleToggleComponentList = () => {
+        const { rootStore } = this.props;
+
+        rootStore.setRightDrawerVisible(!rootStore.rightDrawerVisible);
+    }
+
     helpHandler = () => {
         document.open('https://github.com/rajithaw/material-ui-designer/blob/master/README.md','', 'noopener=true')
     };
@@ -139,6 +174,7 @@ class HeaderMenu extends React.Component {
 HeaderMenu.propTypes = {
     classes: PropTypes.object.isRequired,
     authStore: PropTypes.object,
+    rootStore: PropTypes.object,
     projectStore: PropTypes.object
 }
 

@@ -21,7 +21,7 @@ const styles = {
     }
 };
 
-@inject('projectStore')
+@inject('rootStore', 'projectStore')
 @observer
 class AppMain extends React.Component {
     componentDidMount() {
@@ -33,14 +33,20 @@ class AppMain extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, rootStore } = this.props;
 
         return (
             <div className={classes.root}>
                 <Header />
-                <LeftDrawer />
+                {
+                    rootStore.leftDrawerVisible &&
+                    <LeftDrawer />
+                }
                 <Content />
-                <RightDrawer />
+                {
+                    rootStore.rightDrawerVisible &&
+                    <RightDrawer />
+                }
             </div>
         );
     }
@@ -48,6 +54,7 @@ class AppMain extends React.Component {
 
 AppMain.propTypes = {
     classes: PropTypes.object.isRequired,
+    rootStore: PropTypes.object,
     projectStore: PropTypes.object,
     location: PropTypes.object
 };

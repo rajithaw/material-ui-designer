@@ -9,6 +9,8 @@ export default class RootStore {
     @observable isPreviewMode = false;
     @observable isInfoBarOpen = false;
     @observable infoBarMessage = '';
+    @observable leftDrawerVisible = true;
+    @observable rightDrawerVisible = true;
 
     @computed get isBusy() {
         return this.busyCount > 0;
@@ -42,5 +44,15 @@ export default class RootStore {
     @action
     setInfoBarMessage(message) {
         this.infoBarMessage = message;
+    }
+
+    @action
+    setLeftDrawerVisible(visible) {
+        this.leftDrawerVisible = visible;
+    }
+
+    @action
+    setRightDrawerVisible(visible) {
+        this.rightDrawerVisible = visible;
     }
 }
