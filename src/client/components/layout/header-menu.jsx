@@ -52,21 +52,21 @@ class HeaderMenu extends React.Component {
                     onClose={this.handleClose}
                 >
                     <MenuItem 
-                        onClick={this.loginHandler}
+                        onClick={this.handleLoginClick}
                         disabled={authStore.isAuthenticated}
                     >
                         Log in
                     </MenuItem>
                     <MenuItem 
-                        onClick={this.logoutHandler}
+                        onClick={this.handleLogoutClick}
                         disabled={!authStore.isAuthenticated}
                     >
                         Log out
                     </MenuItem>
                     <Divider/>
-                    <MenuItem onClick={this.projectListHandler}>Project List</MenuItem>
+                    <MenuItem onClick={this.handleProjectListClick}>Project List</MenuItem>
                     <MenuItem 
-                        onClick={this.copyProjectHandler}
+                        onClick={this.handleCopyProjectClick}
                         disabled={!authStore.isAuthenticated || !projectStore.selectedProject.id}
                     >
                         Copy Project
@@ -101,7 +101,7 @@ class HeaderMenu extends React.Component {
                         </Grid>
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={this.helpHandler}>Help</MenuItem>
+                    <MenuItem onClick={this.handleHelpClick}>Help</MenuItem>
                 </Menu>
                 <ProjectsDialog/>
                 <CopyProjectDialog
@@ -121,21 +121,21 @@ class HeaderMenu extends React.Component {
         this.setState({ anchorEl: null });
     };
 
-    loginHandler = () => {
+    handleLoginClick = () => {
         this.props.authStore.loginWithPopup();
     };
 
-    logoutHandler = () => {
+    handleLogoutClick = () => {
         this.props.authStore.logout({
             returnTo: window.location.origin
         });
     };
 
-    projectListHandler = () => {
+    handleProjectListClick = () => {
         this.props.projectStore.setProjectsDialogOpen(true);
     };
 
-    copyProjectHandler = () => {
+    handleCopyProjectClick = () => {
         this.setState({
             copyProjectDialogOpen: true
         });
@@ -166,7 +166,7 @@ class HeaderMenu extends React.Component {
         rootStore.setRightDrawerVisible(!rootStore.rightDrawerVisible);
     }
 
-    helpHandler = () => {
+    handleHelpClick = () => {
         document.open('https://github.com/rajithaw/material-ui-designer/blob/master/README.md','', 'noopener=true')
     };
 }
