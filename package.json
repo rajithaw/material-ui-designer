@@ -63,12 +63,12 @@
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-react": "^7.14.2",
-        "html-webpack-plugin": "^3.2.0",
+        "html-webpack-plugin": "^5.5.0",
         "nodemon": "^1.19.1",
         "style-loader": "^0.23.1",
         "url-loader": "^2.1.0",
         "webpack": "^4.36.1",
-        "webpack-cli": "^3.3.6",
+        "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.7.2"
     }
 }
